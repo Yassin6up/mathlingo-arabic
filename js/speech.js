@@ -59,8 +59,24 @@ const Speech = (() => {
   }
 
   /* ---------------- ElevenLabs (streamed) ---------------- */
-  async function speakEleven(text, key, voiceId, speed) {
-    const res = await fetch(
+  /* Calls the given URL, streams the mp3 response back via MediaSource
+     so playback starts on the first chunk instead of the full file. */
+  async function speakFromResponse(res) {
+    if (!res.ok || !res.body) {
+      const detail = await res.json().catch(() => ({}));
+      throw new Error(detail.error || ('TTS error ' + res.status));
+    }
+    if (window.MediaSource && MediaSource.isTypeSupported('audio/mpeg')) {
+      return playStreamed(res.body);
+    }
+    // Fallback for browsers without MSE/mp3 support: buffer the whole thing.
+    const blob = await res.blob();
+    return playBlob(blob);
+  }
+
+  /* Direct to ElevenLabs, using the user's own key pasted in Settings. */
+  function speakElevenDirect(text, key, voiceId, speed) {
+    return fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream?optimize_streaming_latency=4`,
       {
         method: 'POST',
@@ -74,16 +90,18 @@ const Speech = (() => {
           }
         })
       }
-    );
-    if (!res.ok || !res.body) throw new Error('ElevenLabs error ' + (res.status || 'network'));
+    ).then(speakFromResponse);
+  }
 
-    // Stream via MediaSource so playback starts on the first chunk, not the full file.
-    if (window.MediaSource && MediaSource.isTypeSupported('audio/mpeg')) {
-      return playStreamed(res.body);
-    }
-    // Fallback for browsers without MSE/mp3 support: buffer the whole thing.
-    const blob = await res.blob();
-    return playBlob(blob);
+  /* Via our own /api/tts serverless proxy — no personal key required.
+     Only ever resolves same-origin (relative URL), so it's a silent
+     no-op 404 on hosts that don't run the proxy (e.g. GitHub Pages). */
+  function speakElevenProxy(text, voiceId, speed) {
+    return fetch('/api/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, voiceId: voiceId || undefined, speed })
+    }).then(speakFromResponse);
   }
 
   function playStreamed(bodyStream) {
@@ -196,10 +214,16 @@ const Speech = (() => {
       const s = settings();
       if (s.tts === false) return;
       this.stop();
+
+      // 1) a personal ElevenLabs key, if the user pasted one in Settings
       if (s.elevenKey) {
-        try { return await speakEleven(text, s.elevenKey, s.elevenVoice || DEFAULT_VOICE, s.elevenSpeed); }
-        catch (e) { console.warn('ElevenLabs failed, using browser voice:', e.message); }
+        try { return await speakElevenDirect(text, s.elevenKey, s.elevenVoice || DEFAULT_VOICE, s.elevenSpeed); }
+        catch (e) { console.warn('ElevenLabs (personal key) failed, trying free voice:', e.message); }
       }
+      // 2) the shared /api/tts proxy — works with zero setup for any visitor
+      try { return await speakElevenProxy(text, s.elevenVoice, s.elevenSpeed); }
+      catch (e) { console.warn('Shared voice proxy unavailable, using browser voice:', e.message); }
+      // 3) last resort: the browser's own voice
       return speakBrowser(text);
     }
   };

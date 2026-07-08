@@ -232,14 +232,13 @@
     const btnNo = $('btn-not-understand');
     const btnYes = $('btn-understand');
 
-    if (AI.hasKey()) {
-      btnNo.disabled = true; btnYes.disabled = true;
-      $('bubble-text').innerHTML = 'دعني أفكر في طريقة أفضل للشرح<span class="thinking-dots"></span>';
-      $('board-steps').innerHTML = '';
-      const alt = await AI.reExplain(lesson, shownExplanations);
-      btnNo.disabled = false; btnYes.disabled = false;
-      if (alt) { playExplanation(alt); return; }
-    }
+    btnNo.disabled = true; btnYes.disabled = true;
+    $('bubble-text').innerHTML = 'دعني أفكر في طريقة أفضل للشرح<span class="thinking-dots"></span>';
+    $('board-steps').innerHTML = '';
+    const alt = await AI.reExplain(lesson, shownExplanations);
+    btnNo.disabled = false; btnYes.disabled = false;
+    if (alt) { playExplanation(alt); return; }
+
     variantIdx = (variantIdx + 1) % lesson.explanations.length;
     playExplanation(lesson.explanations[variantIdx]);
   }
