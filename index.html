@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ماث لينجو — تعلّم الرياضيات بمتعة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;600;700;800&family=Nunito:wght@700;800;900&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦉</text></svg>">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============ HOME SCREEN ============ -->
+  <section id="screen-home" class="screen active">
+    <div class="home-inner">
+      <div class="mascot-slot mascot-big" id="mascot-home"></div>
+      <h1 class="logo-title">ماث<span>لينجو</span></h1>
+      <p class="tagline">الطريقة المجانية والممتعة لإتقان الرياضيات!</p>
+      <button class="btn btn-primary btn-wide" id="btn-start">ابدأ الآن</button>
+      <button class="btn btn-ghost btn-wide" id="btn-settings-home">⚙️&nbsp; الإعدادات</button>
+    </div>
+  </section>
+
+  <!-- ============ PATH SCREEN ============ -->
+  <section id="screen-path" class="screen">
+    <header class="path-header">
+      <div class="stat stat-streak">🔥 <span id="stat-streak">0</span></div>
+      <div class="stat stat-xp">⚡ <span id="stat-xp">0</span></div>
+      <button class="icon-btn" id="btn-settings-path" title="الإعدادات">⚙️</button>
+    </header>
+    <div class="unit-banner">
+      <div>
+        <div class="unit-eyebrow">الوحدة 1</div>
+        <div class="unit-title">الاشتقاق</div>
+      </div>
+      <div class="unit-book">📖</div>
+    </div>
+    <div class="path-scroll">
+      <div class="path-nodes" id="path-nodes"></div>
+      <div class="mascot-slot mascot-path" id="mascot-path"></div>
+    </div>
+  </section>
+
+  <!-- ============ LESSON (EXPLANATION) SCREEN ============ -->
+  <section id="screen-lesson" class="screen">
+    <header class="topbar">
+      <button class="icon-btn close-btn" id="btn-close-lesson">✕</button>
+      <div class="lesson-title" id="lesson-title">الدرس</div>
+      <button class="icon-btn" id="btn-replay" title="أعد الاستماع">🔊</button>
+    </header>
+
+    <div class="lesson-body">
+      <div class="teach-row">
+        <div class="mascot-slot mascot-teach" id="mascot-lesson"></div>
+        <div class="speech-bubble" id="speech-bubble">
+          <span id="bubble-text"></span>
+        </div>
+      </div>
+
+      <div class="notebook-card" id="board">
+        <div class="notebook-title" id="board-title">مثال</div>
+        <div class="chart-box" id="board-chart" dir="ltr" style="display:none"></div>
+        <div class="notebook-steps" id="board-steps"></div>
+      </div>
+    </div>
+
+    <footer class="lesson-footer" id="lesson-footer">
+      <button class="btn btn-danger-outline" id="btn-not-understand">✗&nbsp; لم أفهم</button>
+      <button class="btn btn-primary" id="btn-understand">✓&nbsp; فهمت</button>
+    </footer>
+  </section>
+
+  <!-- ============ QUIZ SCREEN ============ -->
+  <section id="screen-quiz" class="screen">
+    <header class="topbar quiz-topbar">
+      <button class="icon-btn close-btn" id="btn-close-quiz">✕</button>
+      <div class="progress-track"><div class="progress-fill" id="quiz-progress"></div></div>
+      <div class="hearts" id="hearts">❤️ <span id="hearts-count">3</span></div>
+    </header>
+
+    <div class="quiz-body">
+      <h2 class="quiz-prompt" id="quiz-prompt">السؤال</h2>
+      <div class="chart-box" id="quiz-chart" dir="ltr" style="display:none"></div>
+      <div class="quiz-math" id="quiz-math" dir="ltr"></div>
+
+      <!-- choices -->
+      <div class="choices" id="choices"></div>
+
+      <!-- writing area -->
+      <div class="write-wrap" id="write-wrap" style="display:none">
+        <div class="write-hint">✍️ اكتب إجابتك في الأسفل كما لو كنت تكتب في دفترك:</div>
+        <textarea id="write-input" class="notebook-input" dir="ltr" rows="4" spellcheck="false"
+          placeholder="...اكتب هنا" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+      </div>
+    </div>
+
+    <!-- math keyboard FAB — absolute bottom right corner -->
+    <button class="kbd-fab" id="kbd-fab" title="لوحة مفاتيح الرياضيات" style="display:none">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <rect x="2" y="6" width="20" height="12" rx="2"/>
+        <path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h.01M18 14h.01M9 14h6"/>
+      </svg>
+    </button>
+
+    <!-- custom math keyboard -->
+    <div class="math-keyboard" id="math-keyboard" dir="ltr">
+      <div class="kbd-drag-handle"></div>
+      <div class="kbd-rows" id="kbd-rows"></div>
+    </div>
+
+    <footer class="quiz-footer" id="quiz-footer">
+      <button class="btn btn-ghost" id="btn-skip">تخطَّ</button>
+      <button class="btn btn-primary" id="btn-check" disabled>تحقّق</button>
+    </footer>
+
+    <!-- feedback banner -->
+    <div class="feedback" id="feedback">
+      <div class="feedback-inner">
+        <div class="feedback-icon" id="feedback-icon">✓</div>
+        <div class="feedback-texts">
+          <div class="feedback-title" id="feedback-title">أحسنت!</div>
+          <div class="feedback-detail" id="feedback-detail"></div>
+        </div>
+      </div>
+      <button class="btn" id="btn-continue">استمر</button>
+    </div>
+  </section>
+
+  <!-- ============ CONGRATS SCREEN ============ -->
+  <section id="screen-congrats" class="screen">
+    <canvas id="confetti-canvas"></canvas>
+    <div class="congrats-inner">
+      <div class="mascot-slot mascot-big mascot-party" id="mascot-congrats"></div>
+      <h1 class="congrats-title">أكملت الدرس!</h1>
+      <p class="congrats-sub" id="congrats-sub">أنت رائع! 🎉</p>
+      <div class="result-cards">
+        <div class="result-card result-xp">
+          <div class="result-label">مجموع النقاط</div>
+          <div class="result-value">⚡ <span id="result-xp">0</span></div>
+        </div>
+        <div class="result-card result-acc">
+          <div class="result-label">الدقة</div>
+          <div class="result-value">🎯 <span id="result-acc">0%</span></div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-wide" id="btn-start-over">ابدأ من جديد</button>
+      <button class="btn btn-ghost btn-wide" id="btn-back-path">العودة إلى الدروس</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ SETTINGS MODAL ============ -->
+<div class="modal-overlay" id="settings-modal">
+  <div class="modal">
+    <h2 class="modal-title">⚙️ الإعدادات</h2>
+
+    <label class="field-label">مفتاح Claude API <span class="field-note">(لشرح أذكى عند عدم الفهم)</span></label>
+    <input type="password" id="set-claude-key" class="field-input" dir="ltr" placeholder="sk-ant-...">
+
+    <label class="field-label">مفتاح ElevenLabs API <span class="field-note">(لصوت واقعي)</span></label>
+    <input type="password" id="set-eleven-key" class="field-input" dir="ltr" placeholder="xi-...">
+
+    <label class="field-label">معرّف صوت ElevenLabs <span class="field-note">(اختياري)</span></label>
+    <input type="text" id="set-eleven-voice" class="field-input" dir="ltr" placeholder="21m00Tcm4TlvDq8ikWAM">
+
+    <label class="field-label">سرعة الصوت <span class="field-note">(<span id="set-eleven-speed-val">1.2</span>×ـ الحد الأقصى المسموح به من ElevenLabs)</span></label>
+    <input type="range" id="set-eleven-speed" class="field-range" min="0.7" max="1.2" step="0.05" value="1.2">
+
+    <label class="toggle-row">
+      <span>المؤثرات الصوتية</span>
+      <input type="checkbox" id="set-sfx" checked>
+      <span class="toggle-pill"></span>
+    </label>
+    <label class="toggle-row">
+      <span>الصوت (قراءة الشرح)</span>
+      <input type="checkbox" id="set-tts" checked>
+      <span class="toggle-pill"></span>
+    </label>
+
+    <p class="modal-hint">لا تملك مفاتيح؟ لا مشكلة — التطبيق يعمل بالكامل بصوت المتصفح المجاني.</p>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="btn-settings-cancel">إلغاء</button>
+      <button class="btn btn-primary" id="btn-settings-save">حفظ</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/sound.js"></script>
+<script src="js/exercises.js"></script>
+<script src="js/speech.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
