@@ -25,6 +25,15 @@
   --text-soft: #777777;
   --bg: #ffffff;
   --purple: #ce82ff;
+  /* correct/wrong quiz feedback — intentionally teal/wine, not Duolingo's green/red */
+  --correct: #0d9488;
+  --correct-shade: #0f766e;
+  --correct-light: #ccfbf1;
+  --correct-text: #0f766e;
+  --wrong: #9d174d;
+  --wrong-shade: #831843;
+  --wrong-light: #fde2ec;
+  --wrong-text: #9d174d;
   --navy: #1e2a4a;
   --navy-shade: #141c33;
   --navy-light: #e8ebf3;
@@ -364,20 +373,26 @@ body {
 }
 .choice.selected .choice-key { border-color: var(--blue-border); color: var(--blue-shade); }
 .choice.correct {
-  border-color: var(--green); background: var(--green-light);
-  box-shadow: 0 4px 0 var(--green); color: var(--green-text);
+  border-color: var(--correct); background: var(--correct-light);
+  box-shadow: 0 4px 0 var(--correct); color: var(--correct-text);
+  animation: correctPop .3s ease;
 }
 .choice.wrong {
-  border-color: var(--red); background: var(--red-light);
-  box-shadow: 0 4px 0 var(--red); color: var(--red-shade);
-  animation: shake .4s;
+  border-color: var(--wrong); background: var(--wrong-light);
+  box-shadow: 0 4px 0 var(--wrong); color: var(--wrong-text);
+  animation: wrongPulse .35s ease;
 }
 .choice.dim { opacity: .5; }
 .choice:disabled { cursor: default; }
-@keyframes shake {
-  0%,100% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
+@keyframes correctPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+@keyframes wrongPulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(.96); }
+  100% { transform: scale(1); }
 }
 
 /* writing area — ruled notebook paper */
@@ -463,23 +478,23 @@ body {
   border-radius: 20px 20px 0 0;
 }
 .feedback.show { transform: translateY(0); }
-.feedback.good { background: var(--green-light); }
-.feedback.bad  { background: var(--red-light); }
+.feedback.good { background: var(--correct-light); }
+.feedback.bad  { background: var(--wrong-light); }
 .feedback-inner { display: flex; gap: 14px; align-items: flex-start; }
 .feedback-icon {
   width: 54px; height: 54px; flex: 0 0 54px; border-radius: 50%;
   background: #fff; display: flex; align-items: center; justify-content: center;
   font-size: 28px; font-weight: 900;
 }
-.feedback.good .feedback-icon { color: var(--green); }
-.feedback.bad  .feedback-icon { color: var(--red); }
+.feedback.good .feedback-icon { color: var(--correct); }
+.feedback.bad  .feedback-icon { color: var(--wrong); }
 .feedback-title { font-size: 20px; font-weight: 800; unicode-bidi: plaintext; }
-.feedback.good .feedback-title, .feedback.good .feedback-detail { color: var(--green-text); }
-.feedback.bad  .feedback-title, .feedback.bad  .feedback-detail { color: var(--red-shade); }
+.feedback.good .feedback-title, .feedback.good .feedback-detail { color: var(--correct-text); }
+.feedback.bad  .feedback-title, .feedback.bad  .feedback-detail { color: var(--wrong-text); }
 .feedback-detail { font-size: 15.5px; font-weight: 700; line-height: 1.5; margin-top: 3px; unicode-bidi: plaintext; }
 .feedback .btn { width: 100%; }
-.feedback.good .btn { background: var(--green); box-shadow: 0 4px 0 var(--green-shade); }
-.feedback.bad  .btn { background: var(--red); box-shadow: 0 4px 0 var(--red-shade); }
+.feedback.good .btn { background: var(--correct); box-shadow: 0 4px 0 var(--correct-shade); }
+.feedback.bad  .btn { background: var(--wrong); box-shadow: 0 4px 0 var(--wrong-shade); }
 
 /* ============ CONGRATS ============ */
 #screen-congrats { justify-content: center; align-items: center; background: #fff; }

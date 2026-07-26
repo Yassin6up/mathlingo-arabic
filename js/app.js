@@ -398,7 +398,8 @@
       choices.style.display = 'none';
       choices.innerHTML = '';
       writeWrap.style.display = 'block';
-      fab.style.display = 'flex';
+      // the custom math keyboard (d/dx, √, x², ...) only makes sense for math
+      fab.style.display = currentSubject === 'math' ? 'flex' : 'none';
       const input = $('write-input');
       input.value = '';
       input.readOnly = false;
