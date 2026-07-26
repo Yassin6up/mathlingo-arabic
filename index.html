@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ماث لينجو — تعلّم الرياضيات بمتعة</title>
+<title>منارة — تعلّم بمتعة وذكاء</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;600;700;800&family=Nunito:wght@700;800;900&family=Patrick+Hand&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦉</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐬</text></svg>">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
@@ -18,29 +19,41 @@
   <section id="screen-home" class="screen active">
     <div class="home-inner">
       <div class="mascot-slot mascot-big" id="mascot-home"></div>
-      <h1 class="logo-title">ماث<span>لينجو</span></h1>
-      <p class="tagline">الطريقة المجانية والممتعة لإتقان الرياضيات!</p>
+      <h1 class="logo-title">منـ<span>ارة</span></h1>
+      <p class="tagline">طريقك الذكي لتعلّم أي شيء، بمتعة وسهولة!</p>
       <button class="btn btn-primary btn-wide" id="btn-start">ابدأ الآن</button>
+      <button class="btn btn-ghost btn-wide" id="btn-login-home">تسجيل الدخول</button>
       <button class="btn btn-ghost btn-wide" id="btn-settings-home">⚙️&nbsp; الإعدادات</button>
+    </div>
+  </section>
+
+  <!-- ============ SUBJECT SELECTION SCREEN ============ -->
+  <section id="screen-subjects" class="screen">
+    <header class="topbar">
+      <button class="icon-btn close-btn" id="btn-close-subjects">✕</button>
+      <div class="lesson-title">ماذا تريد أن تتعلّم؟</div>
+      <span style="width:40px"></span>
+    </header>
+    <div class="subjects-body">
+      <div class="subjects-grid" id="subjects-grid"></div>
     </div>
   </section>
 
   <!-- ============ PATH SCREEN ============ -->
   <section id="screen-path" class="screen">
     <header class="path-header">
+      <button class="icon-btn" id="btn-subjects-path" title="كل المواد">🧭</button>
       <div class="stat stat-streak">🔥 <span id="stat-streak">0</span></div>
       <div class="stat stat-xp">⚡ <span id="stat-xp">0</span></div>
+      <button class="icon-btn" id="btn-profile-path" title="حسابي">👤</button>
       <button class="icon-btn" id="btn-settings-path" title="الإعدادات">⚙️</button>
     </header>
-    <div class="unit-banner">
-      <div>
-        <div class="unit-eyebrow">الوحدة 1</div>
-        <div class="unit-title">الاشتقاق</div>
-      </div>
-      <div class="unit-book">📖</div>
+    <div class="subject-switch" id="subject-switch">
+      <button class="subject-tab active" data-subject="math">📐 الرياضيات</button>
+      <button class="subject-tab" data-subject="english">🔤 English</button>
     </div>
     <div class="path-scroll">
-      <div class="path-nodes" id="path-nodes"></div>
+      <div class="path-groups" id="path-groups"></div>
       <div class="mascot-slot mascot-path" id="mascot-path"></div>
     </div>
   </section>
@@ -152,6 +165,128 @@
     </div>
   </section>
 
+  <!-- ============ LOGIN SCREEN ============ -->
+  <section id="screen-login" class="screen">
+    <header class="topbar">
+      <button class="icon-btn close-btn" id="btn-close-login">✕</button>
+      <div class="lesson-title">تسجيل الدخول</div>
+      <span style="width:40px"></span>
+    </header>
+    <div class="auth-body">
+      <div class="mascot-slot mascot-auth" id="mascot-login"></div>
+      <div id="google-btn-login" class="google-btn-slot"></div>
+      <div class="auth-divider"><span>أو</span></div>
+      <input type="email" id="login-email" class="field-input" dir="ltr" placeholder="البريد الإلكتروني" autocomplete="email">
+      <input type="password" id="login-password" class="field-input" dir="ltr" placeholder="كلمة المرور" autocomplete="current-password">
+      <p class="auth-error" id="login-error"></p>
+      <button class="btn btn-primary btn-wide" id="btn-login-submit">دخول</button>
+      <button class="btn-link" id="btn-goto-forgot">نسيت كلمة المرور؟</button>
+      <button class="btn-link" id="btn-goto-signup">ليس لديك حساب؟ أنشئ حسابًا</button>
+    </div>
+  </section>
+
+  <!-- ============ SIGNUP SCREEN ============ -->
+  <section id="screen-signup" class="screen">
+    <header class="topbar">
+      <button class="icon-btn close-btn" id="btn-close-signup">✕</button>
+      <div class="lesson-title">إنشاء حساب</div>
+      <span style="width:40px"></span>
+    </header>
+    <div class="auth-body">
+      <div class="mascot-slot mascot-auth" id="mascot-signup"></div>
+      <div id="google-btn-signup" class="google-btn-slot"></div>
+      <div class="auth-divider"><span>أو</span></div>
+      <input type="text" id="signup-name" class="field-input" placeholder="الاسم" autocomplete="name">
+      <input type="email" id="signup-email" class="field-input" dir="ltr" placeholder="البريد الإلكتروني" autocomplete="email">
+      <input type="password" id="signup-password" class="field-input" dir="ltr" placeholder="كلمة المرور (6 أحرف على الأقل)" autocomplete="new-password">
+      <p class="auth-error" id="signup-error"></p>
+      <button class="btn btn-primary btn-wide" id="btn-signup-submit">إنشاء الحساب</button>
+      <button class="btn-link" id="btn-goto-login">لديك حساب بالفعل؟ سجّل الدخول</button>
+    </div>
+  </section>
+
+  <!-- ============ FORGOT PASSWORD SCREEN ============ -->
+  <section id="screen-forgot" class="screen">
+    <header class="topbar">
+      <button class="icon-btn close-btn" id="btn-close-forgot">✕</button>
+      <div class="lesson-title">استعادة كلمة المرور</div>
+      <span style="width:40px"></span>
+    </header>
+    <div class="auth-body">
+      <div class="mascot-slot mascot-auth" id="mascot-forgot"></div>
+
+      <div id="forgot-step-email">
+        <p class="auth-hint">أدخل بريدك الإلكتروني وسنرسل لك رمز تحقق مكوّن من 6 أرقام.</p>
+        <input type="email" id="forgot-email" class="field-input" dir="ltr" placeholder="البريد الإلكتروني" autocomplete="email">
+        <p class="auth-error" id="forgot-email-error"></p>
+        <button class="btn btn-primary btn-wide" id="btn-forgot-send">إرسال رمز التحقق</button>
+      </div>
+
+      <div id="forgot-step-code" style="display:none">
+        <p class="auth-hint">أدخل الرمز المكوّن من 6 أرقام الذي وصلك على بريدك، وكلمة مرورك الجديدة.</p>
+        <input type="text" id="forgot-code" class="field-input" dir="ltr" placeholder="000000" maxlength="6" inputmode="numeric">
+        <input type="password" id="forgot-new-password" class="field-input" dir="ltr" placeholder="كلمة المرور الجديدة" autocomplete="new-password">
+        <p class="auth-error" id="forgot-code-error"></p>
+        <button class="btn btn-primary btn-wide" id="btn-forgot-reset">تغيير كلمة المرور</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROFILE SCREEN ============ -->
+  <section id="screen-profile" class="screen">
+    <header class="topbar">
+      <button class="icon-btn close-btn" id="btn-close-profile">✕</button>
+      <div class="lesson-title">حسابي</div>
+      <span style="width:40px"></span>
+    </header>
+    <div class="profile-body">
+      <div class="mascot-slot mascot-auth" id="mascot-profile"></div>
+      <div class="profile-name" id="profile-name">ضيف</div>
+      <div class="premium-badge" id="premium-badge" style="display:none">⭐ منارة بريميوم</div>
+
+      <div class="profile-stats">
+        <div class="profile-stat-card">
+          <div class="profile-stat-value" id="profile-xp">0</div>
+          <div class="profile-stat-label">⚡ مجموع النقاط</div>
+        </div>
+        <div class="profile-stat-card">
+          <div class="profile-stat-value" id="profile-streak">0</div>
+          <div class="profile-stat-label">🔥 التتابع اليومي</div>
+        </div>
+      </div>
+
+      <div class="subject-progress-list" id="subject-progress-list"></div>
+
+      <button class="btn btn-primary btn-wide" id="btn-goto-paywall">⭐ ترقّ إلى بريميوم</button>
+      <button class="btn btn-ghost btn-wide" id="btn-login-from-profile" style="display:none">تسجيل الدخول لحفظ تقدّمك</button>
+      <button class="btn btn-danger-outline btn-wide" id="btn-logout" style="display:none">تسجيل الخروج</button>
+    </div>
+  </section>
+
+  <!-- ============ PAYWALL SCREEN ============ -->
+  <section id="screen-paywall" class="screen screen-paywall">
+    <header class="topbar">
+      <button class="icon-btn close-btn" id="btn-close-paywall">✕</button>
+      <span></span>
+      <span style="width:40px"></span>
+    </header>
+    <div class="paywall-body">
+      <div class="mascot-slot mascot-auth mascot-party" id="mascot-paywall"></div>
+      <h1 class="paywall-title">منارة بريميوم</h1>
+      <p class="paywall-sub">افتح كل إمكانياتك التعليمية ✨</p>
+
+      <div class="perk-list">
+        <div class="perk-row">💗 <span>قلوب كاملة دائمًا في كل اختبار</span></div>
+        <div class="perk-row">⚡ <span>نقاط خبرة إضافية (×1.2) على كل درس</span></div>
+        <div class="perk-row">⭐ <span>شارة بريميوم المميزة في ملفك الشخصي</span></div>
+        <div class="perk-row">🔓 <span>وصول مبكر لكل الدروس والمواد الجديدة</span></div>
+      </div>
+
+      <button class="btn btn-premium btn-wide" id="btn-subscribe">اشترك الآن</button>
+      <p class="paywall-note">تجربة تعليمية فقط — لا يتم خصم أي مبلغ حقيقي حاليًا.</p>
+    </div>
+  </section>
+
 </div>
 
 <!-- ============ SETTINGS MODAL ============ -->
@@ -159,30 +294,64 @@
   <div class="modal">
     <h2 class="modal-title">⚙️ الإعدادات</h2>
 
-    <label class="field-label">مفتاح Claude API <span class="field-note">(لشرح أذكى عند عدم الفهم)</span></label>
-    <input type="password" id="set-claude-key" class="field-input" dir="ltr" placeholder="sk-ant-...">
+    <div class="settings-section">
+      <div class="settings-section-title">👤 الحساب</div>
+      <div id="settings-account-guest">
+        <p class="modal-hint" style="margin-top:0">أنت تستخدم منارة كضيف — سجّل الدخول لحفظ تقدّمك على كل أجهزتك.</p>
+        <button class="btn btn-primary btn-wide" id="btn-settings-login">تسجيل الدخول</button>
+      </div>
+      <div id="settings-account-user" style="display:none">
+        <div class="settings-account-row">
+          <span id="settings-account-name">—</span>
+          <button class="btn-link" id="btn-settings-logout">تسجيل الخروج</button>
+        </div>
+      </div>
+    </div>
 
-    <label class="field-label">مفتاح ElevenLabs API <span class="field-note">(لصوت واقعي)</span></label>
-    <input type="password" id="set-eleven-key" class="field-input" dir="ltr" placeholder="xi-...">
+    <div class="settings-section">
+      <div class="settings-section-title">🎨 المظهر</div>
+      <label class="toggle-row">
+        <span>الوضع الليلي</span>
+        <input type="checkbox" id="set-dark-mode">
+        <span class="toggle-pill"></span>
+      </label>
+    </div>
 
-    <label class="field-label">معرّف صوت ElevenLabs <span class="field-note">(اختياري)</span></label>
-    <input type="text" id="set-eleven-voice" class="field-input" dir="ltr" placeholder="21m00Tcm4TlvDq8ikWAM">
+    <div class="settings-section">
+      <div class="settings-section-title">🔊 الصوت</div>
+      <label class="toggle-row">
+        <span>المؤثرات الصوتية</span>
+        <input type="checkbox" id="set-sfx" checked>
+        <span class="toggle-pill"></span>
+      </label>
+      <label class="toggle-row">
+        <span>الصوت (قراءة الشرح)</span>
+        <input type="checkbox" id="set-tts" checked>
+        <span class="toggle-pill"></span>
+      </label>
+    </div>
 
-    <label class="field-label">سرعة الصوت <span class="field-note">(<span id="set-eleven-speed-val">1.2</span>×ـ الحد الأقصى المسموح به من ElevenLabs)</span></label>
-    <input type="range" id="set-eleven-speed" class="field-range" min="0.7" max="1.2" step="0.05" value="1.2">
+    <details class="settings-advanced">
+      <summary>🔑 إعدادات متقدمة (مفاتيح API شخصية)</summary>
+      <p class="modal-hint">لا تملك مفاتيح؟ لا مشكلة — الصوت والشرح الذكي يعملان تلقائيًا بدون أي إعداد. أضف مفاتيحك الخاصة فقط إذا أردت صوتًا مخصصًا.</p>
 
-    <label class="toggle-row">
-      <span>المؤثرات الصوتية</span>
-      <input type="checkbox" id="set-sfx" checked>
-      <span class="toggle-pill"></span>
-    </label>
-    <label class="toggle-row">
-      <span>الصوت (قراءة الشرح)</span>
-      <input type="checkbox" id="set-tts" checked>
-      <span class="toggle-pill"></span>
-    </label>
+      <label class="field-label">مفتاح Claude API <span class="field-note">(لشرح أذكى عند عدم الفهم)</span></label>
+      <input type="password" id="set-claude-key" class="field-input" dir="ltr" placeholder="sk-ant-...">
 
-    <p class="modal-hint">لا تملك مفاتيح؟ لا مشكلة — الصوت والشرح الذكي يعملان تلقائيًا بدون أي إعداد. أضف مفاتيحك الخاصة فقط إذا أردت صوتًا مخصصًا.</p>
+      <label class="field-label">مفتاح ElevenLabs API <span class="field-note">(لصوت واقعي)</span></label>
+      <input type="password" id="set-eleven-key" class="field-input" dir="ltr" placeholder="xi-...">
+
+      <label class="field-label">معرّف صوت ElevenLabs <span class="field-note">(اختياري)</span></label>
+      <input type="text" id="set-eleven-voice" class="field-input" dir="ltr" placeholder="21m00Tcm4TlvDq8ikWAM">
+
+      <label class="field-label">سرعة الصوت <span class="field-note">(<span id="set-eleven-speed-val">1.2</span>×ـ الحد الأقصى المسموح به من ElevenLabs)</span></label>
+      <input type="range" id="set-eleven-speed" class="field-range" min="0.7" max="1.2" step="0.05" value="1.2">
+    </details>
+
+    <div class="settings-section settings-danger">
+      <div class="settings-section-title">🗑️ البيانات</div>
+      <button class="btn btn-danger-outline btn-wide" id="btn-reset-progress">إعادة تعيين كل التقدّم</button>
+    </div>
 
     <div class="modal-actions">
       <button class="btn btn-ghost" id="btn-settings-cancel">إلغاء</button>
@@ -191,10 +360,15 @@
   </div>
 </div>
 
+<script src="js/config.js"></script>
 <script src="js/sound.js"></script>
-<script src="js/exercises.js"></script>
+<script src="js/data/helpers.js"></script>
+<script src="js/data/math.js"></script>
+<script src="js/data/english.js"></script>
 <script src="js/speech.js"></script>
 <script src="js/ai.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/manara-api.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

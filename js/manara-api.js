@@ -1,0 +1,45 @@
+/* ============================================================
+   منارة (Manara) — progress/stats/subscription API client
+   All calls require login (Auth.isLoggedIn()) — guests never
+   call these; their progress stays in localStorage until they
+   create an account (see syncProgress()).
+   ============================================================ */
+const ManaraAPI = (() => {
+  async function apiFetch(path, { method = 'GET', body } = {}) {
+    if (!MANARA_CONFIG.API_BASE) throw new Error('الخدمة غير متاحة حالياً');
+    const token = Auth.getToken();
+    if (!token) throw new Error('يجب تسجيل الدخول أولاً');
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'X-App-Id': MANARA_CONFIG.APP_SLUG,
+      'Authorization': `Bearer ${token}`
+    };
+    let res;
+    try {
+      res = await fetch(MANARA_CONFIG.API_BASE + path, {
+        method, headers, body: body ? JSON.stringify(body) : undefined
+      });
+    } catch {
+      throw new Error('تعذّر الاتصال بالخادم');
+    }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || data.success === false) throw new Error(data.message || 'حدث خطأ في الخادم');
+    return data;
+  }
+
+  return {
+    getStats() { return apiFetch('/api/manara/stats').then(r => r.data); },
+
+    postProgress(attempt) {
+      return apiFetch('/api/manara/progress', { method: 'POST', body: attempt }).then(r => r.data);
+    },
+
+    syncProgress(attempts) {
+      return apiFetch('/api/manara/progress/sync', { method: 'POST', body: { attempts } }).then(r => r.data);
+    },
+
+    subscribe() { return apiFetch('/api/manara/subscribe', { method: 'POST' }).then(r => r.data); },
+    unsubscribe() { return apiFetch('/api/manara/unsubscribe', { method: 'POST' }).then(r => r.data); },
+  };
+})();

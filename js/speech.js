@@ -93,13 +93,14 @@ const Speech = (() => {
     ).then(speakFromResponse);
   }
 
-  /* Via our own /api/tts serverless proxy — no personal key required.
-     Only ever resolves same-origin (relative URL), so it's a silent
-     no-op 404 on hosts that don't run the proxy (e.g. GitHub Pages). */
+  /* Via the shared Manara backend proxy — no personal key required.
+     Silently unavailable (caught by the caller) until MANARA_CONFIG.API_BASE
+     is configured, or if the request fails for any reason. */
   function speakElevenProxy(text, voiceId, speed) {
-    return fetch('/api/tts', {
+    if (!MANARA_CONFIG.API_BASE) return Promise.reject(new Error('proxy not configured'));
+    return fetch(MANARA_CONFIG.API_BASE + '/api/manara/public/tts', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-App-Id': MANARA_CONFIG.APP_SLUG },
       body: JSON.stringify({ text, voiceId: voiceId || undefined, speed })
     }).then(speakFromResponse);
   }

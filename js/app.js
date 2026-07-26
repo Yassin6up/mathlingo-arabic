@@ -1,5 +1,5 @@
 /* ============================================================
-   ماث لينجو — التطبيق الرئيسي
+   منارة (Manara) — التطبيق الرئيسي
    ============================================================ */
 (() => {
   'use strict';
@@ -9,18 +9,35 @@
   const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
   /* ---------------- persistent state ---------------- */
-  const state = loadJSON('mathlingo-state', { xp: 0, streak: 0, lastDay: '', completed: [] });
-  const prefs = loadJSON('mathlingo-settings', { sfx: true, tts: true });
+  const state = loadJSON('manara-state', {
+    xp: 0, streak: 0, lastDay: '',
+    completed: { math: [], english: [] },
+    attempts: [], // per-lesson attempt log, synced to the account on login
+    premium: false,
+  });
+  const prefs = loadJSON('manara-settings', { sfx: true, tts: true });
   Sound.setEnabled(prefs.sfx !== false);
 
   function loadJSON(k, fallback) {
     try { return Object.assign({}, fallback, JSON.parse(localStorage.getItem(k) || '{}')); }
     catch { return Object.assign({}, fallback); }
   }
-  function saveState() { localStorage.setItem('mathlingo-state', JSON.stringify(state)); }
-  function savePrefs() { localStorage.setItem('mathlingo-settings', JSON.stringify(prefs)); }
+  function saveState() { localStorage.setItem('manara-state', JSON.stringify(state)); }
+  function savePrefs() { localStorage.setItem('manara-settings', JSON.stringify(prefs)); }
+
+  function lessonsFor(subject) { return subject === 'english' ? ENGLISH_LESSONS : MATH_LESSONS; }
+  function unitsFor(subject) { return subject === 'english' ? ENGLISH_UNITS : MATH_UNITS; }
+
+  /* per-subject XP is derived from the local attempt log (kept forever,
+     even after login — see syncGuestProgress) so level/units work the
+     same for guests and logged-in users without extra API calls. */
+  function subjectXP(subject) {
+    return state.attempts.filter(a => a.subject === subject).reduce((sum, a) => sum + (a.xpEarned || 0), 0);
+  }
+  function levelFor(xp) { return Math.floor(xp / 100) + 1; }
 
   /* ---------------- session state ---------------- */
+  let currentSubject = 'math';
   let lesson = null;
   let variantIdx = 0;
   let shownExplanations = [];
@@ -32,43 +49,51 @@
   let answered = false;
   let typeToken = 0;
   let confettiRAF = 0;
+  let googleRendered = false;
 
-  /* ---------------- mascot (orange owl) ---------------- */
+  /* ---------------- mascot: منير the dolphin ---------------- */
   function mascotSVG() {
     return `
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <!-- feet -->
-      <ellipse cx="80" cy="188" rx="14" ry="7" fill="#b36b00"/>
-      <ellipse cx="120" cy="188" rx="14" ry="7" fill="#b36b00"/>
+      <!-- tail fin -->
+      <path d="M8 118 Q -6 96 4 74 Q 20 92 30 108 Z" fill="#0e7ab0"/>
       <!-- body -->
-      <ellipse cx="100" cy="115" rx="72" ry="74" fill="#ff9600"/>
-      <ellipse cx="100" cy="132" rx="46" ry="48" fill="#ffb84d"/>
-      <!-- wings -->
-      <ellipse cx="24" cy="120" rx="16" ry="34" fill="#e07d00" transform="rotate(14 24 120)"/>
-      <ellipse cx="176" cy="120" rx="16" ry="34" fill="#e07d00" transform="rotate(-14 176 120)"/>
-      <!-- eye patches -->
-      <ellipse cx="72" cy="86" rx="27" ry="30" fill="#ffffff"/>
-      <ellipse cx="128" cy="86" rx="27" ry="30" fill="#ffffff"/>
-      <!-- pupils -->
-      <circle cx="78" cy="90" r="11" fill="#4b4b4b"/>
-      <circle cx="122" cy="90" r="11" fill="#4b4b4b"/>
-      <circle cx="81" cy="86" r="4" fill="#ffffff"/>
-      <circle cx="125" cy="86" r="4" fill="#ffffff"/>
-      <!-- eyelids (blink) -->
-      <ellipse class="eye-lid" cx="72" cy="86" rx="28" ry="31" fill="#ff9600"/>
-      <ellipse class="eye-lid" cx="128" cy="86" rx="28" ry="31" fill="#ff9600"/>
-      <!-- beak closed -->
-      <path class="mouth-closed" d="M88 106 L112 106 L100 124 Z" fill="#ffc800"/>
-      <!-- beak open (talking) -->
+      <path d="M28 110
+               C 28 66, 66 34, 118 34
+               C 158 34, 186 58, 190 92
+               C 186 118, 156 138, 116 140
+               C 78 142, 40 132, 28 110 Z" fill="#29b6e8"/>
+      <!-- belly -->
+      <path d="M46 116
+               C 52 96, 82 82, 118 84
+               C 148 86, 168 100, 172 112
+               C 156 126, 122 132, 92 130
+               C 68 128, 52 124, 46 116 Z" fill="#eaf9ff"/>
+      <!-- dorsal fin -->
+      <path d="M108 36 Q 118 6 138 24 Q 126 34 116 42 Z" fill="#1a90c2"/>
+      <!-- side fin -->
+      <ellipse cx="86" cy="122" rx="20" ry="10" fill="#1a90c2" transform="rotate(24 86 122)"/>
+      <!-- snout / beak -->
+      <path class="mouth-closed" d="M182 88 Q198 92 196 100 Q 180 104 168 100 Z" fill="#1a90c2"/>
       <g class="mouth-open">
-        <path d="M86 104 L114 104 L100 116 Z" fill="#ffc800"/>
-        <path d="M90 118 Q100 132 110 118 Q100 124 90 118 Z" fill="#e6a800"/>
+        <path d="M182 84 Q200 88 197 98 Q 180 102 166 96 Z" fill="#1a90c2"/>
+        <path d="M170 96 Q184 108 195 98" stroke="#0e6a94" stroke-width="3" fill="none" stroke-linecap="round"/>
       </g>
-      <!-- graduation cap -->
-      <polygon points="100,18 152,38 100,58 48,38" fill="#4b4b4b"/>
-      <rect x="86" y="46" width="28" height="12" rx="3" fill="#4b4b4b"/>
-      <line x1="140" y1="42" x2="140" y2="66" stroke="#1cb0f6" stroke-width="3"/>
-      <circle cx="140" cy="69" r="5" fill="#1cb0f6"/>
+      <!-- eye patch -->
+      <circle cx="140" cy="72" r="15" fill="#ffffff"/>
+      <circle cx="144" cy="74" r="7" fill="#123"/>
+      <circle cx="147" cy="71" r="2.4" fill="#fff"/>
+      <ellipse class="eye-lid" cx="140" cy="72" rx="16" ry="16" fill="#29b6e8"/>
+      <!-- graduation cap (tilted, resting on the head) -->
+      <g transform="translate(96 22) rotate(-8)">
+        <polygon points="40,0 80,16 40,32 0,16" fill="#4b4b4b"/>
+        <rect x="26" y="20" width="28" height="10" rx="3" fill="#4b4b4b"/>
+        <line x1="70" y1="18" x2="70" y2="40" stroke="#ff9600" stroke-width="3"/>
+        <circle cx="70" cy="43" r="5" fill="#ff9600"/>
+      </g>
+      <!-- water droplets (idle sparkle) -->
+      <circle cx="40" cy="58" r="3" fill="#bdeeff"/>
+      <circle cx="58" cy="46" r="2" fill="#bdeeff"/>
     </svg>`;
   }
 
@@ -123,52 +148,131 @@
   }
 
   /* ---------------- screens ---------------- */
-  const screens = ['screen-home', 'screen-path', 'screen-lesson', 'screen-quiz', 'screen-congrats'];
+  const screens = [
+    'screen-home', 'screen-subjects', 'screen-path', 'screen-lesson', 'screen-quiz', 'screen-congrats',
+    'screen-login', 'screen-signup', 'screen-forgot', 'screen-profile', 'screen-paywall'
+  ];
   function show(id) {
     screens.forEach(s => $(s).classList.toggle('active', s === id));
     if (id !== 'screen-congrats') stopConfetti();
   }
 
-  /* ---------------- path ---------------- */
+  /* ---------------- subject selection ---------------- */
+  const SUBJECT_META = [
+    { id: 'math', icon: '📐', name: 'الرياضيات', enabled: true },
+    { id: 'english', icon: '🔤', name: 'English', enabled: true },
+    { id: 'science', icon: '🔬', name: 'العلوم', enabled: false },
+    { id: 'arabic', icon: '📗', name: 'اللغة العربية', enabled: false },
+    { id: 'coding', icon: '💻', name: 'البرمجة', enabled: false },
+    { id: 'history', icon: '🏛️', name: 'التاريخ', enabled: false },
+  ];
+
+  function renderSubjectsScreen() {
+    const grid = $('subjects-grid');
+    grid.innerHTML = '';
+    SUBJECT_META.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'subject-card' + (s.enabled ? ' ' + s.id : ' disabled');
+      if (s.enabled) {
+        const xp = subjectXP(s.id);
+        card.innerHTML = `
+          <div class="subject-icon">${s.icon}</div>
+          <div class="subject-name">${s.name}</div>
+          <div class="subject-level">المستوى ${levelFor(xp)}</div>`;
+        card.addEventListener('click', () => {
+          Sound.click();
+          currentSubject = s.id;
+          renderPath();
+          show('screen-path');
+        });
+      } else {
+        card.innerHTML = `
+          <div class="subject-icon">${s.icon}</div>
+          <div class="subject-name">${s.name}</div>
+          <div class="soon-badge">قريبًا</div>`;
+        card.addEventListener('click', () => Sound.click());
+      }
+      grid.appendChild(card);
+    });
+  }
+
+  /* ---------------- path (grouped into units) ---------------- */
   function renderPath() {
     $('stat-xp').textContent = state.xp;
     $('stat-streak').textContent = state.streak;
-    const wrap = $('path-nodes');
+
+    document.querySelectorAll('.subject-tab').forEach(t =>
+      t.classList.toggle('active', t.dataset.subject === currentSubject));
+
+    const lessons = lessonsFor(currentSubject);
+    const units = unitsFor(currentSubject);
+    const completedIds = state.completed[currentSubject] || [];
+    const byId = Object.fromEntries(lessons.map(l => [l.id, l]));
+
+    const wrap = $('path-groups');
     wrap.innerHTML = '';
     let activeGiven = false;
-    LESSONS.forEach((l) => {
-      const done = state.completed.includes(l.id);
-      const isActive = !done && !activeGiven;
-      if (isActive) activeGiven = true;
-      const locked = !done && !isActive;
 
-      const node = document.createElement('div');
-      node.className = 'path-node';
-      const btn = document.createElement('button');
-      btn.className = 'node-btn' + (done ? ' done' : '') + (locked ? ' locked' : '');
-      btn.textContent = done ? '👑' : l.icon;
-      if (isActive) {
-        const tip = document.createElement('div');
-        tip.className = 'node-start-tip';
-        tip.textContent = 'ابدأ';
-        node.appendChild(tip);
-      }
-      if (!locked) {
-        btn.addEventListener('click', () => { Sound.click(); startLesson(l); });
-      }
-      const label = document.createElement('div');
-      label.className = 'node-label';
-      label.textContent = l.title;
-      node.appendChild(btn);
-      node.appendChild(label);
-      wrap.appendChild(node);
+    units.forEach((unit, ui) => {
+      const group = document.createElement('div');
+      group.className = 'path-unit-group';
+
+      const unitDone = unit.lessonIds.filter(id => completedIds.includes(id)).length;
+      const banner = document.createElement('div');
+      banner.className = 'unit-banner';
+      banner.innerHTML = `
+        <div>
+          <div class="unit-eyebrow">الوحدة ${ui + 1}</div>
+          <div class="unit-title">${unit.title}</div>
+          <div class="unit-progress">${unitDone}/${unit.lessonIds.length} مكتمل</div>
+        </div>
+        <div class="unit-book">${unit.icon}</div>`;
+      group.appendChild(banner);
+
+      const nodes = document.createElement('div');
+      nodes.className = 'path-nodes';
+      unit.lessonIds.forEach(id => {
+        const l = byId[id];
+        if (!l) return;
+        const done = completedIds.includes(l.id);
+        const isActive = !done && !activeGiven;
+        if (isActive) activeGiven = true;
+        const locked = !done && !isActive;
+
+        const node = document.createElement('div');
+        node.className = 'path-node';
+        const btn = document.createElement('button');
+        btn.className = 'node-btn' + (done ? ' done' : '') + (locked ? ' locked' : '');
+        btn.textContent = done ? '👑' : l.icon;
+        if (isActive) {
+          const tip = document.createElement('div');
+          tip.className = 'node-start-tip';
+          tip.textContent = 'ابدأ';
+          node.appendChild(tip);
+        }
+        if (!locked) btn.addEventListener('click', () => { Sound.click(); startLesson(l); });
+        const label = document.createElement('div');
+        label.className = 'node-label';
+        label.textContent = l.title;
+        node.appendChild(btn);
+        node.appendChild(label);
+        nodes.appendChild(node);
+      });
+      group.appendChild(nodes);
+      wrap.appendChild(group);
     });
+
     const trophy = document.createElement('div');
     trophy.className = 'path-node';
-    const allDone = state.completed.length >= LESSONS.length;
+    const allDone = completedIds.length >= lessons.length;
+    const meta = SUBJECT_META.find(s => s.id === currentSubject);
     trophy.innerHTML = `<button class="node-btn ${allDone ? 'done' : 'locked'}">🏆</button>
                         <div class="node-label">${allDone ? 'أنت البطل!' : 'أكمل كل الدروس'}</div>`;
-    wrap.appendChild(trophy);
+    const trophyWrap = document.createElement('div');
+    trophyWrap.className = 'path-nodes';
+    trophyWrap.style.paddingTop = '0';
+    trophyWrap.appendChild(trophy);
+    wrap.appendChild(trophyWrap);
   }
 
   /* ---------------- lesson (explanation) ---------------- */
@@ -248,7 +352,7 @@
     Speech.stop();
     typeToken++;
     quizIdx = 0;
-    hearts = 3;
+    hearts = state.premium ? 5 : 3;
     sessionXP = 0;
     sessionCorrect = 0;
     Sound.swoosh();
@@ -491,7 +595,7 @@
     else openKeyboard();
   }
 
-  /* ---------------- congrats ---------------- */
+  /* ---------------- congrats + progress recording ---------------- */
   function finishLesson() {
     const today = new Date().toDateString();
     if (state.lastDay !== today) {
@@ -500,19 +604,46 @@
       state.lastDay = today;
     }
     state.xp += sessionXP;
-    if (!state.completed.includes(lesson.id)) state.completed.push(lesson.id);
+    const bucket = state.completed[currentSubject] || (state.completed[currentSubject] = []);
+    if (!bucket.includes(lesson.id)) bucket.push(lesson.id);
+
+    const acc = Math.round(sessionCorrect / lesson.quiz.length * 100);
+    const attempt = {
+      subject: currentSubject, lessonId: lesson.id,
+      passed: true, accuracy: acc, xpEarned: sessionXP,
+      completedAt: new Date().toISOString()
+    };
+    state.attempts.push(attempt);
     saveState();
+
+    // best-effort server sync — never blocks the UI, fails silently for guests
+    if (Auth.isLoggedIn()) {
+      ManaraAPI.postProgress(attempt).catch(e => console.warn('progress sync failed:', e.message));
+    }
 
     show('screen-congrats');
     Sound.fanfare();
-    const acc = Math.round(sessionCorrect / lesson.quiz.length * 100);
-    $('congrats-sub').textContent = acc === 100 ? 'مثالي! أنت نجم الرياضيات! 🌟'
+    $('congrats-sub').textContent = acc === 100 ? 'مثالي! أنت نجم منارة! 🌟'
       : acc >= 60 ? 'أداء رائع! استمر! 🎉' : 'أكملت الدرس — التدريب يصنع الإتقان! 💪';
     $('result-acc').textContent = acc + '%';
     countUp($('result-xp'), sessionXP);
     startConfetti();
-    Speech.speak(acc === 100 ? 'مبروك! أكملت الدرس بعلامة كاملة! أنت نجم الرياضيات!'
+    Speech.speak(acc === 100 ? 'مبروك! أكملت الدرس بعلامة كاملة! أنت نجم منارة!'
       : 'مبروك! أكملت الدرس! أحسنت صنعًا!');
+  }
+
+  /** push any not-yet-synced local attempts into the account, after login.
+      Attempts are marked synced rather than deleted, so the local attempt
+      log keeps working as the source of truth for level/unit display
+      (per-subject XP isn't exposed by GET /stats, only the global total). */
+  async function syncGuestProgress() {
+    const unsynced = state.attempts.filter(a => !a.synced);
+    if (!unsynced.length) return;
+    try {
+      await ManaraAPI.syncProgress(unsynced);
+      unsynced.forEach(a => { a.synced = true; });
+      saveState();
+    } catch (e) { console.warn('guest progress sync failed:', e.message); }
   }
 
   async function countUp(el, target) {
@@ -566,6 +697,10 @@
   }
 
   /* ---------------- settings ---------------- */
+  function applyTheme() {
+    document.documentElement.setAttribute('data-theme', prefs.theme === 'dark' ? 'dark' : 'light');
+  }
+
   function openSettings() {
     Sound.click();
     $('set-claude-key').value = prefs.claudeKey || '';
@@ -575,6 +710,13 @@
     $('set-eleven-speed-val').textContent = (prefs.elevenSpeed || 1.2).toFixed(2);
     $('set-sfx').checked = prefs.sfx !== false;
     $('set-tts').checked = prefs.tts !== false;
+    $('set-dark-mode').checked = prefs.theme === 'dark';
+
+    const loggedIn = Auth.isLoggedIn();
+    $('settings-account-guest').style.display = loggedIn ? 'none' : 'block';
+    $('settings-account-user').style.display = loggedIn ? 'block' : 'none';
+    if (loggedIn) $('settings-account-name').textContent = Auth.getUser()?.name || Auth.getUser()?.email || 'مستخدم';
+
     $('settings-modal').classList.add('open');
   }
   function saveSettings() {
@@ -584,15 +726,211 @@
     prefs.elevenSpeed = parseFloat($('set-eleven-speed').value) || 1.2;
     prefs.sfx = $('set-sfx').checked;
     prefs.tts = $('set-tts').checked;
+    prefs.theme = $('set-dark-mode').checked ? 'dark' : 'light';
     savePrefs();
+    applyTheme();
     Sound.setEnabled(prefs.sfx);
     Sound.correct();
     $('settings-modal').classList.remove('open');
   }
 
+  function resetProgress() {
+    if (!confirm('هل أنت متأكد؟ سيتم حذف كل نقاطك وتتابعك وتقدّمك في الدروس على هذا الجهاز.')) return;
+    state.xp = 0;
+    state.streak = 0;
+    state.lastDay = '';
+    state.completed = { math: [], english: [] };
+    state.attempts = [];
+    saveState();
+    Sound.click();
+    $('settings-modal').classList.remove('open');
+    renderPath();
+    show('screen-home');
+  }
+
+  /* ---------------- auth screens ---------------- */
+  function showAuthError(id, message) {
+    const el = $(id);
+    el.textContent = message;
+    el.classList.add('show');
+  }
+  function clearAuthErrors() {
+    ['login-error', 'signup-error', 'forgot-email-error', 'forgot-code-error'].forEach(id => {
+      $(id).textContent = '';
+      $(id).classList.remove('show');
+    });
+  }
+
+  function updateHomeAuthUI() {
+    $('btn-login-home').style.display = Auth.isLoggedIn() ? 'none' : 'block';
+  }
+
+  function renderGoogleButtons() {
+    if (googleRendered) return;
+    if (!MANARA_CONFIG.GOOGLE_CLIENT_ID || !window.google?.accounts?.id) return;
+    try {
+      google.accounts.id.initialize({ client_id: MANARA_CONFIG.GOOGLE_CLIENT_ID, callback: handleGoogleCredential });
+      ['google-btn-login', 'google-btn-signup'].forEach(id => {
+        const el = $(id);
+        if (el) google.accounts.id.renderButton(el, { type: 'standard', theme: 'outline', size: 'large', text: 'continue_with', locale: 'ar', width: 260 });
+      });
+      googleRendered = true;
+    } catch (e) { console.warn('Google button render failed:', e.message); }
+  }
+
+  async function handleGoogleCredential(response) {
+    try {
+      await Auth.googleSignIn(response.credential);
+      await syncGuestProgress();
+      updateHomeAuthUI();
+      renderPath();
+      show('screen-path');
+    } catch (e) {
+      showAuthError('login-error', e.message);
+    }
+  }
+
+  async function submitLogin() {
+    clearAuthErrors();
+    const email = $('login-email').value.trim();
+    const password = $('login-password').value;
+    if (!email || !password) return showAuthError('login-error', 'أدخل البريد الإلكتروني وكلمة المرور');
+    try {
+      Sound.click();
+      await Auth.login(email, password);
+      await syncGuestProgress();
+      updateHomeAuthUI();
+      renderPath();
+      show('screen-path');
+    } catch (e) { showAuthError('login-error', e.message); }
+  }
+
+  async function submitSignup() {
+    clearAuthErrors();
+    const name = $('signup-name').value.trim();
+    const email = $('signup-email').value.trim();
+    const password = $('signup-password').value;
+    if (!name || !email || !password) return showAuthError('signup-error', 'يرجى ملء جميع الحقول');
+    try {
+      Sound.click();
+      await Auth.register(name, email, password);
+      await syncGuestProgress();
+      updateHomeAuthUI();
+      renderPath();
+      show('screen-path');
+    } catch (e) { showAuthError('signup-error', e.message); }
+  }
+
+  async function submitForgotSend() {
+    clearAuthErrors();
+    const email = $('forgot-email').value.trim();
+    if (!email) return showAuthError('forgot-email-error', 'أدخل بريدك الإلكتروني');
+    try {
+      Sound.click();
+      await Auth.forgotPassword(email);
+      $('forgot-step-email').style.display = 'none';
+      $('forgot-step-code').style.display = 'block';
+    } catch (e) { showAuthError('forgot-email-error', e.message); }
+  }
+
+  async function submitForgotReset() {
+    clearAuthErrors();
+    const email = $('forgot-email').value.trim();
+    const code = $('forgot-code').value.trim();
+    const newPassword = $('forgot-new-password').value;
+    if (!code || !newPassword) return showAuthError('forgot-code-error', 'أدخل الرمز وكلمة المرور الجديدة');
+    try {
+      Sound.click();
+      await Auth.resetPassword(email, code, newPassword);
+      await syncGuestProgress();
+      updateHomeAuthUI();
+      renderPath();
+      show('screen-path');
+    } catch (e) { showAuthError('forgot-code-error', e.message); }
+  }
+
+  function openForgotScreen() {
+    clearAuthErrors();
+    $('forgot-step-email').style.display = 'block';
+    $('forgot-step-code').style.display = 'none';
+    $('forgot-email').value = '';
+    $('forgot-code').value = '';
+    $('forgot-new-password').value = '';
+    show('screen-forgot');
+  }
+
+  /* ---------------- profile + paywall ---------------- */
+  function renderSubjectProgressCards() {
+    const wrap = $('subject-progress-list');
+    wrap.innerHTML = '';
+    SUBJECT_META.filter(s => s.enabled).forEach(s => {
+      const xp = subjectXP(s.id);
+      const level = levelFor(xp);
+      const pct = xp % 100;
+      const completedIds = state.completed[s.id] || [];
+      const units = unitsFor(s.id);
+
+      const card = document.createElement('div');
+      card.className = 'subject-progress-card';
+      card.innerHTML = `
+        <div class="subject-progress-head">
+          <div class="subject-progress-name">${s.icon} ${s.name}</div>
+          <div class="level-badge">المستوى ${level}</div>
+        </div>
+        <div class="xp-bar-track"><div class="xp-bar-fill" style="width:${pct}%"></div></div>
+        <div class="unit-breakdown">
+          ${units.map((u, i) => {
+            const done = u.lessonIds.filter(id => completedIds.includes(id)).length;
+            return `<div class="unit-breakdown-row"><span>${u.icon} الوحدة ${i + 1}: ${u.title}</span><span>${done}/${u.lessonIds.length}</span></div>`;
+          }).join('')}
+        </div>`;
+      wrap.appendChild(card);
+    });
+  }
+
+  async function renderProfile() {
+    const loggedIn = Auth.isLoggedIn();
+    const user = Auth.getUser();
+    $('profile-name').textContent = loggedIn ? (user?.name || 'مستخدم') : 'ضيف';
+    $('btn-login-from-profile').style.display = loggedIn ? 'none' : 'block';
+    $('btn-logout').style.display = loggedIn ? 'block' : 'none';
+
+    $('profile-xp').textContent = state.xp;
+    $('profile-streak').textContent = state.streak;
+    $('premium-badge').style.display = state.premium ? 'inline-block' : 'none';
+    renderSubjectProgressCards();
+
+    if (loggedIn) {
+      try {
+        const data = await ManaraAPI.getStats();
+        state.premium = data.stats.subscriptionStatus === 'premium';
+        $('profile-xp').textContent = data.stats.totalXp;
+        $('profile-streak').textContent = data.stats.currentStreak;
+        $('premium-badge').style.display = state.premium ? 'inline-block' : 'none';
+        saveState();
+      } catch (e) { console.warn('could not load server stats:', e.message); }
+    }
+  }
+
+  async function subscribePremium() {
+    if (!Auth.isLoggedIn()) { show('screen-login'); return; }
+    try {
+      Sound.click();
+      await ManaraAPI.subscribe();
+      state.premium = true;
+      saveState();
+      Sound.correct();
+      show('screen-profile');
+      renderProfile();
+    } catch (e) { console.warn('subscribe failed:', e.message); }
+  }
+
   /* ---------------- wire up ---------------- */
   function init() {
-    ['mascot-home', 'mascot-path', 'mascot-lesson', 'mascot-congrats'].forEach(id => {
+    [
+      'mascot-home', 'mascot-path', 'mascot-lesson', 'mascot-congrats',
+      'mascot-login', 'mascot-signup', 'mascot-forgot', 'mascot-profile', 'mascot-paywall'
+    ].forEach(id => {
       const el = $(id);
       if (el) el.innerHTML = mascotSVG();
     });
@@ -603,12 +941,38 @@
     document.addEventListener('pointerdown', () => Speech.warmUp(), { once: true });
 
     buildKeyboard();
+    updateHomeAuthUI();
+    applyTheme();
+    setTimeout(renderGoogleButtons, 1200); // in case the GSI script is still loading
 
-    $('btn-start').addEventListener('click', () => { Sound.click(); Sound.swoosh(); renderPath(); show('screen-path'); });
+    document.querySelectorAll('.subject-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        Sound.click();
+        currentSubject = tab.dataset.subject;
+        renderPath();
+      });
+    });
+
+    $('btn-start').addEventListener('click', () => { Sound.click(); Sound.swoosh(); renderSubjectsScreen(); show('screen-subjects'); });
+    $('btn-close-subjects').addEventListener('click', () => { Sound.click(); show('screen-home'); });
+    $('btn-subjects-path').addEventListener('click', () => { Sound.click(); renderSubjectsScreen(); show('screen-subjects'); });
     $('btn-settings-home').addEventListener('click', openSettings);
     $('btn-settings-path').addEventListener('click', openSettings);
     $('btn-settings-cancel').addEventListener('click', () => { Sound.click(); $('settings-modal').classList.remove('open'); });
     $('btn-settings-save').addEventListener('click', saveSettings);
+    $('btn-reset-progress').addEventListener('click', resetProgress);
+    $('btn-settings-login').addEventListener('click', () => {
+      Sound.click(); $('settings-modal').classList.remove('open'); clearAuthErrors(); renderGoogleButtons(); show('screen-login');
+    });
+    $('btn-settings-logout').addEventListener('click', () => {
+      Sound.click();
+      Auth.logout();
+      state.premium = false;
+      saveState();
+      updateHomeAuthUI();
+      $('settings-modal').classList.remove('open');
+      show('screen-home');
+    });
     $('set-eleven-speed').addEventListener('input', () => {
       $('set-eleven-speed-val').textContent = parseFloat($('set-eleven-speed').value).toFixed(2);
     });
@@ -633,6 +997,41 @@
 
     $('btn-start-over').addEventListener('click', () => { Sound.click(); startLesson(lesson); });
     $('btn-back-path').addEventListener('click', () => { Sound.click(); renderPath(); show('screen-path'); });
+
+    // ---- auth screens ----
+    $('btn-login-home').addEventListener('click', () => { Sound.click(); clearAuthErrors(); renderGoogleButtons(); show('screen-login'); });
+    $('btn-close-login').addEventListener('click', () => { Sound.click(); show(Auth.isLoggedIn() ? 'screen-path' : 'screen-home'); });
+    $('btn-close-signup').addEventListener('click', () => { Sound.click(); show(Auth.isLoggedIn() ? 'screen-path' : 'screen-home'); });
+    $('btn-close-forgot').addEventListener('click', () => { Sound.click(); show('screen-login'); });
+    $('btn-goto-forgot').addEventListener('click', () => { Sound.click(); openForgotScreen(); });
+    $('btn-goto-signup').addEventListener('click', () => { Sound.click(); clearAuthErrors(); renderGoogleButtons(); show('screen-signup'); });
+    $('btn-goto-login').addEventListener('click', () => { Sound.click(); clearAuthErrors(); renderGoogleButtons(); show('screen-login'); });
+    $('btn-login-submit').addEventListener('click', submitLogin);
+    $('btn-signup-submit').addEventListener('click', submitSignup);
+    $('btn-forgot-send').addEventListener('click', submitForgotSend);
+    $('btn-forgot-reset').addEventListener('click', submitForgotReset);
+    $('login-password').addEventListener('keydown', e => { if (e.key === 'Enter') submitLogin(); });
+    $('signup-password').addEventListener('keydown', e => { if (e.key === 'Enter') submitSignup(); });
+
+    // ---- profile / paywall ----
+    $('btn-profile-path').addEventListener('click', () => { Sound.click(); show('screen-profile'); renderProfile(); });
+    $('btn-close-profile').addEventListener('click', () => { Sound.click(); show('screen-path'); });
+    $('btn-login-from-profile').addEventListener('click', () => { Sound.click(); clearAuthErrors(); renderGoogleButtons(); show('screen-login'); });
+    $('btn-logout').addEventListener('click', () => {
+      Sound.click();
+      Auth.logout();
+      state.premium = false;
+      saveState();
+      updateHomeAuthUI();
+      show('screen-home');
+    });
+    $('btn-goto-paywall').addEventListener('click', () => {
+      Sound.click();
+      if (!Auth.isLoggedIn()) { clearAuthErrors(); renderGoogleButtons(); show('screen-login'); return; }
+      show('screen-paywall');
+    });
+    $('btn-close-paywall').addEventListener('click', () => { Sound.click(); show('screen-profile'); renderProfile(); });
+    $('btn-subscribe').addEventListener('click', subscribePremium);
 
     // number keys 1-4 select choices, Enter checks / continues
     document.addEventListener('keydown', (e) => {

@@ -78,13 +78,13 @@ const AI = (() => {
     return parseAnthropicResponse(await res.json());
   }
 
-  /* Via our own /api/explain serverless proxy — no personal key required.
-     Only ever resolves same-origin (relative URL), so it's a silent
-     no-op 404/501 on hosts that don't run the proxy (e.g. GitHub Pages). */
+  /* Via the shared Manara backend proxy — no personal key required.
+     Throws (caught by the caller) until MANARA_CONFIG.API_BASE is configured. */
   async function explainProxy(system, content) {
-    const res = await fetch('/api/explain', {
+    if (!MANARA_CONFIG.API_BASE) throw new Error('proxy not configured');
+    const res = await fetch(MANARA_CONFIG.API_BASE + '/api/manara/public/explain', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-App-Id': MANARA_CONFIG.APP_SLUG },
       body: JSON.stringify({ system, content })
     });
     if (!res.ok) {
