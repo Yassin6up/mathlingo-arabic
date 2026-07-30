@@ -1412,6 +1412,23 @@
         else if (!$('btn-check').disabled) check();
       }
     });
+
+    // shareable deep links, e.g. http://localhost:4188/#onboarding
+    const HASH_ROUTES = {
+      onboarding: () => startOnboarding(),
+      subjects: () => { renderSubjectsScreen(); show('screen-subjects'); },
+      library: () => { renderLibrary(); show('screen-library'); },
+      profile: () => { show('screen-profile'); renderProfile(); },
+      paywall: () => { show('screen-paywall'); },
+      login: () => { clearAuthErrors(); renderGoogleButtons(); show('screen-login'); },
+      signup: () => { clearAuthErrors(); renderGoogleButtons(); show('screen-signup'); },
+    };
+    function handleHashRoute() {
+      const route = HASH_ROUTES[location.hash.slice(1)];
+      if (route) route();
+    }
+    window.addEventListener('hashchange', handleHashRoute);
+    handleHashRoute();
   }
 
   init();
