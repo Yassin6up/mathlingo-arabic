@@ -22,7 +22,16 @@
       <h1 class="logo-title">منـ<span>ارة</span></h1>
       <p class="tagline">طريقك الذكي لتعلّم أي شيء، بمتعة وسهولة!</p>
       <button class="btn btn-primary btn-wide" id="btn-start">ابدأ الآن</button>
-      <button class="btn btn-ghost btn-wide" id="btn-library-home">📚&nbsp; المكتبة</button>
+
+      <button class="library-watermark-btn" id="btn-library-home">
+        <div class="library-watermark-icon">📚</div>
+        <div class="library-watermark-text">
+          <div class="library-watermark-title">المكتبة</div>
+          <div class="library-watermark-sub" id="home-library-level">تصفّح كل الوحدات والدروس</div>
+        </div>
+        <div class="library-watermark-arrow">‹</div>
+      </button>
+
       <button class="btn btn-ghost btn-wide" id="btn-login-home">تسجيل الدخول</button>
       <button class="btn btn-ghost btn-wide" id="btn-settings-home">⚙️&nbsp; الإعدادات</button>
     </div>
@@ -327,6 +336,23 @@
       <button class="icon-btn" id="btn-book-lesson-listen" title="استمع">🔊</button>
     </header>
     <div class="book-lesson-body" id="book-lesson-body"></div>
+  </section>
+
+  <!-- ============ ONBOARDING SCREEN ============ -->
+  <section id="screen-onboarding" class="screen">
+    <header class="onboarding-header">
+      <button class="icon-btn" id="btn-onboarding-back">‹</button>
+      <div class="onboarding-dots" id="onboarding-dots"></div>
+      <button class="btn-link" id="btn-onboarding-skip">تخطَّ</button>
+    </header>
+    <div class="onboarding-body">
+      <h2 class="onboarding-question" id="onboarding-question"></h2>
+      <p class="onboarding-subtext" id="onboarding-subtext"></p>
+      <div class="onboarding-options" id="onboarding-options"></div>
+    </div>
+    <footer class="onboarding-footer">
+      <button class="btn btn-primary btn-wide" id="btn-onboarding-next" disabled>التالي</button>
+    </footer>
   </section>
 
 </div>

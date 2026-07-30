@@ -20,7 +20,7 @@ const Speech = (() => {
   const DEFAULT_VOICE = '21m00Tcm4TlvDq8ikWAM'; // ElevenLabs "Rachel"
 
   function settings() {
-    try { return JSON.parse(localStorage.getItem('mathlingo-settings') || '{}'); }
+    try { return JSON.parse(localStorage.getItem('manara-settings') || '{}'); }
     catch { return {}; }
   }
 

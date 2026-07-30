@@ -14,6 +14,8 @@
     completed: { math: [], english: [] },
     attempts: [], // per-lesson attempt log, synced to the account on login
     premium: false,
+    onboardingDone: false,
+    onboarding: null, // { gradeLevel, country, age, pace, goal, dailyTime, startSubject }
   });
   const prefs = loadJSON('manara-settings', { sfx: true, tts: true });
   Sound.setEnabled(prefs.sfx !== false);
@@ -151,7 +153,7 @@
   const screens = [
     'screen-home', 'screen-subjects', 'screen-path', 'screen-lesson', 'screen-quiz', 'screen-congrats',
     'screen-login', 'screen-signup', 'screen-forgot', 'screen-profile', 'screen-paywall',
-    'screen-library', 'screen-book', 'screen-book-lesson'
+    'screen-library', 'screen-book', 'screen-book-lesson', 'screen-onboarding'
   ];
   function show(id) {
     screens.forEach(s => $(s).classList.toggle('active', s === id));
@@ -754,6 +756,7 @@
     state.xp += sessionXP;
     const bucket = state.completed[currentSubject] || (state.completed[currentSubject] = []);
     if (!bucket.includes(lesson.id)) bucket.push(lesson.id);
+    updateHomeLibraryWatermark();
 
     const acc = Math.round(sessionCorrect / lesson.quiz.length * 100);
     const attempt = {
@@ -893,6 +896,7 @@
     Sound.click();
     $('settings-modal').classList.remove('open');
     renderPath();
+    updateHomeLibraryWatermark();
     show('screen-home');
   }
 
@@ -911,6 +915,16 @@
 
   function updateHomeAuthUI() {
     $('btn-login-home').style.display = Auth.isLoggedIn() ? 'none' : 'block';
+    updateHomeLibraryWatermark();
+  }
+
+  function updateHomeLibraryWatermark() {
+    const mathLv = levelFor(subjectXP('math'));
+    const enLv = levelFor(subjectXP('english'));
+    const anyProgress = state.attempts.length > 0;
+    $('home-library-level').textContent = anyProgress
+      ? `📐 المستوى ${mathLv} · 🔤 المستوى ${enLv}`
+      : 'تصفّح كل الوحدات والدروس';
   }
 
   function renderGoogleButtons() {
@@ -926,13 +940,22 @@
     } catch (e) { console.warn('Google button render failed:', e.message); }
   }
 
-  async function handleGoogleCredential(response) {
-    try {
-      await Auth.googleSignIn(response.credential);
-      await syncGuestProgress();
-      updateHomeAuthUI();
+  /** shared post-auth flow: sync guest progress, then onboarding (new accounts) or straight to path */
+  async function postAuthSuccess(isNewUser) {
+    await syncGuestProgress();
+    updateHomeAuthUI();
+    if (isNewUser && !state.onboardingDone) {
+      startOnboarding();
+    } else {
       renderPath();
       show('screen-path');
+    }
+  }
+
+  async function handleGoogleCredential(response) {
+    try {
+      const { isNewUser } = await Auth.googleSignIn(response.credential);
+      await postAuthSuccess(isNewUser);
     } catch (e) {
       showAuthError('login-error', e.message);
     }
@@ -945,11 +968,8 @@
     if (!email || !password) return showAuthError('login-error', 'أدخل البريد الإلكتروني وكلمة المرور');
     try {
       Sound.click();
-      await Auth.login(email, password);
-      await syncGuestProgress();
-      updateHomeAuthUI();
-      renderPath();
-      show('screen-path');
+      const { isNewUser } = await Auth.login(email, password);
+      await postAuthSuccess(isNewUser);
     } catch (e) { showAuthError('login-error', e.message); }
   }
 
@@ -961,11 +981,8 @@
     if (!name || !email || !password) return showAuthError('signup-error', 'يرجى ملء جميع الحقول');
     try {
       Sound.click();
-      await Auth.register(name, email, password);
-      await syncGuestProgress();
-      updateHomeAuthUI();
-      renderPath();
-      show('screen-path');
+      const { isNewUser } = await Auth.register(name, email, password);
+      await postAuthSuccess(isNewUser);
     } catch (e) { showAuthError('signup-error', e.message); }
   }
 
@@ -990,10 +1007,7 @@
     try {
       Sound.click();
       await Auth.resetPassword(email, code, newPassword);
-      await syncGuestProgress();
-      updateHomeAuthUI();
-      renderPath();
-      show('screen-path');
+      await postAuthSuccess(false); // resetting a password is always an existing account
     } catch (e) { showAuthError('forgot-code-error', e.message); }
   }
 
@@ -1073,6 +1087,185 @@
     } catch (e) { console.warn('subscribe failed:', e.message); }
   }
 
+  /* ---------------- onboarding (first-time account setup) ---------------- */
+  const COUNTRIES = [
+    'السعودية', 'الإمارات', 'مصر', 'الأردن', 'الكويت', 'قطر', 'البحرين', 'عُمان',
+    'العراق', 'سوريا', 'لبنان', 'فلسطين', 'اليمن', 'ليبيا', 'تونس', 'الجزائر',
+    'المغرب', 'السودان', 'موريتانيا', 'الصومال', 'جيبوتي', 'جزر القمر',
+    'تركيا', 'الولايات المتحدة', 'المملكة المتحدة', 'كندا', 'أستراليا', 'ألمانيا',
+    'فرنسا', 'ماليزيا', 'إندونيسيا', 'باكستان', 'الهند', 'دولة أخرى'
+  ];
+
+  const ONBOARDING_STEPS = [
+    {
+      key: 'gradeLevel', type: 'cards',
+      question: 'ما هو مستواك الدراسي؟', subtext: 'هذا يساعدنا على اختيار مستوى الدروس المناسب لك',
+      options: [
+        { value: 'elementary', label: 'ابتدائي', img: 'img/onboarding/level-young.png' },
+        { value: 'secondary', label: 'متوسط / ثانوي', img: 'img/onboarding/level-teen.png' },
+        { value: 'university', label: 'جامعي / بالغ', img: 'img/onboarding/level-adult.png' },
+      ]
+    },
+    {
+      key: 'country', type: 'select',
+      question: 'من أين أنت؟', subtext: 'لتخصيص أمثلة تناسب بيئتك',
+    },
+    {
+      key: 'age', type: 'chips',
+      question: 'كم عمرك؟', subtext: '',
+      options: [
+        { value: 'u12', label: 'أقل من 12' },
+        { value: '13-17', label: '13 – 17' },
+        { value: '18-25', label: '18 – 25' },
+        { value: '26-40', label: '26 – 40' },
+        { value: '40+', label: 'أكبر من 40' },
+      ]
+    },
+    {
+      key: 'pace', type: 'cards',
+      question: 'كيف تصف أسلوبك في التعلّم؟', subtext: 'لا توجد إجابة خاطئة — كلها طبيعية! 😊',
+      options: [
+        { value: 'productive', label: 'منتج ومنظّم', img: 'img/onboarding/pace-productive.png' },
+        { value: 'balanced', label: 'متوازن', img: 'img/onboarding/pace-balanced.png' },
+        { value: 'relaxed', label: 'أحب أخذ وقتي بهدوء', img: 'img/onboarding/pace-relaxed.png' },
+      ]
+    },
+    {
+      key: 'goal', type: 'cards',
+      question: 'ما هدفك من التعلّم؟', subtext: '',
+      options: [
+        { value: 'exams', label: 'التحضير للامتحانات', img: 'img/onboarding/goal-exams.png' },
+        { value: 'grades', label: 'تحسين مستواي الدراسي', img: 'img/onboarding/goal-grades.png' },
+        { value: 'curiosity', label: 'التعلّم من أجل المتعة', img: 'img/onboarding/goal-curiosity.png' },
+      ]
+    },
+    {
+      key: 'dailyTime', type: 'chips',
+      question: 'كم دقيقة تريد التعلّم يوميًا؟', subtext: '',
+      options: [
+        { value: '5', label: '⏱️ 5 دقائق' },
+        { value: '10', label: '⏱️ 10 دقائق' },
+        { value: '15', label: '⏱️ 15 دقيقة' },
+        { value: '20', label: '⏱️ 20+ دقيقة' },
+      ]
+    },
+    {
+      key: 'startSubject', type: 'chips',
+      question: 'بماذا تريد أن تبدأ؟', subtext: '',
+      options: [
+        { value: 'math', label: '📐 الرياضيات' },
+        { value: 'english', label: '🔤 English' },
+        { value: 'both', label: '✨ كلاهما' },
+      ]
+    },
+  ];
+
+  let onboardingIdx = 0;
+  let onboardingAnswers = {};
+
+  function startOnboarding() {
+    onboardingIdx = 0;
+    onboardingAnswers = {};
+    renderOnboardingDots();
+    renderOnboardingStep();
+    show('screen-onboarding');
+  }
+
+  function renderOnboardingDots() {
+    const wrap = $('onboarding-dots');
+    wrap.innerHTML = '';
+    ONBOARDING_STEPS.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'onboarding-dot' + (i === onboardingIdx ? ' active' : i < onboardingIdx ? ' done' : '');
+      wrap.appendChild(dot);
+    });
+  }
+
+  function renderOnboardingStep() {
+    const step = ONBOARDING_STEPS[onboardingIdx];
+    $('onboarding-question').textContent = step.question;
+    $('onboarding-subtext').textContent = step.subtext || '';
+    $('btn-onboarding-back').style.visibility = onboardingIdx === 0 ? 'hidden' : 'visible';
+    $('btn-onboarding-next').textContent = onboardingIdx === ONBOARDING_STEPS.length - 1 ? '✓ ابدأ رحلتك' : 'التالي';
+
+    const wrap = $('onboarding-options');
+    wrap.className = 'onboarding-options' + (step.type === 'chips' ? ' layout-chips' : '');
+    wrap.innerHTML = '';
+
+    const current = onboardingAnswers[step.key];
+
+    if (step.type === 'select') {
+      const select = document.createElement('select');
+      select.className = 'onboarding-select';
+      select.innerHTML = '<option value="">اختر بلدك...</option>' +
+        COUNTRIES.map(c => `<option value="${c}">${c}</option>`).join('');
+      if (current) select.value = current;
+      select.addEventListener('change', () => selectOnboardingOption(select.value));
+      wrap.appendChild(select);
+      $('btn-onboarding-next').disabled = !current;
+      return;
+    }
+
+    step.options.forEach(opt => {
+      const el = document.createElement('div');
+      el.className = (step.type === 'cards' ? 'option-card' : 'option-chip') + (current === opt.value ? ' selected' : '');
+      el.innerHTML = step.type === 'cards'
+        ? `<img src="${opt.img}" alt=""><span class="option-label">${opt.label}</span>`
+        : opt.label;
+      el.addEventListener('click', () => selectOnboardingOption(opt.value));
+      wrap.appendChild(el);
+    });
+    $('btn-onboarding-next').disabled = !current;
+  }
+
+  function selectOnboardingOption(value) {
+    if (!value) return;
+    Sound.click();
+    const step = ONBOARDING_STEPS[onboardingIdx];
+    onboardingAnswers[step.key] = value;
+    renderOnboardingStep();
+  }
+
+  function nextOnboardingStep() {
+    if ($('btn-onboarding-next').disabled) return;
+    Sound.click();
+    if (onboardingIdx < ONBOARDING_STEPS.length - 1) {
+      onboardingIdx++;
+      renderOnboardingDots();
+      renderOnboardingStep();
+    } else {
+      finishOnboarding();
+    }
+  }
+
+  function prevOnboardingStep() {
+    if (onboardingIdx === 0) return;
+    Sound.click();
+    onboardingIdx--;
+    renderOnboardingDots();
+    renderOnboardingStep();
+  }
+
+  function finishOnboarding() {
+    state.onboarding = onboardingAnswers;
+    state.onboardingDone = true;
+    saveState();
+    Sound.correct();
+
+    if (onboardingAnswers.startSubject === 'english') currentSubject = 'english';
+    else currentSubject = 'math';
+    renderPath();
+    show('screen-path');
+  }
+
+  function skipOnboarding() {
+    Sound.click();
+    state.onboardingDone = true;
+    saveState();
+    renderPath();
+    show('screen-path');
+  }
+
   /* ---------------- wire up ---------------- */
   function init() {
     [
@@ -1119,6 +1312,12 @@
       if (bookLessonRef) Speech.speak(bookLessonRef.lesson.explanations[0].speech);
     });
     $('library-search').addEventListener('input', (e) => searchLibrary(e.target.value));
+
+    // ---- onboarding ----
+    $('btn-onboarding-next').addEventListener('click', nextOnboardingStep);
+    $('btn-onboarding-back').addEventListener('click', prevOnboardingStep);
+    $('btn-onboarding-skip').addEventListener('click', skipOnboarding);
+
     $('btn-settings-home').addEventListener('click', openSettings);
     $('btn-settings-path').addEventListener('click', openSettings);
     $('btn-settings-cancel').addEventListener('click', () => { Sound.click(); $('settings-modal').classList.remove('open'); });

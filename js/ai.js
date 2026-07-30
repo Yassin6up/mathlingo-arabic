@@ -9,7 +9,7 @@
    ============================================================ */
 const AI = (() => {
   function settings() {
-    try { return JSON.parse(localStorage.getItem('mathlingo-settings') || '{}'); }
+    try { return JSON.parse(localStorage.getItem('manara-settings') || '{}'); }
     catch { return {}; }
   }
 
@@ -26,11 +26,26 @@ const AI = (() => {
     '<span dir=\'ltr\'>...</span> so it displays correctly in the RTL page. You may also highlight parts ' +
     'with <span class=\'hl\'>...</span> (red) or <span class=\'hl2\'>...</span> (green).';
 
+  function learnerProfile() {
+    try {
+      const s = JSON.parse(localStorage.getItem('manara-state') || '{}');
+      const o = s.onboarding;
+      if (!o) return '';
+      const paceMap = { productive: 'يحب الشرح السريع والمباشر', balanced: 'يحب توازن بين السرعة والتفصيل', relaxed: 'يفضّل شرحًا هادئًا وبطيئًا بدون استعجال' };
+      const gradeMap = { elementary: 'مرحلة ابتدائية', secondary: 'مرحلة متوسطة أو ثانوية', university: 'مرحلة جامعية أو بالغ' };
+      const parts = [];
+      if (o.gradeLevel) parts.push(gradeMap[o.gradeLevel] || o.gradeLevel);
+      if (o.age) parts.push(`الفئة العمرية ${o.age}`);
+      if (o.pace) parts.push(paceMap[o.pace] || o.pace);
+      return parts.length ? `\nLearner profile (adapt tone/complexity accordingly, but keep replying in Arabic): ${parts.join('، ')}.` : '';
+    } catch { return ''; }
+  }
+
   function buildUserContent(lesson, previousExplanations) {
     const prev = previousExplanations
       .map((e, i) => `Attempt ${i + 1}: ${e.speech}`)
       .join('\n');
-    return `Lesson topic: ${lesson.title}\nThe exam being taught: ${lesson.explanations[0].steps.join(' | ')}\n\nExplanations the student already saw and did not understand:\n${prev}\n\nGive a NEW different explanation.`;
+    return `Lesson topic: ${lesson.title}\nThe exam being taught: ${lesson.explanations[0].steps.join(' | ')}\n\nExplanations the student already saw and did not understand:\n${prev}${learnerProfile()}\n\nGive a NEW different explanation.`;
   }
 
   /* shared by both the direct call and the proxy call: both return the

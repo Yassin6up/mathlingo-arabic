@@ -915,3 +915,88 @@ body {
   .library-body, .book-body, .book-lesson-body { max-width: 640px; margin: 0 auto; width: 100%; }
   .library-books { grid-template-columns: repeat(2, 1fr); max-width: 460px; }
 }
+
+/* ============ home screen: library watermark button ============ */
+.library-watermark-btn {
+  position: relative; overflow: hidden;
+  width: 100%; max-width: 340px;
+  display: flex; align-items: center; gap: 14px;
+  border: 2px solid var(--navy); border-radius: 16px;
+  background: linear-gradient(120deg, var(--navy), var(--navy-shade));
+  padding: 14px 18px;
+  cursor: pointer; text-align: start;
+  box-shadow: 0 4px 0 var(--navy-shade);
+  transition: transform .05s, box-shadow .05s, filter .15s;
+  font-family: var(--font);
+}
+.library-watermark-btn:hover { filter: brightness(1.08); }
+.library-watermark-btn:active { transform: translateY(4px); box-shadow: 0 0 0 var(--navy-shade); }
+.library-watermark-btn::after {
+  content: '📚';
+  position: absolute; left: -14px; bottom: -22px;
+  font-size: 88px; line-height: 1; opacity: .14;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+.library-watermark-icon {
+  font-size: 30px; flex: 0 0 auto; z-index: 1;
+  background: rgba(255,255,255,.12); width: 46px; height: 46px;
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+}
+.library-watermark-text { flex: 1; z-index: 1; }
+.library-watermark-title { color: #fff; font-weight: 800; font-size: 16px; }
+.library-watermark-sub { color: var(--yellow); font-weight: 700; font-size: 12.5px; margin-top: 2px; }
+.library-watermark-arrow { color: rgba(255,255,255,.5); font-size: 20px; z-index: 1; }
+
+/* ============ onboarding ============ */
+.onboarding-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px;
+}
+.onboarding-dots { display: flex; gap: 7px; }
+.onboarding-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--gray-border);
+  transition: background .2s, transform .2s;
+}
+.onboarding-dot.done { background: var(--primary-light); }
+.onboarding-dot.active { background: var(--primary); transform: scale(1.35); }
+
+.onboarding-body { flex: 1; overflow-y: auto; padding: 6px 24px 24px; display: flex; flex-direction: column; }
+.onboarding-question { font-size: 21px; font-weight: 800; text-align: center; line-height: 1.4; margin: 8px 0 4px; }
+.onboarding-subtext { text-align: center; color: var(--text-soft); font-size: 14px; font-weight: 700; margin-bottom: 20px; }
+
+.onboarding-options { display: flex; flex-direction: column; gap: 12px; }
+.onboarding-options.layout-chips { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+
+.option-card {
+  display: flex; align-items: center; gap: 14px;
+  border: 2px solid var(--gray-border); border-radius: 16px; padding: 10px 16px;
+  cursor: pointer; background: #fff; text-align: start;
+  transition: border-color .15s, background .15s, transform .05s;
+}
+.option-card:active { transform: scale(.99); }
+.option-card img { width: 64px; height: 64px; object-fit: contain; flex: 0 0 64px; }
+.option-card .option-label { font-weight: 800; font-size: 16px; }
+.option-card.selected { border-color: var(--primary); background: var(--primary-light); box-shadow: 0 3px 0 var(--primary); }
+
+.option-chip {
+  border: 2px solid var(--gray-border); border-radius: 14px; padding: 14px 20px;
+  font-weight: 800; font-size: 15px; cursor: pointer; background: #fff;
+  font-family: var(--font); color: var(--text);
+  transition: border-color .15s, background .15s, transform .05s;
+}
+.option-chip:active { transform: scale(.98); }
+.option-chip.selected { border-color: var(--primary); background: var(--primary-light); color: var(--primary-text); }
+
+.onboarding-select {
+  width: 100%; padding: 14px 16px; font-family: var(--font); font-weight: 700; font-size: 16px;
+  border: 2px solid var(--gray-border); border-radius: 14px; background: #f7f7f7; color: var(--text);
+  outline: none;
+}
+.onboarding-select:focus { border-color: var(--blue-border); background: #fff; }
+
+.onboarding-footer { padding: 14px 24px 22px; }
+
+:root[data-theme="dark"] .option-card,
+:root[data-theme="dark"] .option-chip { background: #212227; }
+:root[data-theme="dark"] .onboarding-select { background: #212227; color: var(--text); }

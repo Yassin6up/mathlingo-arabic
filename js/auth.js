@@ -55,19 +55,19 @@ const Auth = (() => {
     async register(name, email, password) {
       const { data } = await apiFetch('/api/auth/register', { method: 'POST', body: { name, email, password } });
       setState({ token: data.token, user: data.user });
-      return data.user;
+      return { user: data.user, isNewUser: true }; // registration is always a brand-new account
     },
 
     async login(email, password) {
       const { data } = await apiFetch('/api/auth/login', { method: 'POST', body: { email, password } });
       setState({ token: data.token, user: data.user });
-      return data.user;
+      return { user: data.user, isNewUser: false };
     },
 
     async googleSignIn(idToken) {
       const { data } = await apiFetch('/api/auth/google-login', { method: 'POST', body: { idToken } });
       setState({ token: data.token, user: data.user });
-      return data.user;
+      return { user: data.user, isNewUser: !!data.isNewUser };
     },
 
     async forgotPassword(email) {
