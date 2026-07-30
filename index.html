@@ -22,6 +22,7 @@
       <h1 class="logo-title">منـ<span>ارة</span></h1>
       <p class="tagline">طريقك الذكي لتعلّم أي شيء، بمتعة وسهولة!</p>
       <button class="btn btn-primary btn-wide" id="btn-start">ابدأ الآن</button>
+      <button class="btn btn-ghost btn-wide" id="btn-library-home">📚&nbsp; المكتبة</button>
       <button class="btn btn-ghost btn-wide" id="btn-login-home">تسجيل الدخول</button>
       <button class="btn btn-ghost btn-wide" id="btn-settings-home">⚙️&nbsp; الإعدادات</button>
     </div>
@@ -45,6 +46,7 @@
       <button class="icon-btn" id="btn-subjects-path" title="كل المواد">🧭</button>
       <div class="stat stat-streak">🔥 <span id="stat-streak">0</span></div>
       <div class="stat stat-xp">⚡ <span id="stat-xp">0</span></div>
+      <button class="icon-btn" id="btn-library-path" title="المكتبة">📚</button>
       <button class="icon-btn" id="btn-profile-path" title="حسابي">👤</button>
       <button class="icon-btn" id="btn-settings-path" title="الإعدادات">⚙️</button>
     </header>
@@ -285,6 +287,46 @@
       <button class="btn btn-premium btn-wide" id="btn-subscribe">اشترك الآن</button>
       <p class="paywall-note">تجربة تعليمية فقط — لا يتم خصم أي مبلغ حقيقي حاليًا.</p>
     </div>
+  </section>
+
+  <!-- ============ LIBRARY SCREEN ============ -->
+  <section id="screen-library" class="screen">
+    <header class="topbar">
+      <button class="icon-btn close-btn" id="btn-close-library">✕</button>
+      <div class="lesson-title">المكتبة</div>
+      <span style="width:40px"></span>
+    </header>
+    <div class="library-body">
+      <div class="library-search-wrap">
+        <input type="text" id="library-search" class="library-search-input" dir="auto"
+          placeholder="🔍 ابحث عن درس أو موضوع...">
+      </div>
+      <div id="library-search-results" class="library-search-results" style="display:none"></div>
+      <div id="library-books-wrap">
+        <p class="library-hint">اختر كتابًا لتصفّح كل الوحدات والدروس، واقرأ الشرح الكامل بنفسك في أي وقت.</p>
+        <div class="library-books" id="library-books"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BOOK (TABLE OF CONTENTS) SCREEN ============ -->
+  <section id="screen-book" class="screen">
+    <header class="topbar">
+      <button class="icon-btn close-btn" id="btn-close-book">✕</button>
+      <div class="lesson-title" id="book-title">الكتاب</div>
+      <span style="width:40px"></span>
+    </header>
+    <div class="book-body" id="book-body"></div>
+  </section>
+
+  <!-- ============ BOOK LESSON (READING) SCREEN ============ -->
+  <section id="screen-book-lesson" class="screen">
+    <header class="topbar">
+      <button class="icon-btn close-btn" id="btn-close-book-lesson">✕</button>
+      <div class="lesson-title" id="book-lesson-header-title">الدرس</div>
+      <button class="icon-btn" id="btn-book-lesson-listen" title="استمع">🔊</button>
+    </header>
+    <div class="book-lesson-body" id="book-lesson-body"></div>
   </section>
 
 </div>

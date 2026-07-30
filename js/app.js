@@ -150,7 +150,8 @@
   /* ---------------- screens ---------------- */
   const screens = [
     'screen-home', 'screen-subjects', 'screen-path', 'screen-lesson', 'screen-quiz', 'screen-congrats',
-    'screen-login', 'screen-signup', 'screen-forgot', 'screen-profile', 'screen-paywall'
+    'screen-login', 'screen-signup', 'screen-forgot', 'screen-profile', 'screen-paywall',
+    'screen-library', 'screen-book', 'screen-book-lesson'
   ];
   function show(id) {
     screens.forEach(s => $(s).classList.toggle('active', s === id));
@@ -273,6 +274,152 @@
     trophyWrap.style.paddingTop = '0';
     trophyWrap.appendChild(trophy);
     wrap.appendChild(trophyWrap);
+  }
+
+  /* ---------------- library (book-style browse & search) ---------------- */
+  const BOOK_META = {
+    math: { title: 'كتاب الرياضيات', cover: 'img/book-math.png', name: 'الرياضيات' },
+    english: { title: 'English Book', cover: 'img/book-english.png', name: 'English' },
+  };
+  let bookLessonRef = null; // { subject, lesson } — currently open reading page
+
+  function stripHtml(html) { return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(); }
+
+  function renderLibrary() {
+    const wrap = $('library-books');
+    wrap.innerHTML = '';
+    SUBJECT_META.filter(s => s.enabled).forEach(s => {
+      const meta = BOOK_META[s.id];
+      const units = unitsFor(s.id);
+      const lessons = lessonsFor(s.id);
+      const card = document.createElement('div');
+      card.className = 'book-card';
+      card.innerHTML = `
+        <img src="${meta.cover}" alt="${meta.title}" class="book-cover-img">
+        <div class="book-card-title">${s.icon} ${meta.title}</div>
+        <div class="book-card-sub">${units.length} وحدات · ${lessons.length} دروس</div>`;
+      card.addEventListener('click', () => { Sound.click(); openBook(s.id); });
+      wrap.appendChild(card);
+    });
+    $('library-search').value = '';
+    $('library-search-results').style.display = 'none';
+    $('library-books-wrap').style.display = 'block';
+  }
+
+  function searchLibrary(term) {
+    const q = term.trim().toLowerCase();
+    const resultsEl = $('library-search-results');
+    const booksEl = $('library-books-wrap');
+    if (!q) {
+      resultsEl.style.display = 'none';
+      booksEl.style.display = 'block';
+      return;
+    }
+    booksEl.style.display = 'none';
+    resultsEl.style.display = 'flex';
+
+    const hits = [];
+    SUBJECT_META.filter(s => s.enabled).forEach(s => {
+      lessonsFor(s.id).forEach(l => {
+        const haystack = [
+          l.title,
+          ...l.explanations.map(e => e.bubble + ' ' + e.steps.map(stripHtml).join(' ')),
+          ...l.quiz.map(qq => (qq.q || '') + ' ' + (qq.math || '') + ' ' + (qq.why || '')),
+        ].join(' ').toLowerCase();
+        if (haystack.includes(q)) {
+          const unit = unitsFor(s.id).find(u => u.lessonIds.includes(l.id));
+          hits.push({ subject: s, lesson: l, unitTitle: unit ? unit.title : '' });
+        }
+      });
+    });
+
+    resultsEl.innerHTML = '';
+    if (!hits.length) {
+      resultsEl.innerHTML = `<div class="search-no-results">لا توجد نتائج لـ "${term}" 🔍</div>`;
+      return;
+    }
+    hits.forEach(h => {
+      const row = document.createElement('div');
+      row.className = 'search-result-row';
+      row.innerHTML = `
+        <div class="search-result-icon">${h.lesson.icon}</div>
+        <div>
+          <div class="search-result-title">${h.lesson.title}</div>
+          <div class="search-result-meta">${h.subject.icon} ${BOOK_META[h.subject.id].name} · ${h.unitTitle}</div>
+        </div>`;
+      row.addEventListener('click', () => { Sound.click(); openBookLesson(h.subject.id, h.lesson); });
+      resultsEl.appendChild(row);
+    });
+  }
+
+  function openBook(subject) {
+    $('book-title').textContent = BOOK_META[subject].title;
+    const wrap = $('book-body');
+    wrap.innerHTML = '';
+    const completedIds = state.completed[subject] || [];
+    const lessons = lessonsFor(subject);
+    const byId = Object.fromEntries(lessons.map(l => [l.id, l]));
+
+    unitsFor(subject).forEach((unit, ui) => {
+      const chapter = document.createElement('div');
+      chapter.className = 'book-chapter';
+      chapter.innerHTML = `<div class="book-chapter-head"><span class="book-chapter-icon">${unit.icon}</span> الوحدة ${ui + 1}: ${unit.title}</div>`;
+      unit.lessonIds.forEach(id => {
+        const l = byId[id];
+        if (!l) return;
+        const done = completedIds.includes(l.id);
+        const row = document.createElement('div');
+        row.className = 'book-lesson-row' + (done ? ' done' : '');
+        row.innerHTML = `
+          <div class="lesson-icon">${l.icon}</div>
+          <div class="lesson-row-title">${l.title}</div>
+          <div class="lesson-row-check">${done ? '✅' : ''}</div>
+          <div class="lesson-row-arrow">‹</div>`;
+        row.addEventListener('click', () => { Sound.click(); openBookLesson(subject, l); });
+        chapter.appendChild(row);
+      });
+      wrap.appendChild(chapter);
+    });
+    show('screen-book');
+  }
+
+  function openBookLesson(subject, l) {
+    bookLessonRef = { subject, lesson: l };
+    $('book-lesson-header-title').textContent = l.title;
+    const wrap = $('book-lesson-body');
+
+    const main = l.explanations[0];
+    const alternates = l.explanations.slice(1);
+
+    let html = `<div class="reading-summary">${main.bubble}</div>`;
+    html += `<div class="reading-section-title">الشرح الكامل</div>`;
+    html += `<div class="reading-steps">${main.steps.map(s => `<div class="reading-step">${s}</div>`).join('')}</div>`;
+
+    if (alternates.length) {
+      html += `<details class="variant-details"><summary>طرق أخرى لفهم نفس الدرس (${alternates.length})</summary>`;
+      alternates.forEach((exp, i) => {
+        html += `<div class="variant-block">
+          <div class="variant-block-title">الطريقة ${i + 2}</div>
+          <div class="reading-summary" style="margin-bottom:8px">${exp.bubble}</div>
+          <div class="reading-steps">${exp.steps.map(s => `<div class="reading-step">${s}</div>`).join('')}</div>
+        </div>`;
+      });
+      html += `</details>`;
+    }
+
+    wrap.innerHTML = html;
+
+    const cta = document.createElement('button');
+    cta.className = 'btn btn-primary btn-wide reading-cta';
+    cta.textContent = '✓ ابدأ التمرين التفاعلي';
+    cta.addEventListener('click', () => {
+      Sound.click();
+      currentSubject = subject;
+      startLesson(l);
+    });
+    wrap.appendChild(cta);
+
+    show('screen-book-lesson');
   }
 
   /* ---------------- lesson (explanation) ---------------- */
@@ -957,6 +1104,21 @@
     $('btn-start').addEventListener('click', () => { Sound.click(); Sound.swoosh(); renderSubjectsScreen(); show('screen-subjects'); });
     $('btn-close-subjects').addEventListener('click', () => { Sound.click(); show('screen-home'); });
     $('btn-subjects-path').addEventListener('click', () => { Sound.click(); renderSubjectsScreen(); show('screen-subjects'); });
+
+    // ---- library ----
+    $('btn-library-home').addEventListener('click', () => { Sound.click(); renderLibrary(); show('screen-library'); });
+    $('btn-library-path').addEventListener('click', () => { Sound.click(); renderLibrary(); show('screen-library'); });
+    $('btn-close-library').addEventListener('click', () => { Sound.click(); show(Auth.isLoggedIn() || state.completed.math.length || state.completed.english.length ? 'screen-path' : 'screen-home'); });
+    $('btn-close-book').addEventListener('click', () => { Sound.click(); show('screen-library'); renderLibrary(); });
+    $('btn-close-book-lesson').addEventListener('click', () => {
+      Sound.click(); Speech.stop();
+      if (bookLessonRef) openBook(bookLessonRef.subject); else show('screen-library');
+    });
+    $('btn-book-lesson-listen').addEventListener('click', () => {
+      Sound.click();
+      if (bookLessonRef) Speech.speak(bookLessonRef.lesson.explanations[0].speech);
+    });
+    $('library-search').addEventListener('input', (e) => searchLibrary(e.target.value));
     $('btn-settings-home').addEventListener('click', openSettings);
     $('btn-settings-path').addEventListener('click', openSettings);
     $('btn-settings-cancel').addEventListener('click', () => { Sound.click(); $('settings-modal').classList.remove('open'); });

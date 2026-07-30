@@ -762,12 +762,9 @@ body {
   --gray-shade: #45464d;
 }
 :root[data-theme="dark"] body { background: var(--bg); }
-:root[data-theme="dark"] #screen-home,
-:root[data-theme="dark"] #screen-path,
-:root[data-theme="dark"] #screen-lesson,
-:root[data-theme="dark"] #screen-quiz,
-:root[data-theme="dark"] #screen-congrats,
-:root[data-theme="dark"] #screen-subjects { background: var(--bg); }
+/* every screen gets the dark background — one rule so new screens never get missed
+   (screen-paywall keeps its own intentional navy background in both themes) */
+:root[data-theme="dark"] .screen:not(.screen-paywall) { background: var(--bg); }
 :root[data-theme="dark"] .speech-bubble,
 :root[data-theme="dark"] .choice,
 :root[data-theme="dark"] .subject-card,
@@ -811,4 +808,110 @@ body {
   #app { max-width: 920px; }
   .subjects-grid { grid-template-columns: repeat(4, 1fr); }
   .lesson-body, .quiz-body, .auth-body, .profile-body, .paywall-body, .subjects-body { max-width: 640px; margin: 0 auto; width: 100%; }
+}
+
+/* ============ library ============ */
+.library-body { flex: 1; overflow-y: auto; padding: 12px 20px 24px; }
+.library-search-wrap { margin-bottom: 14px; }
+.library-search-input {
+  width: 100%; padding: 13px 16px; font-family: var(--font); font-weight: 700;
+  font-size: 15px; border: 2px solid var(--gray-border); border-radius: 14px;
+  outline: none; color: var(--text); background: #f7f7f7;
+}
+.library-search-input:focus { border-color: var(--blue-border); background: #fff; }
+.library-hint { color: var(--text-soft); font-size: 14px; font-weight: 700; margin: 4px 0 16px; line-height: 1.5; }
+
+.library-search-results { display: flex; flex-direction: column; gap: 10px; }
+.search-result-row {
+  display: flex; align-items: center; gap: 12px;
+  border: 2px solid var(--gray-border); border-radius: 14px; padding: 12px 14px;
+  cursor: pointer; text-align: start; background: #fff;
+  transition: border-color .15s, transform .05s;
+}
+.search-result-row:active { transform: scale(.99); }
+.search-result-row:hover { border-color: var(--blue-border); }
+.search-result-icon { font-size: 24px; flex: 0 0 auto; }
+.search-result-title { font-weight: 800; font-size: 15px; }
+.search-result-meta { font-size: 12px; color: var(--text-soft); font-weight: 700; margin-top: 2px; }
+.search-no-results { color: var(--text-soft); font-weight: 700; text-align: center; padding: 30px 10px; }
+
+.library-books { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.book-card {
+  border: 2px solid var(--gray-border); border-radius: 20px;
+  background: #fff; box-shadow: 0 4px 0 var(--gray-border);
+  padding: 14px; text-align: center; cursor: pointer;
+  transition: transform .05s, box-shadow .05s;
+}
+.book-card:active { transform: translateY(4px); box-shadow: 0 0 0 var(--gray-border); }
+.book-cover-img { width: 100%; aspect-ratio: 3/4; object-fit: contain; margin-bottom: 8px; }
+.book-card-title { font-weight: 800; font-size: 15px; }
+.book-card-sub { font-size: 12px; color: var(--text-soft); font-weight: 700; margin-top: 2px; }
+
+/* ============ book table of contents ============ */
+.book-body { flex: 1; overflow-y: auto; padding: 12px 20px 24px; }
+.book-chapter { margin-bottom: 22px; }
+.book-chapter-head {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 800; font-size: 16px; margin-bottom: 10px;
+  padding-bottom: 8px; border-bottom: 2px solid var(--gray-border);
+}
+.book-chapter-icon { font-size: 22px; }
+.book-lesson-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 6px; cursor: pointer; border-radius: 12px;
+  transition: background .15s;
+}
+.book-lesson-row:hover { background: #f7f7f7; }
+.book-lesson-row .lesson-icon {
+  width: 38px; height: 38px; border-radius: 50%; background: var(--primary-light);
+  color: var(--primary-text); display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 800; flex: 0 0 38px;
+}
+.book-lesson-row.done .lesson-icon { background: var(--correct-light); color: var(--correct-text); }
+.book-lesson-row .lesson-row-title { font-weight: 700; font-size: 15px; flex: 1; }
+.book-lesson-row .lesson-row-check { font-size: 15px; }
+.book-lesson-row .lesson-row-arrow { color: #c8c8c8; font-size: 14px; }
+
+/* ============ book lesson reading page ============ */
+.book-lesson-body { flex: 1; overflow-y: auto; padding: 14px 22px 30px; }
+.reading-summary {
+  border: 2px solid var(--gray-border); border-radius: 16px;
+  padding: 16px 18px; margin-bottom: 18px; font-size: 15.5px; font-weight: 700;
+  line-height: 1.6; background: var(--primary-light); color: var(--primary-text);
+}
+.reading-section-title { font-size: 15px; font-weight: 800; margin: 4px 0 10px; color: var(--text-soft); }
+.reading-steps {
+  border: 2px solid var(--gray-border); border-radius: 16px;
+  background: repeating-linear-gradient(#fff, #fff 33px, #fff3e0 33px, #fff3e0 35px);
+  padding: 16px 20px; margin-bottom: 18px;
+}
+.reading-step {
+  font-family: var(--hand); font-size: 20px; line-height: 34px;
+  color: #2d3a4a; unicode-bidi: plaintext;
+}
+.reading-step .hl { color: var(--red-shade); }
+.reading-step .hl2 { color: var(--correct-text); }
+.reading-cta { margin-top: 6px; }
+.variant-details { margin-top: 4px; margin-bottom: 20px; }
+.variant-details summary {
+  font-weight: 800; font-size: 14.5px; cursor: pointer; color: var(--blue-shade);
+  list-style: none; padding: 6px 0;
+}
+.variant-details summary::-webkit-details-marker { display: none; }
+.variant-details summary::before { content: '▸ '; }
+.variant-details[open] summary::before { content: '▾ '; }
+.variant-block { margin: 14px 0; }
+.variant-block-title { font-weight: 800; font-size: 13.5px; color: var(--text-soft); margin-bottom: 6px; }
+
+:root[data-theme="dark"] .reading-steps { background: repeating-linear-gradient(#212227, #212227 33px, #2a2410 33px, #2a2410 35px); }
+:root[data-theme="dark"] .reading-step { color: #d8d8d8; }
+:root[data-theme="dark"] .book-card, :root[data-theme="dark"] .search-result-row { background: #212227; }
+:root[data-theme="dark"] .book-lesson-row:hover { background: #212227; }
+
+@media (min-width: 720px) {
+  .library-books { max-width: 500px; margin: 0 auto; }
+}
+@media (min-width: 1080px) {
+  .library-body, .book-body, .book-lesson-body { max-width: 640px; margin: 0 auto; width: 100%; }
+  .library-books { grid-template-columns: repeat(2, 1fr); max-width: 460px; }
 }
