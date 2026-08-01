@@ -155,9 +155,19 @@
     'screen-login', 'screen-signup', 'screen-forgot', 'screen-profile', 'screen-paywall',
     'screen-library', 'screen-book', 'screen-book-lesson', 'screen-onboarding'
   ];
+  const NAV_VISIBLE_SCREENS = new Set(['screen-path', 'screen-library', 'screen-book', 'screen-book-lesson', 'screen-profile']);
+  const NAV_KEY_FOR_SCREEN = {
+    'screen-path': 'path',
+    'screen-library': 'library', 'screen-book': 'library', 'screen-book-lesson': 'library',
+    'screen-profile': 'profile',
+  };
   function show(id) {
     screens.forEach(s => $(s).classList.toggle('active', s === id));
     if (id !== 'screen-congrats') stopConfetti();
+
+    $('bottom-nav').classList.toggle('show', NAV_VISIBLE_SCREENS.has(id));
+    const navKey = NAV_KEY_FOR_SCREEN[id] || null;
+    document.querySelectorAll('[data-nav]').forEach(el => el.classList.toggle('active', el.dataset.nav === navKey));
   }
 
   /* ---------------- subject selection ---------------- */
@@ -203,6 +213,8 @@
   function renderPath() {
     $('stat-xp').textContent = state.xp;
     $('stat-streak').textContent = state.streak;
+    $('sidebar-xp').textContent = state.xp;
+    $('sidebar-streak').textContent = state.streak;
 
     document.querySelectorAll('.subject-tab').forEach(t =>
       t.classList.toggle('active', t.dataset.subject === currentSubject));
@@ -232,8 +244,8 @@
         <div class="unit-book">${unit.icon}</div>`;
       group.appendChild(banner);
 
-      const nodes = document.createElement('div');
-      nodes.className = 'path-nodes';
+      const list = document.createElement('div');
+      list.className = 'path-nodes';
       unit.lessonIds.forEach(id => {
         const l = byId[id];
         if (!l) return;
@@ -242,40 +254,35 @@
         if (isActive) activeGiven = true;
         const locked = !done && !isActive;
 
-        const node = document.createElement('div');
-        node.className = 'path-node';
-        const btn = document.createElement('button');
-        btn.className = 'node-btn' + (done ? ' done' : '') + (locked ? ' locked' : '');
-        btn.textContent = done ? '👑' : l.icon;
-        if (isActive) {
-          const tip = document.createElement('div');
-          tip.className = 'node-start-tip';
-          tip.textContent = 'ابدأ';
-          node.appendChild(tip);
-        }
-        if (!locked) btn.addEventListener('click', () => { Sound.click(); startLesson(l); });
-        const label = document.createElement('div');
-        label.className = 'node-label';
-        label.textContent = l.title;
-        node.appendChild(btn);
-        node.appendChild(label);
-        nodes.appendChild(node);
+        const card = document.createElement('div');
+        card.className = 'lesson-card' + (done ? ' done' : isActive ? ' active-lesson' : ' locked');
+        card.innerHTML = `
+          <div class="lesson-card-icon">${done ? '👑' : l.icon}</div>
+          <div class="lesson-card-body">
+            <div class="lesson-card-title">${l.title}</div>
+            ${isActive ? '<span class="lesson-card-tag">ابدأ الآن</span>' : ''}
+          </div>
+          <div class="lesson-card-trailing"></div>`;
+        if (!locked) card.addEventListener('click', () => { Sound.click(); startLesson(l); });
+        list.appendChild(card);
       });
-      group.appendChild(nodes);
+      group.appendChild(list);
       wrap.appendChild(group);
     });
 
-    const trophy = document.createElement('div');
-    trophy.className = 'path-node';
     const allDone = completedIds.length >= lessons.length;
-    const meta = SUBJECT_META.find(s => s.id === currentSubject);
-    trophy.innerHTML = `<button class="node-btn ${allDone ? 'done' : 'locked'}">🏆</button>
-                        <div class="node-label">${allDone ? 'أنت البطل!' : 'أكمل كل الدروس'}</div>`;
-    const trophyWrap = document.createElement('div');
-    trophyWrap.className = 'path-nodes';
-    trophyWrap.style.paddingTop = '0';
-    trophyWrap.appendChild(trophy);
-    wrap.appendChild(trophyWrap);
+    const trophyGroup = document.createElement('div');
+    trophyGroup.className = 'path-unit-group';
+    trophyGroup.innerHTML = `
+      <div class="path-nodes">
+        <div class="lesson-card trophy-card ${allDone ? 'done' : 'locked'}">
+          <div class="lesson-card-icon">🏆</div>
+          <div class="lesson-card-body">
+            <div class="lesson-card-title">${allDone ? 'أنت البطل! أكملت كل الدروس' : 'أكمل كل الدروس لتفتح الجائزة'}</div>
+          </div>
+        </div>
+      </div>`;
+    wrap.appendChild(trophyGroup);
   }
 
   /* ---------------- library (book-style browse & search) ---------------- */
@@ -1269,7 +1276,7 @@
   /* ---------------- wire up ---------------- */
   function init() {
     [
-      'mascot-home', 'mascot-path', 'mascot-lesson', 'mascot-congrats',
+      'mascot-home', 'mascot-lesson', 'mascot-congrats',
       'mascot-login', 'mascot-signup', 'mascot-forgot', 'mascot-profile', 'mascot-paywall'
     ].forEach(id => {
       const el = $(id);
@@ -1300,7 +1307,6 @@
 
     // ---- library ----
     $('btn-library-home').addEventListener('click', () => { Sound.click(); renderLibrary(); show('screen-library'); });
-    $('btn-library-path').addEventListener('click', () => { Sound.click(); renderLibrary(); show('screen-library'); });
     $('btn-close-library').addEventListener('click', () => { Sound.click(); show(Auth.isLoggedIn() || state.completed.math.length || state.completed.english.length ? 'screen-path' : 'screen-home'); });
     $('btn-close-book').addEventListener('click', () => { Sound.click(); show('screen-library'); renderLibrary(); });
     $('btn-close-book-lesson').addEventListener('click', () => {
@@ -1376,7 +1382,6 @@
     $('signup-password').addEventListener('keydown', e => { if (e.key === 'Enter') submitSignup(); });
 
     // ---- profile / paywall ----
-    $('btn-profile-path').addEventListener('click', () => { Sound.click(); show('screen-profile'); renderProfile(); });
     $('btn-close-profile').addEventListener('click', () => { Sound.click(); show('screen-path'); });
     $('btn-login-from-profile').addEventListener('click', () => { Sound.click(); clearAuthErrors(); renderGoogleButtons(); show('screen-login'); });
     $('btn-logout').addEventListener('click', () => {
@@ -1415,6 +1420,7 @@
 
     // shareable deep links, e.g. http://localhost:4188/#onboarding
     const HASH_ROUTES = {
+      path: () => { renderPath(); show('screen-path'); },
       onboarding: () => startOnboarding(),
       subjects: () => { renderSubjectsScreen(); show('screen-subjects'); },
       library: () => { renderLibrary(); show('screen-library'); },
@@ -1423,6 +1429,13 @@
       login: () => { clearAuthErrors(); renderGoogleButtons(); show('screen-login'); },
       signup: () => { clearAuthErrors(); renderGoogleButtons(); show('screen-signup'); },
     };
+
+    // desktop sidebar + mobile bottom-nav share the same destinations
+    document.querySelectorAll('.sidebar-link[data-nav], .bottom-nav-link[data-nav]').forEach(el => {
+      el.addEventListener('click', () => { Sound.click(); location.hash = el.dataset.nav; });
+    });
+    $('btn-settings-sidebar').addEventListener('click', openSettings);
+
     function handleHashRoute() {
       const route = HASH_ROUTES[location.hash.slice(1)];
       if (route) route();

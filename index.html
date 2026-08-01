@@ -15,6 +15,23 @@
 
 <div id="app">
 
+  <!-- ============ DESKTOP SIDEBAR (shown at wide widths) ============ -->
+  <aside class="app-sidebar" id="app-sidebar">
+    <div class="sidebar-logo">منـ<span>ارة</span></div>
+    <nav class="sidebar-nav">
+      <button class="sidebar-link" data-nav="path"><span class="sidebar-link-icon">🏠</span> الرئيسية</button>
+      <button class="sidebar-link" data-nav="library"><span class="sidebar-link-icon">📚</span> المكتبة</button>
+      <button class="sidebar-link" data-nav="profile"><span class="sidebar-link-icon">👤</span> حسابي</button>
+    </nav>
+    <div class="sidebar-stats">
+      <div class="sidebar-stat">🔥 <span id="sidebar-streak">0</span></div>
+      <div class="sidebar-stat">⚡ <span id="sidebar-xp">0</span></div>
+    </div>
+    <button class="sidebar-link sidebar-settings" id="btn-settings-sidebar"><span class="sidebar-link-icon">⚙️</span> الإعدادات</button>
+  </aside>
+
+  <div id="app-main">
+
   <!-- ============ HOME SCREEN ============ -->
   <section id="screen-home" class="screen active">
     <div class="home-inner">
@@ -55,8 +72,6 @@
       <button class="icon-btn" id="btn-subjects-path" title="كل المواد">🧭</button>
       <div class="stat stat-streak">🔥 <span id="stat-streak">0</span></div>
       <div class="stat stat-xp">⚡ <span id="stat-xp">0</span></div>
-      <button class="icon-btn" id="btn-library-path" title="المكتبة">📚</button>
-      <button class="icon-btn" id="btn-profile-path" title="حسابي">👤</button>
       <button class="icon-btn" id="btn-settings-path" title="الإعدادات">⚙️</button>
     </header>
     <div class="subject-switch" id="subject-switch">
@@ -65,7 +80,6 @@
     </div>
     <div class="path-scroll">
       <div class="path-groups" id="path-groups"></div>
-      <div class="mascot-slot mascot-path" id="mascot-path"></div>
     </div>
   </section>
 
@@ -354,6 +368,21 @@
       <button class="btn btn-primary btn-wide" id="btn-onboarding-next" disabled>التالي</button>
     </footer>
   </section>
+
+  </div>
+
+  <!-- ============ MOBILE BOTTOM NAV (shown on primary screens) ============ -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <button class="bottom-nav-link" data-nav="path">
+      <span class="bottom-nav-icon">🏠</span><span>الرئيسية</span>
+    </button>
+    <button class="bottom-nav-link" data-nav="library">
+      <span class="bottom-nav-icon">📚</span><span>المكتبة</span>
+    </button>
+    <button class="bottom-nav-link" data-nav="profile">
+      <span class="bottom-nav-icon">👤</span><span>حسابي</span>
+    </button>
+  </nav>
 
 </div>
 
