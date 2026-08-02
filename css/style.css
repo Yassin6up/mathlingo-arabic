@@ -659,6 +659,42 @@ body {
   color: var(--primary-text);
 }
 
+/* school-level chips (0-5) under the subject tabs */
+.level-chips {
+  display: flex; gap: 8px; padding: 10px 16px 4px;
+  overflow-x: auto; scrollbar-width: none;
+}
+.level-chips::-webkit-scrollbar { display: none; }
+.level-chip {
+  flex: 0 0 auto; padding: 8px 14px; border-radius: 20px;
+  border: 2px solid var(--gray-border); background: #fff;
+  font-family: var(--font); font-weight: 800; font-size: 12.5px;
+  color: var(--text-soft); cursor: pointer; white-space: nowrap;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.level-chip.mine { border-color: var(--yellow-shade); }
+.level-chip.active {
+  background: var(--primary); border-color: var(--primary-shade); color: #fff;
+}
+.path-level-head {
+  padding: 8px 16px 0; font-size: 14px; color: var(--text-soft); font-weight: 700;
+}
+.path-level-head b { color: var(--text); }
+:root[data-theme="dark"] .level-chip { background: #212227; }
+:root[data-theme="dark"] .level-chip.active { background: var(--primary); color: #fff; }
+
+.book-chapter-stage { font-size: 12px; color: var(--text-soft); font-weight: 700; }
+.book-unit-head {
+  font-size: 13.5px; font-weight: 800; color: var(--primary-text);
+  margin: 10px 0 2px; padding-right: 4px;
+}
+.school-level-badge {
+  font-size: 13px; font-weight: 800; color: var(--primary-text);
+  background: var(--primary-light); padding: 5px 14px; border-radius: 12px;
+}
+.school-level-badge:empty { display: none; }
+.school-level-badge span { color: var(--text-soft); font-weight: 700; }
+
 /* ============ auth screens (login / signup / forgot password) ============ */
 .auth-body {
   flex: 1; overflow-y: auto; padding: 8px 24px 24px;

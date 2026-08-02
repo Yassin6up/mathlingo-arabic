@@ -32,7 +32,15 @@ const AI = (() => {
       const o = s.onboarding;
       if (!o) return '';
       const paceMap = { productive: 'يحب الشرح السريع والمباشر', balanced: 'يحب توازن بين السرعة والتفصيل', relaxed: 'يفضّل شرحًا هادئًا وبطيئًا بدون استعجال' };
-      const gradeMap = { elementary: 'مرحلة ابتدائية', secondary: 'مرحلة متوسطة أو ثانوية', university: 'مرحلة جامعية أو بالغ' };
+      const gradeMap = {
+        '0': 'مستوى تمهيدي (رياض الأطفال) — استخدم لغة بسيطة جدًا وأمثلة محسوسة',
+        '1': 'ابتدائي أدنى (صفوف 1-3)',
+        '2': 'ابتدائي أعلى (صفوف 4-6)',
+        '3': 'مرحلة متوسطة (إعدادي)',
+        '4': 'مرحلة ثانوية',
+        '5': 'مرحلة جامعية أو بالغ',
+        elementary: 'مرحلة ابتدائية', secondary: 'مرحلة متوسطة أو ثانوية', university: 'مرحلة جامعية أو بالغ'
+      };
       const parts = [];
       if (o.gradeLevel) parts.push(gradeMap[o.gradeLevel] || o.gradeLevel);
       if (o.age) parts.push(`الفئة العمرية ${o.age}`);

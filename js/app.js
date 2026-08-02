@@ -16,9 +16,18 @@
     premium: false,
     onboardingDone: false,
     onboarding: null, // { gradeLevel, country, age, pace, goal, dailyTime, startSubject }
+    level: 0, // school level 0-5, chosen during onboarding
   });
   const prefs = loadJSON('manara-settings', { sfx: true, tts: true });
   Sound.setEnabled(prefs.sfx !== false);
+
+  // migrate the old 3-option gradeLevel (elementary/secondary/university) → 0-5
+  const OLD_GRADE_MAP = { elementary: 1, secondary: 3, university: 5 };
+  if (state.onboarding?.gradeLevel in OLD_GRADE_MAP) {
+    state.level = OLD_GRADE_MAP[state.onboarding.gradeLevel];
+    state.onboarding.gradeLevel = String(state.level);
+  }
+  state.level = Math.min(5, Math.max(0, Number(state.level) || 0));
 
   function loadJSON(k, fallback) {
     try { return Object.assign({}, fallback, JSON.parse(localStorage.getItem(k) || '{}')); }
@@ -28,7 +37,13 @@
   function savePrefs() { localStorage.setItem('manara-settings', JSON.stringify(prefs)); }
 
   function lessonsFor(subject) { return subject === 'english' ? ENGLISH_LESSONS : MATH_LESSONS; }
-  function unitsFor(subject) { return subject === 'english' ? ENGLISH_UNITS : MATH_UNITS; }
+  function levelsFor(subject) { return subject === 'english' ? ENGLISH_LEVELS : MATH_LEVELS; }
+  /* units of one school level; no level given → the user's own level */
+  function unitsFor(subject, level) {
+    const lv = level == null ? state.level : level;
+    const entry = levelsFor(subject).find(l => l.level === lv);
+    return entry ? entry.units : [];
+  }
 
   /* per-subject XP is derived from the local attempt log (kept forever,
      even after login — see syncGuestProgress) so level/units work the
@@ -209,7 +224,31 @@
     });
   }
 
-  /* ---------------- path (grouped into units) ---------------- */
+  /* ---------------- path (school level → units → lessons) ---------------- */
+  let browsingLevel = null; // level being viewed on the path; null = user's own level
+
+  function currentPathLevel() { return browsingLevel == null ? state.level : browsingLevel; }
+
+  function renderLevelChips() {
+    const wrap = $('level-chips');
+    wrap.innerHTML = '';
+    levelsFor(currentSubject).forEach(lv => {
+      const chip = document.createElement('button');
+      const isMine = lv.level === state.level;
+      chip.className = 'level-chip'
+        + (lv.level === currentPathLevel() ? ' active' : '')
+        + (isMine ? ' mine' : '');
+      chip.innerHTML = `${lv.icon} المستوى ${lv.level}${isMine ? ' ⭐' : ''}`;
+      chip.title = lv.title + ' — ' + lv.stage;
+      chip.addEventListener('click', () => {
+        Sound.click();
+        browsingLevel = lv.level === state.level ? null : lv.level;
+        renderPath();
+      });
+      wrap.appendChild(chip);
+    });
+  }
+
   function renderPath() {
     $('stat-xp').textContent = state.xp;
     $('stat-streak').textContent = state.streak;
@@ -218,14 +257,25 @@
 
     document.querySelectorAll('.subject-tab').forEach(t =>
       t.classList.toggle('active', t.dataset.subject === currentSubject));
+    renderLevelChips();
 
+    const levelEntry = levelsFor(currentSubject).find(l => l.level === currentPathLevel());
+    const units = levelEntry ? levelEntry.units : [];
+    const levelLessonIds = units.flatMap(u => u.lessonIds);
     const lessons = lessonsFor(currentSubject);
-    const units = unitsFor(currentSubject);
     const completedIds = state.completed[currentSubject] || [];
     const byId = Object.fromEntries(lessons.map(l => [l.id, l]));
 
     const wrap = $('path-groups');
     wrap.innerHTML = '';
+
+    if (levelEntry) {
+      const head = document.createElement('div');
+      head.className = 'path-level-head';
+      head.innerHTML = `${levelEntry.icon} <b>المستوى ${levelEntry.level} — ${levelEntry.title}</b> <span>(${levelEntry.stage})</span>`;
+      wrap.appendChild(head);
+    }
+
     let activeGiven = false;
 
     units.forEach((unit, ui) => {
@@ -270,7 +320,7 @@
       wrap.appendChild(group);
     });
 
-    const allDone = completedIds.length >= lessons.length;
+    const allDone = levelLessonIds.length > 0 && levelLessonIds.every(id => completedIds.includes(id));
     const trophyGroup = document.createElement('div');
     trophyGroup.className = 'path-unit-group';
     trophyGroup.innerHTML = `
@@ -278,7 +328,7 @@
         <div class="lesson-card trophy-card ${allDone ? 'done' : 'locked'}">
           <div class="lesson-card-icon">🏆</div>
           <div class="lesson-card-body">
-            <div class="lesson-card-title">${allDone ? 'أنت البطل! أكملت كل الدروس' : 'أكمل كل الدروس لتفتح الجائزة'}</div>
+            <div class="lesson-card-title">${allDone ? 'أحسنت! أكملت هذا المستوى — جرّب المستوى التالي!' : 'أكمل كل دروس المستوى لتفتح الجائزة'}</div>
           </div>
         </div>
       </div>`;
@@ -299,14 +349,14 @@
     wrap.innerHTML = '';
     SUBJECT_META.filter(s => s.enabled).forEach(s => {
       const meta = BOOK_META[s.id];
-      const units = unitsFor(s.id);
+      const levels = levelsFor(s.id);
       const lessons = lessonsFor(s.id);
       const card = document.createElement('div');
       card.className = 'book-card';
       card.innerHTML = `
         <img src="${meta.cover}" alt="${meta.title}" class="book-cover-img">
         <div class="book-card-title">${s.icon} ${meta.title}</div>
-        <div class="book-card-sub">${units.length} وحدات · ${lessons.length} دروس</div>`;
+        <div class="book-card-sub">${levels.length} مستويات · ${lessons.length} درسًا</div>`;
       card.addEventListener('click', () => { Sound.click(); openBook(s.id); });
       wrap.appendChild(card);
     });
@@ -336,8 +386,12 @@
           ...l.quiz.map(qq => (qq.q || '') + ' ' + (qq.math || '') + ' ' + (qq.why || '')),
         ].join(' ').toLowerCase();
         if (haystack.includes(q)) {
-          const unit = unitsFor(s.id).find(u => u.lessonIds.includes(l.id));
-          hits.push({ subject: s, lesson: l, unitTitle: unit ? unit.title : '' });
+          let unitTitle = '';
+          for (const lv of levelsFor(s.id)) {
+            const unit = lv.units.find(u => u.lessonIds.includes(l.id));
+            if (unit) { unitTitle = `المستوى ${lv.level} · ${unit.title}`; break; }
+          }
+          hits.push({ subject: s, lesson: l, unitTitle });
         }
       });
     });
@@ -369,23 +423,29 @@
     const lessons = lessonsFor(subject);
     const byId = Object.fromEntries(lessons.map(l => [l.id, l]));
 
-    unitsFor(subject).forEach((unit, ui) => {
+    levelsFor(subject).forEach(lv => {
       const chapter = document.createElement('div');
       chapter.className = 'book-chapter';
-      chapter.innerHTML = `<div class="book-chapter-head"><span class="book-chapter-icon">${unit.icon}</span> الوحدة ${ui + 1}: ${unit.title}</div>`;
-      unit.lessonIds.forEach(id => {
-        const l = byId[id];
-        if (!l) return;
-        const done = completedIds.includes(l.id);
-        const row = document.createElement('div');
-        row.className = 'book-lesson-row' + (done ? ' done' : '');
-        row.innerHTML = `
-          <div class="lesson-icon">${l.icon}</div>
-          <div class="lesson-row-title">${l.title}</div>
-          <div class="lesson-row-check">${done ? '✅' : ''}</div>
-          <div class="lesson-row-arrow">‹</div>`;
-        row.addEventListener('click', () => { Sound.click(); openBookLesson(subject, l); });
-        chapter.appendChild(row);
+      chapter.innerHTML = `<div class="book-chapter-head"><span class="book-chapter-icon">${lv.icon}</span> المستوى ${lv.level}: ${lv.title} <span class="book-chapter-stage">(${lv.stage})</span></div>`;
+      lv.units.forEach(unit => {
+        const unitHead = document.createElement('div');
+        unitHead.className = 'book-unit-head';
+        unitHead.textContent = `${unit.icon} ${unit.title}`;
+        chapter.appendChild(unitHead);
+        unit.lessonIds.forEach(id => {
+          const l = byId[id];
+          if (!l) return;
+          const done = completedIds.includes(l.id);
+          const row = document.createElement('div');
+          row.className = 'book-lesson-row' + (done ? ' done' : '');
+          row.innerHTML = `
+            <div class="lesson-icon">${l.icon}</div>
+            <div class="lesson-row-title">${l.title}</div>
+            <div class="lesson-row-check">${done ? '✅' : ''}</div>
+            <div class="lesson-row-arrow">‹</div>`;
+          row.addEventListener('click', () => { Sound.click(); openBookLesson(subject, l); });
+          chapter.appendChild(row);
+        });
       });
       wrap.appendChild(chapter);
     });
@@ -1034,17 +1094,17 @@
     wrap.innerHTML = '';
     SUBJECT_META.filter(s => s.enabled).forEach(s => {
       const xp = subjectXP(s.id);
-      const level = levelFor(xp);
+      const xpLevel = levelFor(xp);
       const pct = xp % 100;
       const completedIds = state.completed[s.id] || [];
-      const units = unitsFor(s.id);
+      const units = unitsFor(s.id); // the user's own school level
 
       const card = document.createElement('div');
       card.className = 'subject-progress-card';
       card.innerHTML = `
         <div class="subject-progress-head">
           <div class="subject-progress-name">${s.icon} ${s.name}</div>
-          <div class="level-badge">المستوى ${level}</div>
+          <div class="level-badge">⚡ مستوى الخبرة ${xpLevel}</div>
         </div>
         <div class="xp-bar-track"><div class="xp-bar-fill" style="width:${pct}%"></div></div>
         <div class="unit-breakdown">
@@ -1063,6 +1123,12 @@
     $('profile-name').textContent = loggedIn ? (user?.name || 'مستخدم') : 'ضيف';
     $('btn-login-from-profile').style.display = loggedIn ? 'none' : 'block';
     $('btn-logout').style.display = loggedIn ? 'block' : 'none';
+
+    // school level chosen during onboarding (0-5)
+    const schoolLv = MATH_LEVELS.find(l => l.level === state.level);
+    $('profile-school-level').innerHTML = schoolLv
+      ? `${schoolLv.icon} المستوى الدراسي ${schoolLv.level} — ${schoolLv.title} <span>(${schoolLv.stage})</span>`
+      : '';
 
     $('profile-xp').textContent = state.xp;
     $('profile-streak').textContent = state.streak;
@@ -1106,11 +1172,14 @@
   const ONBOARDING_STEPS = [
     {
       key: 'gradeLevel', type: 'cards',
-      question: 'ما هو مستواك الدراسي؟', subtext: 'هذا يساعدنا على اختيار مستوى الدروس المناسب لك',
+      question: 'ما هو مستواك الدراسي؟', subtext: 'سنفتح لك وحدات ودروس مستواك مباشرة — مثل مدرستك تمامًا',
       options: [
-        { value: 'elementary', label: 'ابتدائي', img: 'img/onboarding/level-young.png' },
-        { value: 'secondary', label: 'متوسط / ثانوي', img: 'img/onboarding/level-teen.png' },
-        { value: 'university', label: 'جامعي / بالغ', img: 'img/onboarding/level-adult.png' },
+        { value: '0', label: 'المستوى 0 — التمهيدي (رياض الأطفال)', img: 'img/onboarding/level-young.png' },
+        { value: '1', label: 'المستوى 1 — ابتدائي أدنى (صفوف 1-3)', img: 'img/onboarding/level-young.png' },
+        { value: '2', label: 'المستوى 2 — ابتدائي أعلى (صفوف 4-6)', img: 'img/onboarding/level-teen.png' },
+        { value: '3', label: 'المستوى 3 — المتوسط / الإعدادي', img: 'img/onboarding/level-teen.png' },
+        { value: '4', label: 'المستوى 4 — الثانوي', img: 'img/onboarding/level-adult.png' },
+        { value: '5', label: 'المستوى 5 — الجامعي والمتقدم', img: 'img/onboarding/level-adult.png' },
       ]
     },
     {
@@ -1256,6 +1325,8 @@
   function finishOnboarding() {
     state.onboarding = onboardingAnswers;
     state.onboardingDone = true;
+    state.level = Math.min(5, Math.max(0, Number(onboardingAnswers.gradeLevel) || 0));
+    browsingLevel = null; // land on the newly chosen level
     saveState();
     Sound.correct();
 

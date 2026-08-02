@@ -369,11 +369,481 @@ const ENGLISH_LESSONS = [
         why: '"ten" = عشرة.'
       }
     ]
+  },
+
+  /* ═══════════ المستوى 0: الألوان ═══════════ */
+  {
+    id: 'en-colors',
+    title: 'الألوان',
+    icon: '🎨',
+    explanations: [
+      {
+        bubble: 'هيا نتعلم الألوان بالإنجليزية! 🌈 انظر حولك — كل شيء له لون:',
+        steps: [
+          '🔴 ' + LTR('red') + ' = أحمر',
+          '🔵 ' + LTR('blue') + ' = أزرق',
+          '🟢 ' + LTR('green') + ' = أخضر',
+          '🟡 ' + LTR('yellow') + ' = أصفر',
+          '⚫ ' + LTR('black') + ' = أسود',
+          '⚪ ' + LTR('white') + ' = أبيض',
+          '<span class="hl2">' + LTR('What color is it?') + ' = ما لونه؟</span>'
+        ],
+        speech: 'هيا نتعلم الألوان بالإنجليزية! ريد تعني أحمر. بلو تعني أزرق. غرين تعني أخضر. يلو تعني أصفر. بلاك تعني أسود. ووايت تعني أبيض. ولنسأل عن اللون نقول: وات كلر إز إت؟ يعني ما لونه؟'
+      },
+      {
+        bubble: 'لنربط كل لون بشيء تعرفه جيدًا! 🍎 هكذا لن تنساها أبدًا:',
+        steps: [
+          'التفاحة 🍎 ← ' + LTR('The apple is red.'),
+          'السماء ☁️ ← ' + LTR('The sky is blue.'),
+          'العشب 🌿 ← ' + LTR('The grass is green.'),
+          'الموزة 🍌 ← ' + LTR('The banana is yellow.'),
+          'الليل 🌙 ← ' + LTR('The night is black.'),
+          'كل ما تراه — قل لونه بالإنجليزية!'
+        ],
+        speech: 'لنربط كل لون بشيء تعرفه جيداً! التفاحة حمراء: ذا آبل إز ريد. السماء زرقاء: ذا سكاي إز بلو. العشب أخضر: ذا غراس إز غرين. الموزة صفراء: ذا بنانا إز يلو. والليل أسود: ذا نايت إز بلاك. كل ما تراه، قل لونه بالإنجليزية!'
+      },
+      {
+        bubble: 'لعبة أخيرة: خلط الألوان! 🎨 بعض الألوان تولد من ألوان أخرى:',
+        steps: [
+          LTR('red') + ' + ' + LTR('yellow') + ' = ' + LTR('orange') + ' 🟠 (برتقالي)',
+          LTR('blue') + ' + ' + LTR('yellow') + ' = ' + LTR('green') + ' 🟢',
+          LTR('red') + ' + ' + LTR('blue') + ' = ' + LTR('purple') + ' 🟣 (بنفسجي)',
+          'ولوننا المفضل في منارة:',
+          '<span class="hl2">' + LTR('orange') + ' 🧡 مثل لون التطبيق!</span>'
+        ],
+        speech: 'لعبة أخيرة: خلط الألوان! الأحمر مع الأصفر يصنعان البرتقالي: أورانج. الأزرق مع الأصفر يصنعان الأخضر: غرين. والأحمر مع الأزرق يصنعان البنفسجي: بيربل. ولوننا المفضل في منارة هو البرتقالي، أورانج، مثل لون التطبيق!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ماذا تعني هذه الكلمة؟', math: 'red', options: ['أحمر', 'أزرق', 'أخضر', 'أصفر'], correct: 0, why: '"red" تعني أحمر — مثل التفاحة 🍎.' },
+      { type: 'choice', q: 'ما لون السماء بالإنجليزية؟', options: ['blue', 'red', 'black', 'green'], correct: 0, why: 'السماء زرقاء: The sky is blue.' },
+      { type: 'write', q: 'اكتب "أخضر" بالإنجليزية:', accept: ['green'], answer: 'green', why: '"green" = أخضر، مثل العشب 🌿.' },
+      { type: 'choice', q: 'أكمل: The banana is ____', options: ['yellow', 'blue', 'black', 'purple'], correct: 0, why: 'الموزة صفراء: yellow.' },
+      { type: 'write', q: 'اكتب "أسود" بالإنجليزية:', accept: ['black'], answer: 'black', why: '"black" = أسود، مثل الليل 🌙.' },
+      { type: 'choice', q: 'أحمر + أصفر = ؟', options: ['orange', 'green', 'purple', 'white'], correct: 0, why: 'خلط الأحمر مع الأصفر يعطي البرتقالي: orange 🟠.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 1: العائلة ═══════════ */
+  {
+    id: 'en-family',
+    title: 'العائلة',
+    icon: '👨‍👩‍👧‍👦',
+    explanations: [
+      {
+        bubble: 'عائلتك هي أول من تتحدث عنهم! لنتعلم أسماءهم بالإنجليزية 👨‍👩‍👧‍👦:',
+        steps: [
+          LTR('father') + ' = أب  👨',
+          LTR('mother') + ' = أم  👩',
+          LTR('brother') + ' = أخ  👦',
+          LTR('sister') + ' = أخت  👧',
+          LTR('grandfather') + ' = جَد  👴',
+          LTR('grandmother') + ' = جَدة  👵',
+          '<span class="hl2">' + LTR('family') + ' = عائلة ❤️</span>'
+        ],
+        speech: 'عائلتك هي أول من تتحدث عنهم! فاذر تعني أب. مذر تعني أم. برذر تعني أخ. سيستر تعني أخت. غراندفاذر تعني جد. وغراندمذر تعني جدة. وكلمة فاميلي تعني عائلة!'
+      },
+      {
+        bubble: 'الآن لنستخدمها في جمل حقيقية — قدّم عائلتك للعالم! 🗣️',
+        steps: [
+          LTR('This is my father.') + ' = هذا أبي.',
+          LTR('This is my mother.') + ' = هذه أمي.',
+          LTR('I have one brother.') + ' = عندي أخ واحد.',
+          LTR('I have two sisters.') + ' = عندي أختان.',
+          '<span class="hl">' + LTR('my') + '</span> تعني "الخاص بي": ' + LTR('my family') + ' = عائلتي',
+          '<span class="hl2">' + LTR('I love my family!') + ' = أحب عائلتي!</span>'
+        ],
+        speech: 'الآن لنستخدمها في جمل حقيقية! ذيس إز ماي فاذر: هذا أبي. ذيس إز ماي مذر: هذه أمي. آي هاف وان برذر: عندي أخ واحد. آي هاف تو سيسترز: عندي أختان. كلمة ماي تعني الخاص بي. وأجمل جملة: آي لوف ماي فاميلي، أحب عائلتي!'
+      },
+      {
+        bubble: 'حيلة للحفظ: كلمات العائلة تأتي أزواجًا! 👫 احفظها اثنين اثنين:',
+        steps: [
+          'الوالدان: ' + LTR('father / mother') + ' ← معًا: ' + LTR('parents'),
+          'الإخوة: ' + LTR('brother / sister'),
+          'الأجداد: ' + LTR('grandfather / grandmother'),
+          'لاحظ: <span class="hl">' + LTR('grand') + '</span> قبل الاسم تعني جيل أكبر',
+          LTR('father') + ' ← ' + LTR('grandfather') + ' (أب ← جَد)',
+          'زوجان من الكلمات في كل مرة = حفظ أسرع!'
+        ],
+        speech: 'حيلة للحفظ: كلمات العائلة تأتي أزواجاً! الوالدان: فاذر ومذر، ومعاً اسمهما بارنتس. الإخوة: برذر وسيستر. الأجداد: غراندفاذر وغراندمذر. ولاحظ أن كلمة غراند قبل الاسم تعني جيلاً أكبر: فاذر تصبح غراندفاذر، أي الأب يصبح الجد!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ماذا تعني هذه الكلمة؟', math: 'mother', options: ['أم', 'أب', 'أخت', 'جدة'], correct: 0, why: '"mother" تعني أم.' },
+      { type: 'choice', q: 'كيف نقول "أخ" بالإنجليزية؟', options: ['brother', 'sister', 'father', 'family'], correct: 0, why: '"brother" = أخ.' },
+      { type: 'write', q: 'اكتب "أخت" بالإنجليزية:', accept: ['sister'], answer: 'sister', why: '"sister" = أخت.' },
+      { type: 'choice', q: 'ماذا تعني "grandfather"؟', options: ['جَد', 'أب', 'عم', 'أخ كبير'], correct: 0, why: 'grand + father = جَد (أبو الأب أو الأم).' },
+      { type: 'write', q: 'اكتب الجملة "هذا أبي" بالإنجليزية:', accept: ['this is my father', 'this is my father.'], answer: 'This is my father.', why: 'This is my father = هذا أبي.' },
+      { type: 'choice', q: 'ما معنى كلمة "parents"؟', options: ['الوالدان (الأب والأم)', 'الأطفال', 'الأجداد', 'الأعمام'], correct: 0, why: '"parents" تعني الوالدين معًا: الأب والأم.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 3: المضارع المستمر ═══════════ */
+  {
+    id: 'en-present-continuous',
+    title: 'المضارع المستمر',
+    icon: '🏃',
+    explanations: [
+      {
+        bubble: 'كيف تصف شيئًا يحدث الآن، في هذه اللحظة؟ بالمضارع المستمر! 🏃',
+        steps: [
+          'القاعدة: <span class="hl2">' + LTR('am / is / are + فعل + ing') + '</span>',
+          LTR('I am eating.') + ' = أنا آكل (الآن)',
+          LTR('She is reading.') + ' = هي تقرأ (الآن)',
+          LTR('They are playing.') + ' = هم يلعبون (الآن)',
+          'الـ<span class="hl">ing</span> في آخر الفعل = "يحدث في هذه اللحظة"',
+          'مثل كاميرا تصوّر المشهد مباشرة 📹'
+        ],
+        speech: 'كيف تصف شيئاً يحدث الآن في هذه اللحظة؟ بالمضارع المستمر! القاعدة: آم أو إز أو آر، ثم الفعل مع إضافة آي إن جي في آخره. آي آم إيتينغ: أنا آكل الآن. شي إز ريدينغ: هي تقرأ الآن. ذاي آر بلايينغ: هم يلعبون الآن. الآي إن جي في آخر الفعل تعني أن الحدث يجري في هذه اللحظة، مثل كاميرا تصور المشهد مباشرة!'
+      },
+      {
+        bubble: 'الفرق المهم: "أشرب القهوة كل يوم" ≠ "أشرب القهوة الآن"! ☕',
+        steps: [
+          'عادة يومية ← مضارع بسيط:',
+          LTR('I drink coffee every day.'),
+          'يحدث الآن ← مضارع مستمر:',
+          LTR('I am drinking coffee now.'),
+          'كلمات تدل على "الآن": <span class="hl">' + LTR('now, right now, at the moment') + '</span>',
+          'إذا رأيتها ← استخدم <span class="hl2">' + LTR('ing') + '</span>'
+        ],
+        speech: 'الفرق المهم: أشرب القهوة كل يوم تختلف عن أشرب القهوة الآن! العادة اليومية نقولها بالمضارع البسيط: آي درينك كوفي إيفري داي. أما ما يحدث الآن فبالمضارع المستمر: آي آم درينكينغ كوفي ناو. الكلمات التي تدل على الآن مثل ناو ورايت ناو، إذا رأيتها استخدم صيغة آي إن جي.'
+      },
+      {
+        bubble: 'حيلة الثلاث خطوات لبناء أي جملة مضارع مستمر: 🛠️',
+        steps: [
+          '1) اختر الفاعل: ' + LTR('I / She / They'),
+          '2) اختر المساعد الصحيح: ' + LTR('am / is / are'),
+          '3) الفعل + ' + LTR('ing'),
+          'جرّب: هو + يكتب الآن',
+          LTR('He') + ' + ' + LTR('is') + ' + ' + LTR('writing'),
+          '<span class="hl2">' + LTR('He is writing.') + '</span> ✓'
+        ],
+        speech: 'حيلة الثلاث خطوات لبناء أي جملة مضارع مستمر: أولاً اختر الفاعل: آي أو شي أو ذاي. ثانياً اختر المساعد الصحيح: آم أو إز أو آر. ثالثاً الفعل مع آي إن جي. جرب: هو يكتب الآن: هي، ثم إز، ثم رايتينغ: هي إز رايتينغ!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أكمل الجملة الصحيحة:', math: 'She ___ reading now.', options: ['is', 'am', 'are', 'be'], correct: 0, why: 'She مفرد غائب فتأخذ is: She is reading.' },
+      { type: 'choice', q: 'ماذا تعني "They are playing"؟', options: ['هم يلعبون الآن', 'هم لعبوا أمس', 'هم سيلعبون غدًا', 'هم لا يلعبون'], correct: 0, why: 'are + playing = مضارع مستمر: يحدث الآن.' },
+      { type: 'write', q: 'اكتب الجملة "أنا آكل" (الآن) بالإنجليزية:', accept: ['i am eating', 'i am eating.'], answer: 'I am eating.', why: 'I + am + eating: مضارع مستمر مع I.' },
+      { type: 'choice', q: 'أي جملة تصف شيئًا يحدث الآن؟', options: ['I am drinking coffee now.', 'I drink coffee every day.', 'I drank coffee.', 'I like coffee.'], correct: 0, why: 'am + drinking + now = يحدث في هذه اللحظة.' },
+      { type: 'write', q: 'أكمل بالفعل الصحيح: He is ____ (write) a letter:', accept: ['writing'], answer: 'writing', why: 'بعد is نضيف ing للفعل: writing (ونحذف الـ e من write).' },
+      { type: 'choice', q: 'أكمل الجملة الصحيحة:', math: 'We ___ studying English.', options: ['are', 'is', 'am', 'be'], correct: 0, why: 'We جمع فتأخذ are: We are studying.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 3: الماضي البسيط ═══════════ */
+  {
+    id: 'en-past-simple',
+    title: 'الماضي البسيط',
+    icon: '⏪',
+    explanations: [
+      {
+        bubble: 'كيف تحكي عن شيء حدث وانتهى؟ بالماضي البسيط! ⏪ القاعدة الأساسية:',
+        steps: [
+          'أضف <span class="hl2">' + LTR('ed') + '</span> في آخر الفعل:',
+          LTR('play → played') + ' (لعب)',
+          LTR('watch → watched') + ' (شاهد)',
+          LTR('visit → visited') + ' (زار)',
+          'مثال: ' + LTR('I played football yesterday.'),
+          '= لعبت كرة القدم أمس',
+          'كلمات الماضي: <span class="hl">' + LTR('yesterday, last week, ago') + '</span>'
+        ],
+        speech: 'كيف تحكي عن شيء حدث وانتهى؟ بالماضي البسيط! القاعدة الأساسية: أضف إي دي في آخر الفعل. بلاي تصبح بلايد. واتش تصبح واتشد. فيزيت تصبح فيزيتد. مثال: آي بلايد فوتبول يسترداي: لعبت كرة القدم أمس. وكلمات الماضي المشهورة: يسترداي أمس، لاست ويك الأسبوع الماضي، وأغو أي قبل كذا.'
+      },
+      {
+        bubble: 'لكن انتبه! ⚠️ بعض الأفعال متمردة — لا تقبل ed وتتغير كليًا:',
+        steps: [
+          'أشهر الأفعال الشاذة:',
+          LTR('go → went') + ' (ذهب)',
+          LTR('eat → ate') + ' (أكل)',
+          LTR('see → saw') + ' (رأى)',
+          LTR('have → had') + ' (ملك)',
+          LTR('come → came') + ' (جاء)',
+          'مثال: ' + LTR('I went to school.') + ' — وليس ' + LTR('goed') + '! ❌'
+        ],
+        speech: 'لكن انتبه! بعض الأفعال متمردة لا تقبل إي دي وتتغير كلياً. غو تصبح وينت. إيت تصبح أيت. سي تصبح سو. هاف تصبح هاد. كم تصبح كايم. مثال: آي وينت تو سكوول: ذهبت إلى المدرسة. ولا نقول أبداً غود!'
+      },
+      {
+        bubble: 'قصة قصيرة بالماضي — هكذا تحكي يومك كله! 📖',
+        steps: [
+          LTR('Yesterday, I woke up at 7.') + ' = استيقظت الساعة 7',
+          LTR('I ate breakfast.') + ' = أكلت الفطور',
+          LTR('I went to school.') + ' = ذهبت للمدرسة',
+          LTR('I played with my friends.') + ' = لعبت مع أصدقائي',
+          'لاحظ: كل الأفعال في صيغة الماضي',
+          '<span class="hl2">احكِ يومك بالإنجليزية كل مساء — أفضل تمرين!</span>'
+        ],
+        speech: 'قصة قصيرة بالماضي، هكذا تحكي يومك كله! يسترداي آي ووك أب آت سيفن: أمس استيقظت الساعة السابعة. آي أيت بريكفاست: أكلت الفطور. آي وينت تو سكوول: ذهبت إلى المدرسة. آي بلايد ويذ ماي فريندز: لعبت مع أصدقائي. احكِ يومك بالإنجليزية كل مساء، هذا أفضل تمرين!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ما ماضي الفعل "play"؟', options: ['played', 'plays', 'playing', 'playd'], correct: 0, why: 'فعل منتظم: نضيف ed → played.' },
+      { type: 'choice', q: 'ما ماضي الفعل "go"؟', options: ['went', 'goed', 'gone', 'going'], correct: 0, why: '"go" فعل شاذ: ماضيه went وليس goed.' },
+      { type: 'write', q: 'اكتب ماضي الفعل "watch":', accept: ['watched'], answer: 'watched', why: 'فعل منتظم: watch + ed = watched.' },
+      { type: 'choice', q: 'ماذا تعني "I ate breakfast"؟', options: ['أكلتُ الفطور', 'آكل الفطور الآن', 'سآكل الفطور', 'لا أحب الفطور'], correct: 0, why: 'ate هي ماضي eat: حدث وانتهى.' },
+      { type: 'write', q: 'اكتب ماضي الفعل "see":', accept: ['saw'], answer: 'saw', why: '"see" فعل شاذ: ماضيه saw.' },
+      { type: 'choice', q: 'أي جملة صحيحة عن الأمس؟', options: ['I went to school yesterday.', 'I go to school yesterday.', 'I am going yesterday.', 'I goed to school.'], correct: 0, why: 'مع yesterday نستخدم الماضي: went.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 4: المستقبل ═══════════ */
+  {
+    id: 'en-future',
+    title: 'التحدث عن المستقبل',
+    icon: '🔮',
+    explanations: [
+      {
+        bubble: 'كيف تتحدث عن الغد وما بعده؟ أسهل طريقة: كلمة will! 🔮',
+        steps: [
+          'القاعدة: <span class="hl2">' + LTR('will + الفعل الأساسي') + '</span>',
+          LTR('I will travel tomorrow.') + ' = سأسافر غدًا',
+          LTR('She will call you.') + ' = ستتصل بك',
+          LTR('It will rain.') + ' = ستمطر',
+          '<span class="hl">' + LTR('will') + '</span> لا تتغير مع أي فاعل!',
+          'كلمات المستقبل: ' + LTR('tomorrow, next week, soon')
+        ],
+        speech: 'كيف تتحدث عن الغد وما بعده؟ أسهل طريقة: كلمة ويل! القاعدة: ويل ثم الفعل الأساسي. آي ويل ترافل تومورو: سأسافر غداً. شي ويل كول يو: ستتصل بك. إت ويل رين: ستمطر. وأجمل ما فيها أن ويل لا تتغير مع أي فاعل! كلمات المستقبل: تومورو غداً، نكست ويك الأسبوع القادم، وسوون قريباً.'
+      },
+      {
+        bubble: 'هناك طريقة ثانية للخطط المؤكدة: going to! 📅 والفرق بسيط:',
+        steps: [
+          '<span class="hl">' + LTR('will') + '</span>: قرار في اللحظة أو توقع',
+          LTR("I'm hungry — I will order pizza!"),
+          '<span class="hl">' + LTR('going to') + '</span>: خطة مرتبة مسبقًا',
+          LTR('I am going to visit Egypt next month.'),
+          '(حجزت التذكرة بالفعل! ✈️)',
+          'كلاهما مستقبل — going to أقوى في التخطيط'
+        ],
+        speech: 'هناك طريقة ثانية للخطط المؤكدة: غوينغ تو! والفرق بسيط: ويل للقرار في اللحظة أو التوقع: أنا جائع، سأطلب بيتزا! أما غوينغ تو فللخطة المرتبة مسبقاً: آي آم غوينغ تو فيزيت إيجيبت نكست منث: سأزور مصر الشهر القادم، وقد حجزت التذكرة بالفعل! كلاهما مستقبل، لكن غوينغ تو أقوى في التخطيط.'
+      },
+      {
+        bubble: 'والنفي والسؤال؟ سهلان جدًا مع will! 🙅',
+        steps: [
+          'النفي: <span class="hl2">' + LTR("will not = won't") + '</span>',
+          LTR("I won't be late.") + ' = لن أتأخر',
+          'السؤال: اقلب الترتيب — ابدأ بـ' + LTR('Will'),
+          LTR('Will you help me?') + ' = هل ستساعدني؟',
+          'الجواب: ' + LTR('Yes, I will. / No, I won\'t.'),
+          'ثلاث صيغ بكلمة واحدة سحرية! ✨'
+        ],
+        speech: 'والنفي والسؤال؟ سهلان جداً مع ويل! النفي: ويل نوت، وتختصر وونت. آي وونت بي ليت: لن أتأخر. والسؤال: اقلب الترتيب وابدأ بويل: ويل يو هيلب مي؟ هل ستساعدني؟ والجواب: يس آي ويل، أو نو آي وونت. ثلاث صيغ بكلمة واحدة سحرية!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'كيف نقول "سأسافر غدًا"؟', options: ['I will travel tomorrow.', 'I traveled tomorrow.', 'I travel yesterday.', 'I am travel tomorrow.'], correct: 0, why: 'المستقبل: will + الفعل الأساسي.' },
+      { type: 'choice', q: 'ما اختصار "will not"؟', options: ["won't", "willn't", "not will", "wont'"], correct: 0, why: 'will not تختصر إلى won\'t.' },
+      { type: 'write', q: 'اكتب "ستمطر" بالإنجليزية (جملة من كلمتين مع It):', accept: ['it will rain', 'it will rain.'], answer: 'It will rain.', why: 'It + will + rain: توقع مستقبلي.' },
+      { type: 'choice', q: 'متى نستخدم "going to" بدل "will"؟', options: ['لخطة مرتبة ومقررة مسبقًا', 'للماضي فقط', 'للنفي فقط', 'لا فرق إطلاقًا'], correct: 0, why: 'going to للخطط المحضّرة مسبقًا؛ will للقرارات اللحظية والتوقعات.' },
+      { type: 'choice', q: 'كيف تسأل "هل ستساعدني؟"', options: ['Will you help me?', 'You will help me?', 'Do you helped me?', 'Are you help me?'], correct: 0, why: 'السؤال بالمستقبل: نبدأ بـ Will ثم الفاعل ثم الفعل.' },
+      { type: 'write', q: 'أكمل بالنفي المختصر: I ____ be late (لن أتأخر):', accept: ["won't", 'wont'], answer: "won't", why: 'will not = won\'t.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 4: المقارنة والتفضيل ═══════════ */
+  {
+    id: 'en-comparatives',
+    title: 'المقارنة والتفضيل',
+    icon: '⚖️',
+    explanations: [
+      {
+        bubble: 'كيف تقارن بين شيئين بالإنجليزية؟ أضف er وthan! ⚖️',
+        steps: [
+          'القاعدة: <span class="hl2">' + LTR('صفة + er + than') + '</span>',
+          LTR('tall → taller than') + ' (أطول من)',
+          LTR('fast → faster than') + ' (أسرع من)',
+          LTR('Ali is taller than Omar.'),
+          '= علي أطول من عمر',
+          LTR('A car is faster than a bike.')
+        ],
+        speech: 'كيف تقارن بين شيئين بالإنجليزية؟ أضف إي آر للصفة ثم كلمة ذان! تول تصبح تولر ذان: أطول من. فاست تصبح فاستر ذان: أسرع من. علي إز تولر ذان عمر: علي أطول من عمر. أ كار إز فاستر ذان أ بايك: السيارة أسرع من الدراجة.'
+      },
+      {
+        bubble: 'والأفضل على الإطلاق؟ استخدم the + est — صيغة التفضيل! 🏆',
+        steps: [
+          'القاعدة: <span class="hl2">' + LTR('the + صفة + est') + '</span>',
+          LTR('tall → the tallest') + ' (الأطول)',
+          LTR('fast → the fastest') + ' (الأسرع)',
+          LTR('Ahmed is the tallest in the class.'),
+          '= أحمد هو الأطول في الفصل',
+          'er للمقارنة بين اثنين، est للأفضل بين الجميع!'
+        ],
+        speech: 'والأفضل على الإطلاق؟ استخدم ذا مع إي إس تي، صيغة التفضيل! تول تصبح ذا تولست: الأطول. فاست تصبح ذا فاستست: الأسرع. أحمد إز ذا تولست إن ذا كلاس: أحمد هو الأطول في الفصل. تذكر: إي آر للمقارنة بين اثنين، وإي إس تي للأفضل بين الجميع!'
+      },
+      {
+        bubble: 'الصفات الطويلة قاعدة مختلفة — استخدم more وmost! 📏',
+        steps: [
+          'صفة طويلة (3 مقاطع+)؟ لا تضف er!',
+          'استخدم: <span class="hl">' + LTR('more + الصفة') + '</span>',
+          LTR('beautiful → more beautiful') + ' (أجمل)',
+          'وللتفضيل: <span class="hl">' + LTR('the most') + '</span>',
+          LTR('the most beautiful') + ' (الأجمل)',
+          'وشاذّان مشهوران: ' + LTR('good → better → the best') + '، ' + LTR('bad → worse → the worst')
+        ],
+        speech: 'الصفات الطويلة لها قاعدة مختلفة: استخدم مور وموست! الصفة الطويلة مثل بيوتيفول لا نضيف لها إي آر، بل نقول مور بيوتيفول: أجمل. وللتفضيل: ذا موست بيوتيفول: الأجمل. واحفظ الشاذين المشهورين: غود تصبح بيتر ثم ذا بيست، وباد تصبح وورس ثم ذا وورست.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أكمل: Ali is ____ than Omar. (أطول)', options: ['taller', 'tallest', 'more tall', 'tall'], correct: 0, why: 'مقارنة بين اثنين: صفة + er + than → taller than.' },
+      { type: 'choice', q: 'أكمل: Ahmed is ____ in the class. (الأطول)', options: ['the tallest', 'taller', 'tall', 'more tall'], correct: 0, why: 'التفضيل بين الجميع: the + صفة + est.' },
+      { type: 'write', q: 'اكتب صيغة المقارنة من "fast" (أسرع):', accept: ['faster'], answer: 'faster', why: 'fast + er = faster.' },
+      { type: 'choice', q: 'ما صيغة المقارنة الصحيحة من "beautiful"؟', options: ['more beautiful', 'beautifuler', 'beautifulest', 'the beautiful'], correct: 0, why: 'صفة طويلة: نستخدم more وليس er.' },
+      { type: 'choice', q: 'ما صيغة التفضيل من "good"؟', options: ['the best', 'the goodest', 'more good', 'gooder'], correct: 0, why: 'good شاذة: good → better → the best.' },
+      { type: 'write', q: 'أكمل: A plane is ____ than a car (أسرع):', accept: ['faster'], answer: 'faster', why: 'المقارنة: faster than.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 5: الجمل الشرطية ═══════════ */
+  {
+    id: 'en-conditionals',
+    title: 'الجمل الشرطية',
+    icon: '🔀',
+    explanations: [
+      {
+        bubble: 'الجمل الشرطية: "إذا حدث كذا... سيحدث كذا"! أهم صيغة هي الشرط الأول:',
+        steps: [
+          'القاعدة: <span class="hl2">' + LTR('If + مضارع، will + فعل') + '</span>',
+          LTR('If you study, you will pass.'),
+          '= إذا درستَ، ستنجح',
+          LTR('If it rains, I will stay home.'),
+          '= إذا أمطرت، سأبقى في البيت',
+          'شرط <span class="hl">ممكن حدوثه</span> في المستقبل + نتيجته'
+        ],
+        speech: 'الجمل الشرطية: إذا حدث كذا سيحدث كذا! أهم صيغة هي الشرط الأول. القاعدة: إف مع المضارع، ثم ويل مع الفعل. إف يو ستادي، يو ويل باس: إذا درست ستنجح. إف إت رينز، آي ويل ستاي هوم: إذا أمطرت سأبقى في البيت. إنه شرط ممكن حدوثه في المستقبل مع نتيجته.'
+      },
+      {
+        bubble: 'وهناك الشرط الصفري: للحقائق الدائمة التي لا تتغير أبدًا! 🌡️',
+        steps: [
+          'القاعدة: <span class="hl2">' + LTR('If + مضارع، مضارع') + '</span>',
+          LTR('If you heat ice, it melts.'),
+          '= إذا سخّنت الثلج، يذوب (دائمًا!)',
+          LTR('If you don\'t water plants, they die.'),
+          'الفرق: <span class="hl">حقيقة علمية دائمة</span> ← لا نستخدم will',
+          '<span class="hl">احتمال مستقبلي</span> ← نستخدم will'
+        ],
+        speech: 'وهناك الشرط الصفري: للحقائق الدائمة التي لا تتغير أبداً! القاعدة: إف مع المضارع، ثم مضارع أيضاً بدون ويل. إف يو هيت آيس، إت ميلتس: إذا سخنت الثلج يذوب، دائماً وأبداً! الفرق: الحقيقة العلمية الدائمة لا نستخدم معها ويل، أما الاحتمال المستقبلي فنستخدم ويل.'
+      },
+      {
+        bubble: 'خطأ شائع جدًا — انتبه له! ❌ لا تضع will بعد if أبدًا:',
+        steps: [
+          '❌ ' + LTR('If it will rain, I will stay.'),
+          '✓ ' + LTR('If it rains, I will stay.'),
+          'القاعدة الذهبية:',
+          '<span class="hl">جملة الـif ← مضارع دائمًا</span>',
+          '<span class="hl">جملة النتيجة ← فيها الـwill</span>',
+          'تذكر: will تكره الجلوس بجانب if! 😄'
+        ],
+        speech: 'خطأ شائع جداً انتبه له! لا تضع ويل بعد إف أبداً. الخطأ: إف إت ويل رين. الصحيح: إف إت رينز، آي ويل ستاي. القاعدة الذهبية: جملة الإف مضارع دائماً، وجملة النتيجة فيها الويل. تذكر: ويل تكره الجلوس بجانب إف!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أكمل: If you study, you ____ pass.', options: ['will', 'would', 'are', 'did'], correct: 0, why: 'الشرط الأول: If + مضارع، ثم will في النتيجة.' },
+      { type: 'choice', q: 'أي جملة صحيحة؟', options: ['If it rains, I will stay home.', 'If it will rain, I will stay home.', 'If it rained, I stay home.', 'If it rain, I stayed.'], correct: 0, why: 'لا نضع will بعد if — جملة الشرط مضارع: If it rains.' },
+      { type: 'write', q: 'أكمل بالفعل الصحيح: If you heat ice, it ____ (melt):', accept: ['melts'], answer: 'melts', why: 'شرط صفري (حقيقة علمية): مضارع في الجملتين، مع s للغائب: melts.' },
+      { type: 'choice', q: 'ماذا تعني "If it rains, I will stay home"؟', options: ['إذا أمطرت سأبقى في البيت', 'أمطرت فبقيت في البيت', 'لن تمطر أبدًا', 'أنا في البيت الآن'], correct: 0, why: 'شرط أول: احتمال مستقبلي ونتيجته.' },
+      { type: 'choice', q: 'متى نستخدم الشرط الصفري (بدون will)؟', options: ['للحقائق العلمية الدائمة', 'للأحلام المستحيلة', 'للماضي فقط', 'للأسئلة فقط'], correct: 0, why: 'الشرط الصفري للحقائق التي تحدث دائمًا: If you heat ice, it melts.' },
+      { type: 'write', q: 'أكمل: If you don\'t study, you ____ fail (سترسب):', accept: ['will'], answer: 'will', why: 'الشرط الأول: النتيجة تأخذ will.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 5: المبني للمجهول ═══════════ */
+  {
+    id: 'en-passive',
+    title: 'المبني للمجهول',
+    icon: '🏗️',
+    explanations: [
+      {
+        bubble: 'أحيانًا لا يهمنا مَن فعل الشيء — بل الشيء نفسه! هذا هو المبني للمجهول:',
+        steps: [
+          'القاعدة: <span class="hl2">' + LTR('am/is/are + التصريف الثالث') + '</span>',
+          'مبني للمعلوم: ' + LTR('Ali cleans the room.'),
+          '= علي ينظف الغرفة (المهم: علي)',
+          'مبني للمجهول: ' + LTR('The room is cleaned.'),
+          '= الغرفة تُنظَّف (المهم: الغرفة!)',
+          'المفعول به أصبح <span class="hl">بطل الجملة</span> 🌟'
+        ],
+        speech: 'أحياناً لا يهمنا من فعل الشيء، بل الشيء نفسه! هذا هو المبني للمجهول. القاعدة: آم أو إز أو آر مع التصريف الثالث للفعل. المبني للمعلوم: علي كلينز ذا روم: علي ينظف الغرفة، والمهم هنا علي. المبني للمجهول: ذا روم إز كليند: الغرفة تنظف، والمهم هنا الغرفة! المفعول به أصبح بطل الجملة.'
+      },
+      {
+        bubble: 'أشهر استخدام: الأشياء المصنوعة والمكتوبة والمبنية! 🏗️',
+        steps: [
+          LTR('Coffee is grown in Brazil.'),
+          '= القهوة تُزرَع في البرازيل',
+          LTR('Arabic is spoken in Egypt.'),
+          '= العربية تُتحدَّث في مصر',
+          LTR('These cars are made in Japan.'),
+          '= هذه السيارات تُصنَع في اليابان',
+          'لا أحد يسأل "مَن؟" — <span class="hl">الفكرة أهم من الفاعل</span>'
+        ],
+        speech: 'أشهر استخدام للمبني للمجهول: الأشياء المصنوعة والمكتوبة والمبنية! كوفي إز غرون إن برازيل: القهوة تزرع في البرازيل. أرابيك إز سبوكن إن إيجيبت: العربية تتحدث في مصر. ذيز كارز آر ميد إن جابان: هذه السيارات تصنع في اليابان. لا أحد يسأل من فعل، فالفكرة أهم من الفاعل.'
+      },
+      {
+        bubble: 'وللماضي؟ استبدل is/are بـwas/were — بهذه البساطة! ⏪',
+        steps: [
+          'مجهول الماضي: <span class="hl2">' + LTR('was/were + التصريف الثالث') + '</span>',
+          LTR('This mosque was built in 1200.'),
+          '= بُني هذا المسجد عام 1200',
+          LTR('The letters were sent yesterday.'),
+          '= أُرسلت الرسائل أمس',
+          'مفرد ← ' + LTR('was') + '، جمع ← ' + LTR('were')
+        ],
+        speech: 'وللماضي؟ استبدل إز وآر بواز ووير، بهذه البساطة! ذيس موسك واز بيلت إن تويلف هندريد: بني هذا المسجد عام ألف ومئتين. ذا ليترز وير سينت يسترداي: أرسلت الرسائل أمس. للمفرد واز، وللجمع وير.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ما صيغة المبني للمجهول الصحيحة؟', math: 'Ali cleans the room. →', options: ['The room is cleaned.', 'The room cleans.', 'The room is clean Ali.', 'Ali is cleaned.'], correct: 0, why: 'المفعول به يصبح البداية + is + التصريف الثالث: The room is cleaned.' },
+      { type: 'choice', q: 'ماذا تعني "Coffee is grown in Brazil"؟', options: ['القهوة تُزرع في البرازيل', 'البرازيل تشرب القهوة', 'القهوة زرعت البرازيل', 'أنا أزرع القهوة'], correct: 0, why: 'مبني للمجهول: القهوة (المفعول) هي بطل الجملة.' },
+      { type: 'write', q: 'أكمل: These cars ____ made in Japan (جمع):', accept: ['are'], answer: 'are', why: 'cars جمع فتأخذ are: are made.' },
+      { type: 'choice', q: 'أكمل للماضي: This mosque ____ built in 1200.', options: ['was', 'is', 'are', 'were'], correct: 0, why: 'مفرد + ماضٍ: was built.' },
+      { type: 'write', q: 'أكمل: Arabic ____ spoken in Egypt:', accept: ['is'], answer: 'is', why: 'Arabic مفرد + مضارع: is spoken.' },
+      { type: 'choice', q: 'متى نفضّل المبني للمجهول؟', options: ['عندما يكون الفاعل غير مهم أو غير معروف', 'عندما نريد مدح الفاعل', 'في الأسئلة فقط', 'لا نستخدمه أبدًا'], correct: 0, why: 'المبني للمجهول يركز على الحدث/الشيء بدل الفاعل.' }
+    ]
   }
 ];
 
-/* Groups the lessons above into named units for the path screen + profile. */
-const ENGLISH_UNITS = [
-  { title: 'التعارف', icon: '📘', lessonIds: ['en-alphabet', 'en-vocab-basic'] },
-  { title: 'الجمل والأرقام', icon: '📗', lessonIds: ['en-simple-sentences', 'en-numbers-time'] },
+/* ═══════════════════════════════════════════════════════════
+   المستويات الدراسية (0-5) — مطابقة للمراحل في المدارس العربية
+   ═══════════════════════════════════════════════════════════ */
+const ENGLISH_LEVELS = [
+  {
+    level: 0, title: 'التمهيدي', stage: 'رياض الأطفال', icon: '🧸',
+    units: [
+      { title: 'الحروف والتحيات', icon: '🔤', lessonIds: ['en-alphabet'] },
+      { title: 'الألوان', icon: '🎨', lessonIds: ['en-colors'] },
+    ]
+  },
+  {
+    level: 1, title: 'الابتدائي الأدنى', stage: 'الصفوف 1-3', icon: '📗',
+    units: [
+      { title: 'مفردات أساسية', icon: '📚', lessonIds: ['en-vocab-basic'] },
+      { title: 'العائلة', icon: '👨‍👩‍👧‍👦', lessonIds: ['en-family'] },
+    ]
+  },
+  {
+    level: 2, title: 'الابتدائي الأعلى', stage: 'الصفوف 4-6', icon: '📘',
+    units: [
+      { title: 'الجمل البسيطة', icon: '💬', lessonIds: ['en-simple-sentences'] },
+      { title: 'الأرقام والوقت', icon: '🕐', lessonIds: ['en-numbers-time'] },
+    ]
+  },
+  {
+    level: 3, title: 'المتوسط', stage: 'الإعدادي', icon: '📙',
+    units: [
+      { title: 'المضارع المستمر', icon: '🏃', lessonIds: ['en-present-continuous'] },
+      { title: 'الماضي البسيط', icon: '⏪', lessonIds: ['en-past-simple'] },
+    ]
+  },
+  {
+    level: 4, title: 'الثانوي', stage: 'المرحلة الثانوية', icon: '📕',
+    units: [
+      { title: 'المستقبل', icon: '🔮', lessonIds: ['en-future'] },
+      { title: 'المقارنة والتفضيل', icon: '⚖️', lessonIds: ['en-comparatives'] },
+    ]
+  },
+  {
+    level: 5, title: 'الجامعي والمتقدم', stage: 'قواعد متقدمة', icon: '🎓',
+    units: [
+      { title: 'الجمل الشرطية', icon: '🔀', lessonIds: ['en-conditionals'] },
+      { title: 'المبني للمجهول', icon: '🏗️', lessonIds: ['en-passive'] },
+    ]
+  },
 ];
