@@ -345,7 +345,7 @@ const ENGLISH_LESSONS = [
       {
         type: 'write',
         q: 'اكتب "الساعة السادسة تمامًا" بالإنجليزية:',
-        accept: ['it\'s six o\'clock', 'its six o\'clock', "it's six o'clock"],
+        accept: ["it's six o'clock", "its six o'clock", "it's six o'clock.", "its six o'clock."],
         answer: "It's six o'clock.",
         why: 'نقول: It\'s + الرقم + o\'clock.'
       },
@@ -797,6 +797,650 @@ const ENGLISH_LESSONS = [
       { type: 'write', q: 'أكمل: Arabic ____ spoken in Egypt:', accept: ['is'], answer: 'is', why: 'Arabic مفرد + مضارع: is spoken.' },
       { type: 'choice', q: 'متى نفضّل المبني للمجهول؟', options: ['عندما يكون الفاعل غير مهم أو غير معروف', 'عندما نريد مدح الفاعل', 'في الأسئلة فقط', 'لا نستخدمه أبدًا'], correct: 0, why: 'المبني للمجهول يركز على الحدث/الشيء بدل الفاعل.' }
     ]
+  },
+
+  /* ═══════════ المستوى 0: الأرقام ═══════════ */
+  {
+    id: 'en-numbers-basic',
+    title: 'الأرقام 1-10',
+    icon: '🔢',
+    explanations: [
+      {
+        bubble: 'عُدّ معي بالإنجليزية! 🖐️ ارفع إصبعًا مع كل رقم:',
+        steps: [
+          LTR('1 = one') + ' — وَن',
+          LTR('2 = two') + ' — تو',
+          LTR('3 = three') + ' — ثري',
+          LTR('4 = four') + ' — فور',
+          LTR('5 = five') + ' — فايف',
+          LTR('6 = six') + '، ' + LTR('7 = seven') + '، ' + LTR('8 = eight'),
+          '<span class="hl2">' + LTR('9 = nine') + '، ' + LTR('10 = ten') + '</span> 🎉'
+        ],
+        speech: 'عد معي بالإنجليزية! ارفع إصبعاً مع كل رقم. وان واحد. تو اثنان. ثري ثلاثة. فور أربعة. فايف خمسة. سيكس ستة. سيفن سبعة. إيت ثمانية. ناين تسعة. وتن عشرة!'
+      },
+      {
+        bubble: 'الأرقام في حياتك اليومية! 📞 استخدمها فورًا:',
+        steps: [
+          LTR('I am seven years old.') + ' = عمري 7 سنوات',
+          LTR('I have two brothers.') + ' = عندي أخوان',
+          LTR('Give me three apples.') + ' = أعطني 3 تفاحات',
+          'للسؤال عن العدد: <span class="hl">' + LTR('How many?') + '</span>',
+          LTR('How many books?') + ' = كم كتابًا؟',
+          '<span class="hl2">جرّب عدّ أشيائك بالإنجليزية الآن!</span>'
+        ],
+        speech: 'الأرقام في حياتك اليومية، استخدمها فوراً! آي آم سيفن يرز أولد: عمري سبع سنوات. آي هاف تو برذرز: عندي أخوان. غيف مي ثري آبلز: أعطني ثلاث تفاحات. وللسؤال عن العدد نقول: هاو ميني؟ مثل هاو ميني بوكس؟ كم كتاباً؟'
+      },
+      {
+        bubble: 'حيلة الحفظ: أغنية الأرقام! 🎵 ردّدها ثلاث مرات يوميًا:',
+        steps: [
+          '🎵 ' + LTR('One, two, buckle my shoe'),
+          '🎵 ' + LTR('Three, four, knock at the door'),
+          '🎵 ' + LTR('Five, six, pick up sticks'),
+          'الإيقاع يثبّت الأرقام في ذاكرتك!',
+          'وعُدّ درجات السلم بالإنجليزية كل يوم',
+          '<span class="hl2">التكرار مع الحركة = حفظ سريع</span> 🏃'
+        ],
+        speech: 'حيلة الحفظ: أغنية الأرقام! رددها ثلاث مرات يومياً. وان تو باكل ماي شو. ثري فور نوك آت ذا دور. فايف سيكس بيك أب ستيكس. الإيقاع يثبت الأرقام في ذاكرتك! وعد درجات السلم بالإنجليزية كل يوم. التكرار مع الحركة يعطي حفظاً سريعاً.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ما معنى الرقم "five"؟', options: ['5', '4', '9', '1'], correct: 0, why: '"five" = خمسة.' },
+      { type: 'choice', q: 'كيف نكتب الرقم 3 بالإنجليزية؟', options: ['three', 'tree', 'thirty', 'third'], correct: 0, why: '"three" = ثلاثة.' },
+      { type: 'write', q: 'اكتب الرقم 7 بالإنجليزية:', accept: ['seven'], answer: 'seven', why: '"seven" = سبعة.' },
+      { type: 'choice', q: 'كيف نسأل "كم عددها؟" بالإنجليزية؟', options: ['How many?', 'How are you?', 'What color?', 'Where is it?'], correct: 0, why: '"How many?" تسأل عن العدد.' },
+      { type: 'write', q: 'اكتب الرقم 10 بالإنجليزية:', accept: ['ten'], answer: 'ten', why: '"ten" = عشرة.' },
+      { type: 'choice', q: 'أكمل: I have ____ brothers (أخوان)', options: ['two', 'to', 'too', 'second'], correct: 0, why: '"two" = اثنان (وليس to أو too المتشابهة في النطق).' }
+    ]
+  },
+
+  /* ═══════════ المستوى 0: الحيوانات ═══════════ */
+  {
+    id: 'en-animals',
+    title: 'الحيوانات',
+    icon: '🐘',
+    explanations: [
+      {
+        bubble: 'لنتعرف على أصدقائنا الحيوانات بالإنجليزية! 🐾',
+        steps: [
+          '🐱 ' + LTR('cat') + ' = قطة',
+          '🐶 ' + LTR('dog') + ' = كلب',
+          '🐦 ' + LTR('bird') + ' = طائر',
+          '🐟 ' + LTR('fish') + ' = سمكة',
+          '🐴 ' + LTR('horse') + ' = حصان',
+          '🐘 ' + LTR('elephant') + ' = فيل',
+          '🦁 <span class="hl2">' + LTR('lion') + ' = أسد</span>'
+        ],
+        speech: 'لنتعرف على أصدقائنا الحيوانات بالإنجليزية! كات قطة. دوغ كلب. بيرد طائر. فيش سمكة. هورس حصان. إليفانت فيل. ولايون أسد!'
+      },
+      {
+        bubble: 'أين يعيش كل حيوان؟ 🏠 اربط الحيوان بمكانه:',
+        steps: [
+          LTR('The cat is in the house.') + ' = القطة في البيت',
+          LTR('The fish is in the water.') + ' = السمكة في الماء',
+          LTR('The bird is in the sky.') + ' = الطائر في السماء',
+          LTR('The lion is in the forest.') + ' = الأسد في الغابة',
+          '<span class="hl">' + LTR('in') + '</span> تعني "في/داخل"',
+          '<span class="hl2">الربط بالمكان يساعدك على التذكّر!</span>'
+        ],
+        speech: 'أين يعيش كل حيوان؟ اربط الحيوان بمكانه. ذا كات إز إن ذا هاوس: القطة في البيت. ذا فيش إز إن ذا واتر: السمكة في الماء. ذا بيرد إز إن ذا سكاي: الطائر في السماء. وذا لايون إز إن ذا فورست: الأسد في الغابة. وكلمة إن تعني في أو داخل.'
+      },
+      {
+        bubble: 'أصوات الحيوانات بالإنجليزية! 🔊 ممتعة جدًا:',
+        steps: [
+          'القطة تقول: ' + LTR('meow') + ' 🐱',
+          'الكلب يقول: ' + LTR('woof') + ' 🐶',
+          'البقرة تقول: ' + LTR('moo') + ' 🐄',
+          'الأسد يقول: ' + LTR('roar') + ' 🦁',
+          'الجمع: أضف <span class="hl">s</span> ← ' + LTR('cats, dogs, birds'),
+          '<span class="hl2">لكن ' + LTR('fish') + ' تبقى ' + LTR('fish') + ' في الجمع!</span> 🐟'
+        ],
+        speech: 'أصوات الحيوانات بالإنجليزية ممتعة جداً! القطة تقول مياو. الكلب يقول ووف. البقرة تقول مو. والأسد يقول رور. وللجمع أضف حرف إس: كاتس، دوغز، بيردز. لكن انتبه، كلمة فيش تبقى فيش في الجمع ولا تتغير!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ماذا تعني كلمة "cat"؟', options: ['قطة', 'كلب', 'طائر', 'سمكة'], correct: 0, why: '"cat" = قطة 🐱.' },
+      { type: 'choice', q: 'كيف نقول "كلب" بالإنجليزية؟', options: ['dog', 'cat', 'horse', 'lion'], correct: 0, why: '"dog" = كلب 🐶.' },
+      { type: 'write', q: 'اكتب "سمكة" بالإنجليزية:', accept: ['fish'], answer: 'fish', why: '"fish" = سمكة 🐟.' },
+      { type: 'choice', q: 'ماذا تعني "elephant"؟', options: ['فيل', 'أسد', 'حصان', 'طائر'], correct: 0, why: '"elephant" = فيل 🐘.' },
+      { type: 'choice', q: 'ما جمع كلمة "cat"؟', options: ['cats', 'cates', 'cat', 'caties'], correct: 0, why: 'نضيف s للجمع: cats.' },
+      { type: 'write', q: 'اكتب "أسد" بالإنجليزية:', accept: ['lion'], answer: 'lion', why: '"lion" = أسد 🦁.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 1: الطعام والشراب ═══════════ */
+  {
+    id: 'en-food',
+    title: 'الطعام والشراب',
+    icon: '🍎',
+    explanations: [
+      {
+        bubble: 'كلمات الطعام تُستخدم كل يوم! 🍽️ لنتعلم أهمها:',
+        steps: [
+          '🍞 ' + LTR('bread') + ' = خبز',
+          '🍚 ' + LTR('rice') + ' = أرز',
+          '🥛 ' + LTR('milk') + ' = حليب',
+          '💧 ' + LTR('water') + ' = ماء',
+          '🍎 ' + LTR('apple') + ' = تفاحة',
+          '🍗 ' + LTR('chicken') + ' = دجاج',
+          '<span class="hl2">' + LTR('food') + ' = طعام، ' + LTR('drink') + ' = شراب</span>'
+        ],
+        speech: 'كلمات الطعام تستخدم كل يوم! بريد خبز. رايس أرز. ميلك حليب. واتر ماء. آبل تفاحة. تشيكن دجاج. وكلمة فود تعني طعاماً، ودرينك تعني شراباً.'
+      },
+      {
+        bubble: 'وجبات اليوم الثلاث! ⏰ لكل وجبة اسم خاص:',
+        steps: [
+          '🌅 ' + LTR('breakfast') + ' = الفطور',
+          '☀️ ' + LTR('lunch') + ' = الغداء',
+          '🌙 ' + LTR('dinner') + ' = العشاء',
+          'استخدمها في جمل:',
+          LTR('I eat breakfast at 7.') + ' = آكل الفطور الساعة 7',
+          '<span class="hl2">' + LTR('I am hungry.') + ' = أنا جائع</span> 😋'
+        ],
+        speech: 'وجبات اليوم الثلاث، لكل وجبة اسم خاص! بريكفاست الفطور. لانش الغداء. دينر العشاء. استخدمها في جمل: آي إيت بريكفاست آت سيفن، آكل الفطور الساعة السابعة. وإذا كنت جائعاً قل: آي آم هنغري!'
+      },
+      {
+        bubble: 'في المطعم! 🍴 ثلاث جمل تكفيك لطلب أي شيء:',
+        steps: [
+          LTR('I want water, please.') + ' = أريد ماءً من فضلك',
+          LTR('I like rice.') + ' = أحب الأرز',
+          LTR("I don't like fish.") + ' = لا أحب السمك',
+          '<span class="hl">' + LTR('please') + '</span> = من فضلك (كن مؤدبًا دائمًا!)',
+          '<span class="hl">' + LTR('thank you') + '</span> = شكرًا',
+          '<span class="hl2">هذه الجمل تكفيك في أي مطعم بالعالم!</span> 🌍'
+        ],
+        speech: 'في المطعم، ثلاث جمل تكفيك لطلب أي شيء! آي وانت واتر بليز: أريد ماء من فضلك. آي لايك رايس: أحب الأرز. آي دونت لايك فيش: لا أحب السمك. وكلمة بليز تعني من فضلك، فكن مؤدباً دائماً. وثانك يو تعني شكراً. هذه الجمل تكفيك في أي مطعم بالعالم!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ماذا تعني كلمة "bread"؟', options: ['خبز', 'أرز', 'حليب', 'ماء'], correct: 0, why: '"bread" = خبز 🍞.' },
+      { type: 'choice', q: 'كيف نقول "الفطور" بالإنجليزية؟', options: ['breakfast', 'lunch', 'dinner', 'food'], correct: 0, why: '"breakfast" = وجبة الفطور 🌅.' },
+      { type: 'write', q: 'اكتب "حليب" بالإنجليزية:', accept: ['milk'], answer: 'milk', why: '"milk" = حليب 🥛.' },
+      { type: 'choice', q: 'ماذا تعني "I am hungry"؟', options: ['أنا جائع', 'أنا عطشان', 'أنا سعيد', 'أنا متعب'], correct: 0, why: '"hungry" = جائع.' },
+      { type: 'write', q: 'اكتب الجملة "أريد ماءً من فضلك" بالإنجليزية:', accept: ['i want water please', 'i want water, please', 'i want water, please.'], answer: 'I want water, please.', why: 'I want + الشيء + please (للتأدّب).' },
+      { type: 'choice', q: 'ما معنى "dinner"؟', options: ['العشاء', 'الفطور', 'الغداء', 'الحلوى'], correct: 0, why: '"dinner" = وجبة العشاء 🌙.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 1: أجزاء الجسم ═══════════ */
+  {
+    id: 'en-body',
+    title: 'أجزاء الجسم',
+    icon: '👤',
+    explanations: [
+      {
+        bubble: 'جسمك أفضل معلّم! 👆 المس كل جزء وقل اسمه:',
+        steps: [
+          '👤 ' + LTR('head') + ' = رأس',
+          '👁️ ' + LTR('eye') + ' = عين',
+          '👃 ' + LTR('nose') + ' = أنف',
+          '👄 ' + LTR('mouth') + ' = فم',
+          '👂 ' + LTR('ear') + ' = أذن',
+          '✋ ' + LTR('hand') + ' = يد',
+          '🦶 <span class="hl2">' + LTR('foot') + ' = قدم</span>'
+        ],
+        speech: 'جسمك أفضل معلم! المس كل جزء وقل اسمه. هيد رأس. آي عين. نوز أنف. ماوث فم. إير أذن. هاند يد. وفوت قدم!'
+      },
+      {
+        bubble: 'انتبه للجموع الشاذة! ⚠️ بعضها لا يأخذ s:',
+        steps: [
+          'عادي: ' + LTR('hand → hands') + ' (أيدٍ)',
+          'عادي: ' + LTR('ear → ears') + ' (آذان)',
+          'شاذ: <span class="hl">' + LTR('foot → feet') + '</span> (أقدام) 😲',
+          'شاذ: <span class="hl">' + LTR('tooth → teeth') + '</span> (أسنان)',
+          'لاحظ: ' + LTR('oo') + ' تتحوّل إلى ' + LTR('ee'),
+          '<span class="hl2">احفظ هذين استثناءً — الباقي يأخذ s</span>'
+        ],
+        speech: 'انتبه للجموع الشاذة! بعضها لا يأخذ إس. العادي: هاند تصبح هاندز أي أيدٍ. وإير تصبح إيرز أي آذان. لكن الشاذ: فوت تصبح فيت أي أقدام! وتوث تصبح تيث أي أسنان. لاحظ أن حرفي أو أو يتحولان إلى إي إي. احفظ هذين استثناءً والباقي يأخذ إس.'
+      },
+      {
+        bubble: 'عند الطبيب! 🏥 كيف تصف ألمك بالإنجليزية:',
+        steps: [
+          'القاعدة: ' + LTR('My ___ hurts.'),
+          LTR('My head hurts.') + ' = رأسي يؤلمني',
+          LTR('My tooth hurts.') + ' = سنّي يؤلمني',
+          'أو استخدم: ' + LTR('I have a headache.') + ' = عندي صداع',
+          '<span class="hl">' + LTR('ache') + '</span> = ألم مستمر',
+          '<span class="hl2">' + LTR('I feel sick.') + ' = أشعر بالمرض</span>'
+        ],
+        speech: 'عند الطبيب! كيف تصف ألمك بالإنجليزية. القاعدة: ماي ثم الجزء ثم هيرتس. ماي هيد هيرتس: رأسي يؤلمني. ماي توث هيرتس: سني يؤلمني. أو استخدم آي هاف أ هيديك: عندي صداع. وكلمة إيك تعني ألماً مستمراً. وإذا شعرت بالمرض قل: آي فيل سيك.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ماذا تعني كلمة "hand"؟', options: ['يد', 'قدم', 'رأس', 'عين'], correct: 0, why: '"hand" = يد ✋.' },
+      { type: 'choice', q: 'كيف نقول "عين" بالإنجليزية؟', options: ['eye', 'ear', 'nose', 'mouth'], correct: 0, why: '"eye" = عين 👁️.' },
+      { type: 'write', q: 'اكتب "رأس" بالإنجليزية:', accept: ['head'], answer: 'head', why: '"head" = رأس 👤.' },
+      { type: 'choice', q: 'ما جمع كلمة "foot"؟', options: ['feet', 'foots', 'footes', 'foot'], correct: 0, why: 'جمع شاذ: foot → feet (تتحوّل oo إلى ee).' },
+      { type: 'write', q: 'اكتب جمع كلمة "tooth":', accept: ['teeth'], answer: 'teeth', why: 'جمع شاذ آخر: tooth → teeth.' },
+      { type: 'choice', q: 'كيف تقول "رأسي يؤلمني"؟', options: ['My head hurts.', 'I am head.', 'My head is good.', 'Head me hurts.'], correct: 0, why: 'القاعدة: My + الجزء + hurts.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 2: أيام الأسبوع والشهور ═══════════ */
+  {
+    id: 'en-days-months',
+    title: 'الأيام والشهور',
+    icon: '📅',
+    explanations: [
+      {
+        bubble: 'أيام الأسبوع السبعة! 📅 لاحظ أن كلها تنتهي بـ day:',
+        steps: [
+          LTR('Sunday') + ' = الأحد',
+          LTR('Monday') + ' = الاثنين',
+          LTR('Tuesday') + ' = الثلاثاء',
+          LTR('Wednesday') + ' = الأربعاء',
+          LTR('Thursday') + ' = الخميس',
+          LTR('Friday') + ' = الجمعة، ' + LTR('Saturday') + ' = السبت',
+          '<span class="hl2">كلها تنتهي بـ' + LTR('day') + ' — سهلة الحفظ!</span>'
+        ],
+        speech: 'أيام الأسبوع السبعة! لاحظ أن كلها تنتهي بداي. صنداي الأحد. مانداي الاثنين. تيوزداي الثلاثاء. وينزداي الأربعاء. ثيرزداي الخميس. فرايداي الجمعة. وساترداي السبت. كلها تنتهي بداي فهي سهلة الحفظ!'
+      },
+      {
+        bubble: 'الشهور الاثنا عشر! 🗓️ وكلها تبدأ بحرف كبير:',
+        steps: [
+          LTR('January, February, March') + ' (يناير، فبراير، مارس)',
+          LTR('April, May, June') + ' (أبريل، مايو، يونيو)',
+          LTR('July, August, September') + ' (يوليو، أغسطس، سبتمبر)',
+          LTR('October, November, December') + ' (أكتوبر، نوفمبر، ديسمبر)',
+          '<span class="hl">قاعدة مهمة: الأيام والشهور تبدأ بحرف كبير دائمًا!</span>',
+          '✓ ' + LTR('Monday') + '  ❌ ' + LTR('monday')
+        ],
+        speech: 'الشهور الاثنا عشر، وكلها تبدأ بحرف كبير! جانيوري، فبراري، مارتش. إبريل، ماي، جون. جولاي، أوغست، سبتمبر. أكتوبر، نوفمبر، ديسمبر. وقاعدة مهمة: الأيام والشهور في الإنجليزية تبدأ بحرف كبير دائماً!'
+      },
+      {
+        bubble: 'حروف الجر مع الوقت: in / on / at 🕐 ثلاث قواعد فقط:',
+        steps: [
+          '<span class="hl">' + LTR('on') + '</span> مع الأيام: ' + LTR('on Monday'),
+          '<span class="hl">' + LTR('in') + '</span> مع الشهور: ' + LTR('in January'),
+          '<span class="hl">' + LTR('at') + '</span> مع الساعات: ' + LTR('at 5 o\'clock'),
+          'مثال كامل:',
+          LTR('I have school on Sunday.'),
+          '<span class="hl2">' + LTR('My birthday is in May.') + '</span>'
+        ],
+        speech: 'حروف الجر مع الوقت: إن، أون، آت. ثلاث قواعد فقط! أون مع الأيام: أون مانداي. وإن مع الشهور: إن جانيوري. وآت مع الساعات: آت فايف أوكلوك. مثال كامل: آي هاف سكوول أون صنداي، عندي مدرسة يوم الأحد. وماي بيرثداي إز إن ماي، عيد ميلادي في مايو.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ماذا يعني "Friday"؟', options: ['الجمعة', 'الخميس', 'السبت', 'الأحد'], correct: 0, why: '"Friday" = يوم الجمعة.' },
+      { type: 'choice', q: 'كيف نقول "الاثنين" بالإنجليزية؟', options: ['Monday', 'Sunday', 'Tuesday', 'March'], correct: 0, why: '"Monday" = الاثنين.' },
+      { type: 'write', q: 'اكتب "الأحد" بالإنجليزية:', accept: ['sunday'], answer: 'Sunday', why: '"Sunday" = الأحد (بحرف كبير).' },
+      { type: 'choice', q: 'أي حرف جر نستخدم مع الأيام؟', options: ['on', 'in', 'at', 'to'], correct: 0, why: 'on مع الأيام: on Monday. (in للشهور، at للساعات)' },
+      { type: 'choice', q: 'أكمل: My birthday is ____ May.', options: ['in', 'on', 'at', 'of'], correct: 0, why: 'نستخدم in مع الشهور: in May.' },
+      { type: 'write', q: 'اكتب الشهر الأول في السنة بالإنجليزية:', accept: ['january'], answer: 'January', why: '"January" = يناير، أول شهور السنة.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 2: الطقس والفصول ═══════════ */
+  {
+    id: 'en-weather',
+    title: 'الطقس والفصول',
+    icon: '🌦️',
+    explanations: [
+      {
+        bubble: 'الطقس أشهر موضوع للحديث! ☀️ تعلّم كلماته:',
+        steps: [
+          '☀️ ' + LTR('sunny') + ' = مشمس',
+          '🌧️ ' + LTR('rainy') + ' = ممطر',
+          '☁️ ' + LTR('cloudy') + ' = غائم',
+          '❄️ ' + LTR('snowy') + ' = مثلج',
+          '💨 ' + LTR('windy') + ' = عاصف',
+          '🔥 ' + LTR('hot') + ' = حار، 🧊 ' + LTR('cold') + ' = بارد',
+          '<span class="hl2">' + LTR("How's the weather?") + ' = كيف الطقس؟</span>'
+        ],
+        speech: 'الطقس أشهر موضوع للحديث! سني مشمس. رايني ممطر. كلاودي غائم. سنوي مثلج. ويندي عاصف. هوت حار. وكولد بارد. وللسؤال نقول: هاوز ذا ويذر؟ كيف الطقس؟'
+      },
+      {
+        bubble: 'الفصول الأربعة! 🍂 وكل فصل له طقسه:',
+        steps: [
+          '🌸 ' + LTR('spring') + ' = الربيع',
+          '☀️ ' + LTR('summer') + ' = الصيف',
+          '🍂 ' + LTR('autumn / fall') + ' = الخريف',
+          '❄️ ' + LTR('winter') + ' = الشتاء',
+          'اربطها بالطقس:',
+          '<span class="hl2">' + LTR('It is hot in summer.') + '</span>',
+          '<span class="hl2">' + LTR('It is cold in winter.') + '</span>'
+        ],
+        speech: 'الفصول الأربعة، وكل فصل له طقسه! سبرينغ الربيع. سمر الصيف. أوتم أو فول الخريف. وينتر الشتاء. اربطها بالطقس: إت إز هوت إن سمر، الجو حار في الصيف. وإت إز كولد إن وينتر، الجو بارد في الشتاء.'
+      },
+      {
+        bubble: 'سرّ الحديث عن الطقس: ابدأ دائمًا بـ It is! 🗣️',
+        steps: [
+          'القاعدة: <span class="hl2">' + LTR('It is + صفة الطقس') + '</span>',
+          LTR('It is sunny today.') + ' = الجو مشمس اليوم',
+          LTR('It is raining.') + ' = إنها تمطر (الآن)',
+          'ولا نقول أبدًا: ❌ ' + LTR('The weather sunny'),
+          'كلمة ' + LTR('It') + ' هنا لا تشير لشيء — إنها قاعدة ثابتة',
+          '<span class="hl">حفظ هذه البداية = نصف المحادثة!</span>'
+        ],
+        speech: 'سر الحديث عن الطقس: ابدأ دائماً بإت إز! القاعدة: إت إز ثم صفة الطقس. إت إز سني توداي: الجو مشمس اليوم. إت إز رينينغ: إنها تمطر الآن. ولا نقول أبداً ذا ويذر سني. وكلمة إت هنا لا تشير لشيء محدد، إنها قاعدة ثابتة. حفظ هذه البداية يعطيك نصف المحادثة!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ماذا تعني كلمة "sunny"؟', options: ['مشمس', 'ممطر', 'بارد', 'غائم'], correct: 0, why: '"sunny" = مشمس ☀️.' },
+      { type: 'choice', q: 'كيف نقول "الشتاء" بالإنجليزية؟', options: ['winter', 'summer', 'spring', 'autumn'], correct: 0, why: '"winter" = الشتاء ❄️.' },
+      { type: 'write', q: 'اكتب "ممطر" بالإنجليزية:', accept: ['rainy'], answer: 'rainy', why: '"rainy" = ممطر 🌧️.' },
+      { type: 'choice', q: 'كيف نبدأ جملة عن الطقس؟', options: ['It is...', 'He is...', 'They are...', 'I am...'], correct: 0, why: 'قاعدة ثابتة: It is + صفة الطقس.' },
+      { type: 'write', q: 'اكتب "الصيف" بالإنجليزية:', accept: ['summer'], answer: 'summer', why: '"summer" = الصيف ☀️.' },
+      { type: 'choice', q: 'كيف تسأل عن الطقس؟', options: ["How's the weather?", 'What is your name?', 'Where are you?', 'How many?'], correct: 0, why: '"How\'s the weather?" = كيف الطقس؟' }
+    ]
+  },
+
+  /* ═══════════ المستوى 3: أدوات الاستفهام ═══════════ */
+  {
+    id: 'en-questions',
+    title: 'أدوات الاستفهام',
+    icon: '❓',
+    explanations: [
+      {
+        bubble: 'خمس كلمات تفتح لك كل الأسئلة! ❓ احفظ الـ WH:',
+        steps: [
+          '<span class="hl">' + LTR('What') + '</span> = ماذا/ما ← ' + LTR('What is this?'),
+          '<span class="hl">' + LTR('Where') + '</span> = أين ← ' + LTR('Where are you?'),
+          '<span class="hl">' + LTR('When') + '</span> = متى ← ' + LTR('When is the exam?'),
+          '<span class="hl">' + LTR('Who') + '</span> = مَن ← ' + LTR('Who is he?'),
+          '<span class="hl">' + LTR('Why') + '</span> = لماذا ← ' + LTR('Why are you late?'),
+          '<span class="hl2">وأيضًا ' + LTR('How') + ' = كيف</span>'
+        ],
+        speech: 'خمس كلمات تفتح لك كل الأسئلة! وات تعني ماذا. وير تعني أين. وين تعني متى. هو تعني من. واي تعني لماذا. وهاو تعني كيف. هذه هي أدوات الاستفهام الأساسية في الإنجليزية.'
+      },
+      {
+        bubble: 'ترتيب السؤال! 📋 قاعدة ثابتة لا تتغير أبدًا:',
+        steps: [
+          'الترتيب: <span class="hl2">أداة + فعل مساعد + فاعل + بقية</span>',
+          LTR('What') + ' + ' + LTR('is') + ' + ' + LTR('your name') + '؟',
+          LTR('Where') + ' + ' + LTR('do') + ' + ' + LTR('you live') + '؟',
+          LTR('Why') + ' + ' + LTR('are') + ' + ' + LTR('you sad') + '؟',
+          'لاحظ: الفعل المساعد <span class="hl">قبل</span> الفاعل',
+          '❌ ' + LTR('Where you are?') + ' — ✓ ' + LTR('Where are you?')
+        ],
+        speech: 'ترتيب السؤال، قاعدة ثابتة لا تتغير أبداً! الترتيب: أداة الاستفهام، ثم الفعل المساعد، ثم الفاعل، ثم بقية الجملة. وات إز يور نيم؟ وير دو يو ليف؟ واي آر يو ساد؟ لاحظ أن الفعل المساعد يأتي قبل الفاعل. لا نقول وير يو آر، بل وير آر يو!'
+      },
+      {
+        bubble: 'أسئلة نعم/لا! ✅❌ أسهل — ابدأ بالفعل مباشرة:',
+        steps: [
+          'بدون أداة استفهام، ابدأ بالمساعد:',
+          LTR('Are you a student?') + ' = هل أنت طالب؟',
+          LTR('Do you like coffee?') + ' = هل تحب القهوة؟',
+          LTR('Can you swim?') + ' = هل تستطيع السباحة؟',
+          'الإجابة: ' + LTR('Yes, I am. / No, I am not.'),
+          '<span class="hl2">نوعان من الأسئلة فقط: WH ونعم/لا</span>'
+        ],
+        speech: 'أسئلة نعم أو لا أسهل، ابدأ بالفعل مباشرة! بدون أداة استفهام ابدأ بالمساعد: آر يو أ ستيودنت؟ هل أنت طالب؟ دو يو لايك كوفي؟ هل تحب القهوة؟ كان يو سويم؟ هل تستطيع السباحة؟ والإجابة: يس آي آم، أو نو آي آم نوت. تذكر أن هناك نوعين فقط من الأسئلة: أسئلة الواو إتش وأسئلة نعم ولا.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أي أداة نستخدم للسؤال عن المكان؟', options: ['Where', 'When', 'What', 'Who'], correct: 0, why: '"Where" = أين (للمكان).' },
+      { type: 'choice', q: 'ماذا تعني "When"؟', options: ['متى', 'أين', 'لماذا', 'من'], correct: 0, why: '"When" = متى (للزمان).' },
+      { type: 'write', q: 'اكتب أداة السؤال عن السبب (لماذا) بالإنجليزية:', accept: ['why'], answer: 'why', why: '"Why" = لماذا.' },
+      { type: 'choice', q: 'أي جملة صحيحة؟', options: ['Where are you?', 'Where you are?', 'You are where?', 'Are where you?'], correct: 0, why: 'الترتيب: أداة + مساعد + فاعل → Where are you?' },
+      { type: 'choice', q: 'أي أداة نستخدم للسؤال عن شخص؟', options: ['Who', 'What', 'Where', 'How'], correct: 0, why: '"Who" = مَن (للأشخاص).' },
+      { type: 'write', q: 'اكتب السؤال "ما اسمك؟" بالإنجليزية:', accept: ['what is your name', 'what is your name?', "what's your name?", "what's your name"], answer: 'What is your name?', why: 'What + is + your name = ما اسمك؟' }
+    ]
+  },
+
+  /* ═══════════ المستوى 3: حروف الجر ═══════════ */
+  {
+    id: 'en-prepositions',
+    title: 'حروف الجر',
+    icon: '📍',
+    explanations: [
+      {
+        bubble: 'حروف الجر تحدد المكان بدقة! 📍 تخيل قطة وصندوقًا:',
+        steps: [
+          '🐱📦 ' + LTR('in') + ' = داخل ← ' + LTR('The cat is in the box.'),
+          '🐱⬆️ ' + LTR('on') + ' = فوق (ملامس) ← ' + LTR('on the box'),
+          '🐱⬇️ ' + LTR('under') + ' = تحت ← ' + LTR('under the box'),
+          '🐱↔️ ' + LTR('next to') + ' = بجانب',
+          '🐱🔙 ' + LTR('behind') + ' = خلف',
+          '<span class="hl2">' + LTR('in front of') + ' = أمام</span>'
+        ],
+        speech: 'حروف الجر تحدد المكان بدقة! تخيل قطة وصندوقاً. إن تعني داخل: ذا كات إز إن ذا بوكس. أون تعني فوق وملامس. أندر تعني تحت. نكست تو تعني بجانب. بيهايند تعني خلف. وإن فرونت أوف تعني أمام.'
+      },
+      {
+        bubble: 'الفرق بين in و on يربك الجميع! ⚠️ إليك القاعدة:',
+        steps: [
+          '<span class="hl">' + LTR('in') + '</span> = محاط من كل الجهات (داخل)',
+          LTR('in the room') + '، ' + LTR('in the car') + '، ' + LTR('in the bag'),
+          '<span class="hl">' + LTR('on') + '</span> = ملامس لسطح (فوقه)',
+          LTR('on the table') + '، ' + LTR('on the wall') + '، ' + LTR('on the floor'),
+          'اسأل: هل هو محاط أم ملامس لسطح؟',
+          '<span class="hl2">' + LTR('The book is on the table in the room.') + '</span>'
+        ],
+        speech: 'الفرق بين إن وأون يربك الجميع! إليك القاعدة: إن تعني محاط من كل الجهات، أي داخل: إن ذا روم، إن ذا كار، إن ذا باغ. وأون تعني ملامس لسطح، أي فوقه: أون ذا تيبل، أون ذا وول. اسأل نفسك: هل الشيء محاط أم ملامس لسطح؟'
+      },
+      {
+        bubble: 'حروف جر للحركة! 🚶 ليس فقط للمكان الثابت:',
+        steps: [
+          '<span class="hl">' + LTR('to') + '</span> = إلى ← ' + LTR('I go to school.'),
+          '<span class="hl">' + LTR('from') + '</span> = من ← ' + LTR('I am from Egypt.'),
+          '<span class="hl">' + LTR('into') + '</span> = إلى داخل ← ' + LTR('He went into the room.'),
+          '<span class="hl">' + LTR('with') + '</span> = مع ← ' + LTR('I play with my friend.'),
+          '<span class="hl2">' + LTR('to') + ' للوجهة، ' + LTR('from') + ' للمصدر</span>',
+          'لاحظ: ' + LTR('go home') + ' بدون ' + LTR('to') + ' — استثناء! 🏠'
+        ],
+        speech: 'حروف جر للحركة، ليس فقط للمكان الثابت! تو تعني إلى: آي غو تو سكوول. وفروم تعني من: آي آم فروم إيجيبت. وإنتو تعني إلى داخل. وويذ تعني مع: آي بلاي ويذ ماي فريند. تو للوجهة وفروم للمصدر. ولاحظ استثناء: نقول غو هوم بدون تو!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ماذا يعني حرف الجر "under"؟', options: ['تحت', 'فوق', 'داخل', 'بجانب'], correct: 0, why: '"under" = تحت ⬇️.' },
+      { type: 'choice', q: 'أكمل: The book is ____ the table (فوق الطاولة)', options: ['on', 'in', 'under', 'from'], correct: 0, why: 'on = ملامس لسطح، والكتاب فوق الطاولة.' },
+      { type: 'write', q: 'اكتب حرف الجر الذي يعني "داخل":', accept: ['in'], answer: 'in', why: '"in" = داخل (محاط من كل الجهات).' },
+      { type: 'choice', q: 'أكمل: I am ____ Egypt (أنا من مصر)', options: ['from', 'to', 'in', 'on'], correct: 0, why: 'from تدل على المصدر/الأصل.' },
+      { type: 'choice', q: 'ما الفرق بين in و on؟', options: ['in = داخل محاط، on = ملامس لسطح', 'لا يوجد فرق', 'in للأشخاص فقط', 'on للزمن فقط'], correct: 0, why: 'in للمحاط من كل الجهات، on للملامس لسطح.' },
+      { type: 'write', q: 'أكمل: I go ____ school (أذهب إلى المدرسة):', accept: ['to'], answer: 'to', why: '"to" تدل على الوجهة.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 4: المضارع التام ═══════════ */
+  {
+    id: 'en-present-perfect',
+    title: 'المضارع التام',
+    icon: '✅',
+    explanations: [
+      {
+        bubble: 'زمن يربط الماضي بالحاضر! ✅ حدث في الماضي وأثره باقٍ الآن:',
+        steps: [
+          'القاعدة: <span class="hl2">' + LTR('have / has + التصريف الثالث') + '</span>',
+          LTR('I have finished my homework.'),
+          '= أنهيت واجبي (والنتيجة: هو جاهز الآن)',
+          LTR('She has visited Egypt.') + ' = زارت مصر (في حياتها)',
+          '<span class="hl">' + LTR('I / You / We / They') + '</span> ← ' + LTR('have'),
+          '<span class="hl">' + LTR('He / She / It') + '</span> ← ' + LTR('has')
+        ],
+        speech: 'زمن يربط الماضي بالحاضر! حدث في الماضي وأثره باق الآن. القاعدة: هاف أو هاز مع التصريف الثالث للفعل. آي هاف فينيشد ماي هوموورك: أنهيت واجبي، والنتيجة أنه جاهز الآن. شي هاز فيزيتد إيجيبت: زارت مصر في حياتها. تذكر: آي ويو ووي وذاي تأخذ هاف، أما هي وشي وإت فتأخذ هاز.'
+      },
+      {
+        bubble: 'الفرق الحاسم بينه وبين الماضي البسيط! ⚖️ انتبه جيدًا:',
+        steps: [
+          '<span class="hl">ماضٍ بسيط</span> = وقت محدد انتهى',
+          LTR('I visited Egypt in 2020.') + ' (متى؟ 2020)',
+          '<span class="hl">مضارع تام</span> = وقت غير محدد، والأثر باقٍ',
+          LTR('I have visited Egypt.') + ' (متى؟ غير مهم!)',
+          'إذا ذكرتَ وقتًا محددًا ← استخدم الماضي البسيط',
+          '<span class="hl2">❌ ' + LTR('I have visited Egypt yesterday') + '</span>'
+        ],
+        speech: 'الفرق الحاسم بينه وبين الماضي البسيط، انتبه جيداً! الماضي البسيط يستخدم لوقت محدد انتهى: آي فيزيتد إيجيبت إن تونتي تونتي، أي في سنة محددة. أما المضارع التام فلوقت غير محدد والأثر باق: آي هاف فيزيتد إيجيبت، والوقت غير مهم. القاعدة: إذا ذكرت وقتاً محدداً استخدم الماضي البسيط.'
+      },
+      {
+        bubble: 'كلمات مفتاحية تدلّك على المضارع التام! 🔑',
+        steps: [
+          '<span class="hl">' + LTR('already') + '</span> = بالفعل ← ' + LTR('I have already eaten.'),
+          '<span class="hl">' + LTR('yet') + '</span> = بعد ← ' + LTR("I haven't finished yet."),
+          '<span class="hl">' + LTR('never') + '</span> = أبدًا ← ' + LTR('I have never seen snow.'),
+          '<span class="hl">' + LTR('ever') + '</span> = يومًا ← ' + LTR('Have you ever traveled?'),
+          '<span class="hl">' + LTR('since / for') + '</span> = منذ / لمدة',
+          '<span class="hl2">' + LTR('I have lived here for 5 years.') + '</span>'
+        ],
+        speech: 'كلمات مفتاحية تدلك على المضارع التام! أولريدي تعني بالفعل. ويت تعني بعد، وتستخدم في النفي. نيفر تعني أبداً. إيفر تعني يوماً ما، وتستخدم في السؤال. وسينس وفور تعنيان منذ ولمدة. مثال: آي هاف ليفد هير فور فايف يرز، أعيش هنا منذ خمس سنوات.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أكمل: She ____ finished her work.', options: ['has', 'have', 'is', 'was'], correct: 0, why: 'She مفرد غائب فتأخذ has.' },
+      { type: 'choice', q: 'أي جملة صحيحة؟', options: ['I have visited Egypt.', 'I have visited Egypt yesterday.', 'I has visited Egypt.', 'I have visit Egypt.'], correct: 0, why: 'مع وقت محدد (yesterday) نستخدم الماضي البسيط، لا المضارع التام.' },
+      { type: 'write', q: 'أكمل: They ____ finished (جمع):', accept: ['have'], answer: 'have', why: 'They جمع فتأخذ have.' },
+      { type: 'choice', q: 'ماذا تعني "I have never seen snow"؟', options: ['لم أرَ الثلج أبدًا في حياتي', 'رأيت الثلج أمس', 'سأرى الثلج', 'أرى الثلج الآن'], correct: 0, why: 'never + مضارع تام = لم يحدث أبدًا حتى الآن.' },
+      { type: 'choice', q: 'أي كلمة تدل على المضارع التام؟', options: ['already', 'yesterday', 'last week', 'tomorrow'], correct: 0, why: 'already/yet/never/ever ترافق المضارع التام، أما yesterday فللماضي البسيط.' },
+      { type: 'write', q: 'أكمل: I have ____ here for 5 years (live):', accept: ['lived'], answer: 'lived', why: 'المضارع التام يحتاج التصريف الثالث: lived.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 4: الأفعال الناقصة ═══════════ */
+  {
+    id: 'en-modals',
+    title: 'الأفعال الناقصة',
+    icon: '🔑',
+    explanations: [
+      {
+        bubble: 'أفعال صغيرة تغيّر معنى الجملة كليًا! 🔑 تعبّر عن القدرة والإذن والواجب:',
+        steps: [
+          '<span class="hl">' + LTR('can') + '</span> = يستطيع ← ' + LTR('I can swim.'),
+          '<span class="hl">' + LTR('must') + '</span> = يجب ← ' + LTR('You must study.'),
+          '<span class="hl">' + LTR('should') + '</span> = ينبغي ← ' + LTR('You should sleep early.'),
+          '<span class="hl">' + LTR('may') + '</span> = قد/يجوز ← ' + LTR('It may rain.'),
+          '<span class="hl">' + LTR('will') + '</span> = سوف ← ' + LTR('I will help you.'),
+          '<span class="hl2">كلها تُتبع بالفعل الأساسي مباشرة (بدون ' + LTR('to') + ')</span>'
+        ],
+        speech: 'أفعال صغيرة تغير معنى الجملة كلياً! تعبر عن القدرة والإذن والواجب. كان تعني يستطيع: آي كان سويم. ماست تعني يجب: يو ماست ستادي. شود تعني ينبغي: يو شود سليب إيرلي. ماي تعني قد أو يجوز. وويل تعني سوف. وكلها تتبع بالفعل الأساسي مباشرة بدون تو.'
+      },
+      {
+        bubble: 'ثلاث قواعد ذهبية لا تُكسر أبدًا! 📜',
+        steps: [
+          '1) لا تتغير مع الفاعل أبدًا:',
+          '✓ ' + LTR('He can') + '  ❌ ' + LTR('He cans'),
+          '2) الفعل بعدها أساسي دائمًا:',
+          '✓ ' + LTR('She must go') + '  ❌ ' + LTR('She must goes'),
+          '3) النفي: أضف ' + LTR('not') + ' بعدها',
+          '<span class="hl2">' + LTR("can't, mustn't, shouldn't") + '</span>'
+        ],
+        speech: 'ثلاث قواعد ذهبية لا تكسر أبداً! أولاً: لا تتغير مع الفاعل أبداً، نقول هي كان ولا نقول هي كانز. ثانياً: الفعل بعدها أساسي دائماً، نقول شي ماست غو ولا نقول شي ماست غوز. ثالثاً: للنفي أضف نوت بعدها، فتصبح كانت، ماستنت، شودنت.'
+      },
+      {
+        bubble: 'الفرق بين must و should مهم جدًا! ⚖️ قوة الإلزام:',
+        steps: [
+          '<span class="hl">' + LTR('must') + '</span> = إلزام قوي، لا خيار فيه',
+          LTR('You must stop at a red light.') + ' 🚦',
+          '<span class="hl">' + LTR('should') + '</span> = نصيحة، لك الخيار',
+          LTR('You should eat vegetables.') + ' 🥗',
+          'و' + LTR('can') + ' للقدرة أو طلب الإذن:',
+          '<span class="hl2">' + LTR('Can I go out?') + ' = هل يمكنني الخروج؟</span>'
+        ],
+        speech: 'الفرق بين ماست وشود مهم جداً، إنه قوة الإلزام! ماست تعني إلزاماً قوياً لا خيار فيه: يو ماست ستوب آت أ ريد لايت، يجب أن تتوقف عند الإشارة الحمراء. أما شود فهي نصيحة ولك الخيار: يو شود إيت فيجتابلز، ينبغي أن تأكل الخضار. وكان تستخدم للقدرة أو لطلب الإذن: كان آي غو آوت؟'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ماذا يعني "can" في الجملة "I can swim"؟', options: ['أستطيع', 'يجب', 'ينبغي', 'سوف'], correct: 0, why: '"can" تعبّر عن القدرة: أستطيع السباحة.' },
+      { type: 'choice', q: 'أي جملة صحيحة؟', options: ['She must go.', 'She must goes.', 'She musts go.', 'She must to go.'], correct: 0, why: 'الفعل بعد الناقص أساسي دائمًا وبدون to، والناقص لا يتغير.' },
+      { type: 'write', q: 'اكتب الفعل الناقص الذي يعني "يجب":', accept: ['must'], answer: 'must', why: '"must" = يجب (إلزام قوي).' },
+      { type: 'choice', q: 'ما الفرق بين must و should؟', options: ['must إلزام قوي، should نصيحة', 'لا فرق بينهما', 'should أقوى', 'must للماضي'], correct: 0, why: 'must للإلزام الذي لا خيار فيه، should للنصيحة.' },
+      { type: 'choice', q: 'كيف تطلب الإذن بالخروج؟', options: ['Can I go out?', 'I can go out?', 'Go out can I?', 'Can go I out?'], correct: 0, why: 'للسؤال: Can + الفاعل + الفعل الأساسي.' },
+      { type: 'write', q: 'اكتب اختصار "cannot":', accept: ["can't", 'cant'], answer: "can't", why: 'cannot تختصر إلى can\'t.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 5: الكلام المنقول ═══════════ */
+  {
+    id: 'en-reported-speech',
+    title: 'الكلام المنقول',
+    icon: '💬',
+    explanations: [
+      {
+        bubble: 'كيف تنقل كلام شخص آخر؟ 💬 هنا تتراجع الأزمنة خطوة للوراء:',
+        steps: [
+          'كلام مباشر: ' + LTR('He said, "I am tired."'),
+          'كلام منقول: ' + LTR('He said he was tired.'),
+          'لاحظ: ' + LTR('am') + ' تحوّلت إلى <span class="hl">' + LTR('was') + '</span>',
+          'قاعدة التراجع الزمني:',
+          LTR('am/is → was') + '، ' + LTR('are → were'),
+          LTR('do → did') + '، ' + LTR('will → would'),
+          '<span class="hl2">كل زمن يرجع خطوة إلى الماضي</span> ⏪'
+        ],
+        speech: 'كيف تنقل كلام شخص آخر؟ هنا تتراجع الأزمنة خطوة للوراء! الكلام المباشر: هي سيد، آي آم تايرد. والكلام المنقول: هي سيد هي واز تايرد. لاحظ أن آم تحولت إلى واز. قاعدة التراجع الزمني: آم وإز تصبحان واز، وآر تصبح وير، ودو تصبح ديد، وويل تصبح وود. كل زمن يرجع خطوة إلى الماضي.'
+      },
+      {
+        bubble: 'لا تنسَ تغيير الضمائر والزمان! 🔄 وإلا اختلّ المعنى:',
+        steps: [
+          'مباشر: ' + LTR('She said, "I love my book."'),
+          'منقول: ' + LTR('She said she loved her book.'),
+          '<span class="hl">' + LTR('I → she') + '</span>، <span class="hl">' + LTR('my → her') + '</span>',
+          'وكذلك ظروف الزمان:',
+          LTR('today → that day') + '، ' + LTR('tomorrow → the next day'),
+          '<span class="hl2">' + LTR('now → then') + '، ' + LTR('here → there') + '</span>'
+        ],
+        speech: 'لا تنس تغيير الضمائر والزمان وإلا اختل المعنى! الكلام المباشر: شي سيد، آي لوف ماي بوك. والمنقول: شي سيد شي لوفد هير بوك. تحولت آي إلى شي، وماي إلى هير. وكذلك ظروف الزمان: توداي تصبح ذات داي، وتومورو تصبح ذا نكست داي، وناو تصبح ذين، وهير تصبح ذير.'
+      },
+      {
+        bubble: 'نقل الأسئلة! ❓ انتبه — يعود الترتيب إلى الجملة العادية:',
+        steps: [
+          'سؤال مباشر: ' + LTR('He asked, "Where do you live?"'),
+          'منقول: ' + LTR('He asked where I lived.'),
+          '<span class="hl">اختفت علامة الاستفهام و' + LTR('do') + '!</span>',
+          'الترتيب يصبح عاديًا: فاعل ثم فعل',
+          'وفي أسئلة نعم/لا نستخدم ' + LTR('if') + ':',
+          '<span class="hl2">' + LTR('He asked if I was ready.') + '</span>'
+        ],
+        speech: 'نقل الأسئلة! انتبه، يعود الترتيب إلى الجملة العادية. السؤال المباشر: هي آسكد، وير دو يو ليف؟ والمنقول: هي آسكد وير آي ليفد. اختفت علامة الاستفهام واختفى دو! والترتيب يصبح عادياً: فاعل ثم فعل. وفي أسئلة نعم ولا نستخدم إف: هي آسكد إف آي واز ريدي.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'حوّل إلى كلام منقول: He said, "I am tired."', options: ['He said he was tired.', 'He said he is tired.', 'He said I am tired.', 'He said he were tired.'], correct: 0, why: 'am تتراجع إلى was، وI تتحوّل إلى he.' },
+      { type: 'choice', q: 'إلى ماذا تتحوّل "will" في الكلام المنقول؟', options: ['would', 'was', 'will', 'did'], correct: 0, why: 'التراجع الزمني: will → would.' },
+      { type: 'write', q: 'إلى ماذا تتحوّل "are" في الكلام المنقول؟', accept: ['were'], answer: 'were', why: 'are → were (تراجع خطوة للماضي).' },
+      { type: 'choice', q: 'ماذا يحدث لعلامة الاستفهام عند نقل سؤال؟', options: ['تختفي ويعود الترتيب عاديًا', 'تبقى كما هي', 'تتحوّل لعلامة تعجب', 'نضيف اثنتين'], correct: 0, why: 'السؤال المنقول يصبح جملة عادية: بلا علامة استفهام وبترتيب فاعل+فعل.' },
+      { type: 'choice', q: 'أي كلمة نستخدم لنقل أسئلة نعم/لا؟', options: ['if', 'what', 'because', 'and'], correct: 0, why: 'He asked if I was ready — نستخدم if لأسئلة نعم/لا.' },
+      { type: 'write', q: 'إلى ماذا تتحوّل "today" في الكلام المنقول؟ (كلمتان)', accept: ['that day'], answer: 'that day', why: 'ظروف الزمان تتغيّر: today → that day.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 5: الأفعال المركبة ═══════════ */
+  {
+    id: 'en-phrasal-verbs',
+    title: 'الأفعال المركبة',
+    icon: '🧩',
+    explanations: [
+      {
+        bubble: 'فعل + حرف = معنى جديد تمامًا! 🧩 هنا يقع المتعلمون في حيرة:',
+        steps: [
+          LTR('look') + ' = ينظر، لكن...',
+          '<span class="hl">' + LTR('look for') + '</span> = يبحث عن 🔍',
+          '<span class="hl">' + LTR('look after') + '</span> = يعتني بـ 👶',
+          '<span class="hl">' + LTR('look up') + '</span> = يبحث في قاموس 📖',
+          'نفس الفعل، ثلاثة معانٍ مختلفة!',
+          '<span class="hl2">الحرف يغيّر المعنى كليًا — لا تترجم حرفيًا</span>'
+        ],
+        speech: 'فعل زائد حرف يساوي معنى جديداً تماماً! هنا يقع المتعلمون في حيرة. لوك تعني ينظر، لكن لوك فور تعني يبحث عن. ولوك آفتر تعني يعتني بـ. ولوك أب تعني يبحث في القاموس. نفس الفعل بثلاثة معان مختلفة! الحرف يغير المعنى كلياً، فلا تترجم حرفياً.'
+      },
+      {
+        bubble: 'أشهر الأفعال المركبة في الحياة اليومية! ⭐',
+        steps: [
+          '<span class="hl">' + LTR('get up') + '</span> = يستيقظ ← ' + LTR('I get up at 6.'),
+          '<span class="hl">' + LTR('turn on / off') + '</span> = يشغّل / يطفئ 💡',
+          '<span class="hl">' + LTR('give up') + '</span> = يستسلم ← ' + LTR("Don't give up!"),
+          '<span class="hl">' + LTR('find out') + '</span> = يكتشف',
+          '<span class="hl">' + LTR('put on') + '</span> = يرتدي 👕',
+          '<span class="hl2">هذه الخمسة تغطّي معظم محادثاتك اليومية!</span>'
+        ],
+        speech: 'أشهر الأفعال المركبة في الحياة اليومية! غت أب تعني يستيقظ: آي غت أب آت سيكس. تيرن أون وتيرن أوف تعنيان يشغل ويطفئ. غيف أب تعني يستسلم: دونت غيف أب! فايند آوت تعني يكتشف. وبوت أون تعني يرتدي. هذه الخمسة تغطي معظم محادثاتك اليومية!'
+      },
+      {
+        bubble: 'أين نضع المفعول به؟ 📍 قاعدة الفصل مهمة:',
+        steps: [
+          'بعضها <span class="hl">ينفصل</span>:',
+          '✓ ' + LTR('Turn on the light.'),
+          '✓ ' + LTR('Turn the light on.') + ' (كلاهما صحيح)',
+          'لكن مع الضمير <span class="hl">يجب</span> الفصل:',
+          '✓ ' + LTR('Turn it on.') + '  ❌ ' + LTR('Turn on it.'),
+          '<span class="hl2">الضمير دائمًا في المنتصف!</span>'
+        ],
+        speech: 'أين نضع المفعول به؟ قاعدة الفصل مهمة! بعضها ينفصل: تيرن أون ذا لايت، أو تيرن ذا لايت أون، وكلاهما صحيح. لكن مع الضمير يجب الفصل: نقول تيرن إت أون، ولا نقول تيرن أون إت. الضمير دائماً في المنتصف!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ماذا يعني "look for"؟', options: ['يبحث عن', 'ينظر إلى', 'يعتني بـ', 'يشبه'], correct: 0, why: '"look for" = يبحث عن 🔍.' },
+      { type: 'choice', q: 'ماذا يعني "give up"؟', options: ['يستسلم', 'يعطي', 'يرفع', 'يستيقظ'], correct: 0, why: '"give up" = يستسلم/يتخلّى.' },
+      { type: 'write', q: 'اكتب الفعل المركب الذي يعني "يستيقظ" (كلمتان):', accept: ['get up'], answer: 'get up', why: '"get up" = يستيقظ من النوم.' },
+      { type: 'choice', q: 'ماذا يعني "turn off"؟', options: ['يطفئ', 'يشغّل', 'يدور', 'يفتح'], correct: 0, why: '"turn off" = يطفئ (وturn on = يشغّل).' },
+      { type: 'choice', q: 'أي جملة صحيحة مع الضمير؟', options: ['Turn it on.', 'Turn on it.', 'Turn on it off.', 'It turn on.'], correct: 0, why: 'مع الضمير يجب وضعه في المنتصف: Turn it on.' },
+      { type: 'write', q: 'اكتب الفعل المركب الذي يعني "يعتني بـ" (كلمتان):', accept: ['look after'], answer: 'look after', why: '"look after" = يعتني بشخص أو شيء.' }
+    ]
   }
 ];
 
@@ -809,6 +1453,8 @@ const ENGLISH_LEVELS = [
     units: [
       { title: 'الحروف والتحيات', icon: '🔤', lessonIds: ['en-alphabet'] },
       { title: 'الألوان', icon: '🎨', lessonIds: ['en-colors'] },
+      { title: 'الأرقام', icon: '🔢', lessonIds: ['en-numbers-basic'] },
+      { title: 'الحيوانات', icon: '🐘', lessonIds: ['en-animals'] },
     ]
   },
   {
@@ -816,6 +1462,8 @@ const ENGLISH_LEVELS = [
     units: [
       { title: 'مفردات أساسية', icon: '📚', lessonIds: ['en-vocab-basic'] },
       { title: 'العائلة', icon: '👨‍👩‍👧‍👦', lessonIds: ['en-family'] },
+      { title: 'الطعام والشراب', icon: '🍎', lessonIds: ['en-food'] },
+      { title: 'أجزاء الجسم', icon: '👤', lessonIds: ['en-body'] },
     ]
   },
   {
@@ -823,6 +1471,8 @@ const ENGLISH_LEVELS = [
     units: [
       { title: 'الجمل البسيطة', icon: '💬', lessonIds: ['en-simple-sentences'] },
       { title: 'الأرقام والوقت', icon: '🕐', lessonIds: ['en-numbers-time'] },
+      { title: 'الأيام والشهور', icon: '📅', lessonIds: ['en-days-months'] },
+      { title: 'الطقس والفصول', icon: '🌦️', lessonIds: ['en-weather'] },
     ]
   },
   {
@@ -830,6 +1480,8 @@ const ENGLISH_LEVELS = [
     units: [
       { title: 'المضارع المستمر', icon: '🏃', lessonIds: ['en-present-continuous'] },
       { title: 'الماضي البسيط', icon: '⏪', lessonIds: ['en-past-simple'] },
+      { title: 'أدوات الاستفهام', icon: '❓', lessonIds: ['en-questions'] },
+      { title: 'حروف الجر', icon: '📍', lessonIds: ['en-prepositions'] },
     ]
   },
   {
@@ -837,6 +1489,8 @@ const ENGLISH_LEVELS = [
     units: [
       { title: 'المستقبل', icon: '🔮', lessonIds: ['en-future'] },
       { title: 'المقارنة والتفضيل', icon: '⚖️', lessonIds: ['en-comparatives'] },
+      { title: 'المضارع التام', icon: '✅', lessonIds: ['en-present-perfect'] },
+      { title: 'الأفعال الناقصة', icon: '🔑', lessonIds: ['en-modals'] },
     ]
   },
   {
@@ -844,6 +1498,8 @@ const ENGLISH_LEVELS = [
     units: [
       { title: 'الجمل الشرطية', icon: '🔀', lessonIds: ['en-conditionals'] },
       { title: 'المبني للمجهول', icon: '🏗️', lessonIds: ['en-passive'] },
+      { title: 'الكلام المنقول', icon: '💬', lessonIds: ['en-reported-speech'] },
+      { title: 'الأفعال المركبة', icon: '🧩', lessonIds: ['en-phrasal-verbs'] },
     ]
   },
 ];
