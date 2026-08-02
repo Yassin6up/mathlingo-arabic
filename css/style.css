@@ -240,48 +240,103 @@ body {
 .path-groups { padding-top: 18px; max-width: 640px; margin: 0 auto; width: 100%; }
 .path-unit-group { margin-bottom: 26px; padding: 0 16px; }
 
-/* Lesson list — a clean vertical card list, not Duolingo's winding node path */
-.path-nodes { display: flex; flex-direction: column; gap: 10px; padding-top: 14px; }
-
-.lesson-card {
-  display: flex; align-items: center; gap: 14px; width: 100%;
-  border: 2px solid var(--gray-border); border-radius: 16px;
-  background: #fff; padding: 12px 16px;
-  cursor: pointer; text-align: start;
-  box-shadow: 0 3px 0 var(--gray-border);
-  transition: transform .05s, box-shadow .05s, border-color .15s;
+/* ===== Winding journey map: starts at the BOTTOM and climbs upward =====
+   column-reverse makes DOM order [1,2,3] render as 1 at the bottom, so the
+   learner literally climbs the page as they progress. */
+.path-groups { display: flex; flex-direction: column-reverse; }
+.path-unit-group { display: flex; flex-direction: column-reverse; }
+.path-nodes {
+  display: flex; flex-direction: column-reverse;
+  align-items: center; gap: 20px; padding: 18px 0 24px;
   position: relative;
 }
-.lesson-card:hover { filter: brightness(1.02); }
-.lesson-card:active { transform: translateY(3px); box-shadow: 0 0 0 var(--gray-border); }
 
-.lesson-card-icon {
-  width: 50px; height: 50px; border-radius: 14px; flex: 0 0 50px;
+.lesson-node {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  cursor: pointer; width: 132px;
+  transition: transform .08s;
+}
+.lesson-node:active { transform: translateY(3px); }
+/* zigzag: alternate sides so the path snakes up the screen */
+.lesson-node:nth-child(4n+1) { transform: translateX(0); }
+.lesson-node:nth-child(4n+2) { transform: translateX(66px); }
+.lesson-node:nth-child(4n+3) { transform: translateX(0); }
+.lesson-node:nth-child(4n+4) { transform: translateX(-66px); }
+.lesson-node:nth-child(4n+2):active { transform: translateX(66px) translateY(3px); }
+.lesson-node:nth-child(4n+4):active { transform: translateX(-66px) translateY(3px); }
+
+/* dotted trail linking each node to the one below it */
+.lesson-node::after {
+  content: ''; position: absolute; bottom: -22px; left: 50%;
+  width: 4px; height: 20px; margin-left: -2px;
+  background-image: radial-gradient(circle, var(--gray-shade) 1.6px, transparent 1.7px);
+  background-size: 4px 7px; background-repeat: repeat-y;
+  pointer-events: none;
+}
+.path-nodes .lesson-node:first-child::after { display: none; }
+
+.node-circle {
+  width: 72px; height: 72px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 22px; background: var(--primary-light); color: var(--primary-text);
+  font-size: 29px; position: relative;
+  background: var(--gray-border); color: #9a9a9a;
+  box-shadow: 0 6px 0 var(--gray-shade);
+  transition: box-shadow .08s;
 }
-.lesson-card-body { flex: 1; min-width: 0; }
-.lesson-card-title { font-weight: 800; font-size: 15.5px; }
-.lesson-card-tag {
-  display: inline-block; margin-top: 4px; font-size: 11px; font-weight: 800;
-  padding: 2px 10px; border-radius: 8px; background: var(--primary); color: #fff;
-  animation: tagPulse 1.4s ease-in-out infinite;
-}
-@keyframes tagPulse { 0%,100% { opacity: 1; } 50% { opacity: .7; } }
-.lesson-card-trailing { font-size: 20px; color: #c8c8c8; flex: 0 0 auto; }
+.lesson-node:active .node-circle { box-shadow: 0 3px 0 var(--gray-shade); }
 
-.lesson-card.done { border-color: var(--yellow-shade); box-shadow: 0 3px 0 var(--yellow-shade); }
-.lesson-card.done .lesson-card-icon { background: var(--yellow); color: #fff; }
-.lesson-card.active-lesson { border-color: var(--primary); box-shadow: 0 3px 0 var(--primary-shade); }
-.lesson-card.active-lesson .lesson-card-icon { background: var(--primary); color: #fff; }
-.lesson-card.locked {
-  opacity: .55; cursor: default; box-shadow: 0 3px 0 var(--gray-border);
+.lesson-node.done .node-circle {
+  background: var(--yellow); color: #fff; box-shadow: 0 6px 0 var(--yellow-shade);
 }
-.lesson-card.locked:active { transform: none; }
-.lesson-card.locked .lesson-card-trailing { font-size: 16px; }
+.lesson-node.active-lesson .node-circle {
+  background: var(--primary); color: #fff; box-shadow: 0 6px 0 var(--primary-shade);
+  animation: nodePulse 1.8s ease-in-out infinite;
+}
+@keyframes nodePulse {
+  0%, 100% { box-shadow: 0 6px 0 var(--primary-shade), 0 0 0 0 rgba(255,150,0,.45); }
+  50%      { box-shadow: 0 6px 0 var(--primary-shade), 0 0 0 14px rgba(255,150,0,0); }
+}
+.lesson-node.locked { cursor: default; opacity: .75; }
+.lesson-node.locked:active { transform: none; }
+.lesson-node:nth-child(4n+2).locked:active { transform: translateX(66px); }
+.lesson-node:nth-child(4n+4).locked:active { transform: translateX(-66px); }
 
-.lesson-card.trophy-card { justify-content: center; text-align: center; }
-.lesson-card.trophy-card .lesson-card-icon { font-size: 26px; }
+.node-title {
+  font-size: 12.5px; font-weight: 800; text-align: center;
+  color: var(--text-soft); line-height: 1.35;
+}
+.lesson-node.active-lesson .node-title { color: var(--primary-text); }
+.lesson-node.done .node-title { color: var(--text); }
+
+/* منير stands on the node you're currently at */
+.node-mascot {
+  position: absolute; top: -14px; left: -54px;
+  width: 62px; height: 62px; pointer-events: none;
+  animation: bob 2.6s ease-in-out infinite;
+  z-index: 3;
+}
+.node-mascot svg { width: 100%; height: 100%; }
+.node-flag {
+  position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
+  background: var(--primary); color: #fff; font-size: 11px; font-weight: 800;
+  padding: 3px 12px; border-radius: 10px; white-space: nowrap; z-index: 4;
+}
+.node-flag::after {
+  content: ''; position: absolute; bottom: -4px; left: 50%; margin-left: -4px;
+  border-left: 4px solid transparent; border-right: 4px solid transparent;
+  border-top: 5px solid var(--primary);
+}
+
+/* trophy sits at the very top — the summit of the climb */
+.trophy-node .node-circle {
+  width: 82px; height: 82px; font-size: 36px;
+}
+.trophy-node.done .node-circle {
+  background: var(--yellow); color: #fff; box-shadow: 0 6px 0 var(--yellow-shade);
+}
+
+:root[data-theme="dark"] .node-circle { background: #2a2b31; color: #6d6d73; }
 
 /* ============ topbar ============ */
 .topbar {

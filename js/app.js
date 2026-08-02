@@ -304,17 +304,15 @@
         if (isActive) activeGiven = true;
         const locked = !done && !isActive;
 
-        const card = document.createElement('div');
-        card.className = 'lesson-card' + (done ? ' done' : isActive ? ' active-lesson' : ' locked');
-        card.innerHTML = `
-          <div class="lesson-card-icon">${done ? '👑' : l.icon}</div>
-          <div class="lesson-card-body">
-            <div class="lesson-card-title">${l.title}</div>
-            ${isActive ? '<span class="lesson-card-tag">ابدأ الآن</span>' : ''}
-          </div>
-          <div class="lesson-card-trailing"></div>`;
-        if (!locked) card.addEventListener('click', () => { Sound.click(); startLesson(l); });
-        list.appendChild(card);
+        const node = document.createElement('div');
+        node.className = 'lesson-node' + (done ? ' done' : isActive ? ' active-lesson' : ' locked');
+        node.innerHTML = `
+          ${isActive ? '<div class="node-flag">ابدأ</div>' : ''}
+          <div class="node-circle">${done ? '👑' : locked ? '🔒' : l.icon}</div>
+          <div class="node-title">${l.title}</div>
+          ${isActive ? `<div class="node-mascot">${mascotSVG()}</div>` : ''}`;
+        if (!locked) node.addEventListener('click', () => { Sound.click(); startLesson(l); });
+        list.appendChild(node);
       });
       group.appendChild(list);
       wrap.appendChild(group);
@@ -325,14 +323,21 @@
     trophyGroup.className = 'path-unit-group';
     trophyGroup.innerHTML = `
       <div class="path-nodes">
-        <div class="lesson-card trophy-card ${allDone ? 'done' : 'locked'}">
-          <div class="lesson-card-icon">🏆</div>
-          <div class="lesson-card-body">
-            <div class="lesson-card-title">${allDone ? 'أحسنت! أكملت هذا المستوى — جرّب المستوى التالي!' : 'أكمل كل دروس المستوى لتفتح الجائزة'}</div>
-          </div>
+        <div class="lesson-node trophy-node ${allDone ? 'done' : 'locked'}">
+          <div class="node-circle">🏆</div>
+          <div class="node-title">${allDone ? 'أحسنت! أكملت هذا المستوى' : 'أكمل كل الدروس لتفتح الجائزة'}</div>
         </div>
       </div>`;
     wrap.appendChild(trophyGroup);
+
+    // the map climbs upward, so start the view at the bottom then ease to
+    // wherever منير is standing
+    const scroller = $('path-scroll');
+    scroller.scrollTop = scroller.scrollHeight;
+    requestAnimationFrame(() => {
+      const active = wrap.querySelector('.lesson-node.active-lesson');
+      if (active) active.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    });
   }
 
   /* ---------------- library (book-style browse & search) ---------------- */
