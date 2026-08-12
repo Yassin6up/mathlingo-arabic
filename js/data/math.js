@@ -2542,47 +2542,95 @@ const MATH_LESSONS = [
    ═══════════════════════════════════════════════════════════ */
 const MATH_LEVELS = [
   {
-    level: 0, title: 'التمهيدي', stage: 'رياض الأطفال', icon: '🧸',
+    level: 0, title: 'رياض الأطفال', stage: 'التمهيدي', icon: '🧸',
     units: [
-      { title: 'الأعداد والعد', icon: '🔢', lessonIds: ['math-counting', 'math-counting-20', 'math-compare', 'math-sorting'] },
-      { title: 'الأشكال والمواقع', icon: '🔷', lessonIds: ['math-shapes', 'math-patterns', 'math-position'] },
+      { title: 'أول الأرقام', icon: '🔢', lessonIds: ['math-counting', 'math-compare'] },
+      { title: 'الأشكال من حولي', icon: '🔷', lessonIds: ['math-shapes'] },
     ]
   },
   {
-    level: 1, title: 'الابتدائي الأدنى', stage: 'الصفوف 1-3', icon: '📗',
+    level: 1, title: 'الصف الأول', stage: 'ابتدائي', icon: '1️⃣',
     units: [
-      { title: 'العمليات الحسابية', icon: '➕', lessonIds: ['math-addition', 'math-multiplication', 'math-skip-counting'] },
-      { title: 'الأعداد في الحياة', icon: '💰', lessonIds: ['math-numbers-100', 'math-measurement', 'math-money', 'math-word-problems'] },
+      { title: 'العد حتى 20', icon: '2️⃣', lessonIds: ['math-counting-20'] },
+      { title: 'الترتيب والمواقع', icon: '🗂️', lessonIds: ['math-sorting', 'math-position'] },
     ]
   },
   {
-    level: 2, title: 'الابتدائي الأعلى', stage: 'الصفوف 4-6', icon: '📘',
+    level: 2, title: 'الصف الثاني', stage: 'ابتدائي', icon: '2️⃣',
     units: [
-      { title: 'القسمة والكسور والعشرية', icon: '➗', lessonIds: ['math-division', 'math-fractions', 'math-decimals'] },
-      { title: 'الهندسة', icon: '📐', lessonIds: ['math-area'] },
+      { title: 'الجمع والطرح', icon: '➕', lessonIds: ['math-addition'] },
+      { title: 'الأنماط', icon: '🔺', lessonIds: ['math-patterns'] },
     ]
   },
   {
-    level: 3, title: 'المتوسط', stage: 'الإعدادي', icon: '📙',
+    level: 3, title: 'الصف الثالث', stage: 'ابتدائي', icon: '3️⃣',
     units: [
-      { title: 'الجبر والمعادلات', icon: '⚖️', lessonIds: ['algebra-basics', 'math-equations', 'math-integers'] },
-      { title: 'النسب المئوية', icon: '💯', lessonIds: ['math-percentages'] },
+      { title: 'الضرب', icon: '✖️', lessonIds: ['math-multiplication'] },
+      { title: 'العد القفزي', icon: '🦘', lessonIds: ['math-skip-counting'] },
     ]
   },
   {
-    level: 4, title: 'الثانوي', stage: 'المرحلة الثانوية', icon: '📕',
+    level: 4, title: 'الصف الرابع', stage: 'ابتدائي', icon: '4️⃣',
     units: [
-      { title: 'الدوال والأسس واللوغاريتمات', icon: '⚙️', lessonIds: ['math-functions', 'math-exponents', 'math-logarithms'] },
-      { title: 'الجبر المتقدم', icon: '📈', lessonIds: ['math-quadratic', 'math-sequences'] },
-      { title: 'النهايات والمثلثات والإحصاء', icon: '📐', lessonIds: ['limits-intro', 'trig-basics', 'math-statistics'] },
+      { title: 'الأعداد حتى 100', icon: '💯', lessonIds: ['math-numbers-100'] },
+      { title: 'القسمة', icon: '➗', lessonIds: ['math-division'] },
     ]
   },
   {
-    level: 5, title: 'الجامعي والمتقدم', stage: 'التفاضل والتكامل', icon: '🎓',
+    level: 5, title: 'الصف الخامس', stage: 'ابتدائي', icon: '5️⃣',
     units: [
-      { title: 'الاشتقاق وقواعده', icon: '📈', lessonIds: ['sqrt', 'tangent', 'power', 'quotient', 'math-chain-rule', 'math-derivative-apps'] },
-      { title: 'التكامل وتقنياته', icon: '∫', lessonIds: ['integral-intro', 'math-integration-parts', 'math-definite-integral'] },
-      { title: 'النهايات المتقدمة والمعادلات التفاضلية', icon: '🌱', lessonIds: ['math-lhopital', 'math-differential-eq'] },
+      { title: 'الكسور', icon: '🍕', lessonIds: ['math-fractions'] },
+      { title: 'القياس والوقت', icon: '📏', lessonIds: ['math-measurement'] },
+    ]
+  },
+  {
+    level: 6, title: 'الصف السادس', stage: 'ابتدائي', icon: '6️⃣',
+    units: [
+      { title: 'الأعداد العشرية', icon: '🔢', lessonIds: ['math-decimals'] },
+      { title: 'الرياضيات في الحياة', icon: '💰', lessonIds: ['math-money', 'math-word-problems'] },
+    ]
+  },
+  {
+    level: 7, title: 'الأول المتوسط', stage: 'إعدادي', icon: '📗',
+    units: [
+      { title: 'النسبة المئوية', icon: '💯', lessonIds: ['math-percentages'] },
+      { title: 'المحيط والمساحة', icon: '📐', lessonIds: ['math-area'] },
+    ]
+  },
+  {
+    level: 8, title: 'الثاني المتوسط', stage: 'إعدادي', icon: '📘',
+    units: [
+      { title: 'الأعداد السالبة', icon: '🌡️', lessonIds: ['math-integers'] },
+      { title: 'مقدمة الجبر', icon: '⚖️', lessonIds: ['algebra-basics'] },
+    ]
+  },
+  {
+    level: 9, title: 'الثالث المتوسط', stage: 'إعدادي', icon: '📙',
+    units: [
+      { title: 'حل المعادلات', icon: '🧮', lessonIds: ['math-equations'] },
+      { title: 'الإحصاء', icon: '📊', lessonIds: ['math-statistics'] },
+    ]
+  },
+  {
+    level: 10, title: 'الأول الثانوي', stage: 'ثانوي', icon: '📕',
+    units: [
+      { title: 'الدوال', icon: '⚙️', lessonIds: ['math-functions'] },
+      { title: 'الأسس والمعادلات التربيعية', icon: '📈', lessonIds: ['math-exponents', 'math-quadratic'] },
+    ]
+  },
+  {
+    level: 11, title: 'الثاني الثانوي', stage: 'ثانوي', icon: '📔',
+    units: [
+      { title: 'اللوغاريتمات والمتتاليات', icon: '🧮', lessonIds: ['math-logarithms', 'math-sequences'] },
+      { title: 'حساب المثلثات', icon: '📐', lessonIds: ['trig-basics'] },
+    ]
+  },
+  {
+    level: 12, title: 'الثالث الثانوي', stage: 'ثانوي — التفاضل والتكامل', icon: '🎓',
+    units: [
+      { title: 'النهايات والاشتقاق', icon: '📈', lessonIds: ['limits-intro', 'sqrt', 'tangent', 'power', 'quotient'] },
+      { title: 'قواعد الاشتقاق المتقدمة', icon: '⛓️', lessonIds: ['math-chain-rule', 'math-derivative-apps', 'math-lhopital'] },
+      { title: 'التكامل', icon: '∫', lessonIds: ['integral-intro', 'math-integration-parts', 'math-definite-integral', 'math-differential-eq'] },
     ]
   },
 ];

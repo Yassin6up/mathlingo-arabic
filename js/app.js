@@ -16,18 +16,33 @@
     premium: false,
     onboardingDone: false,
     onboarding: null, // { gradeLevel, country, age, pace, goal, dailyTime, startSubject }
-    level: 0, // school level 0-5, chosen during onboarding
+    level: 0, // school grade 0 (KG) … 12, chosen during onboarding
+    levelScheme: '', // set once migrated to the 0-12 grade scale
   });
   const prefs = loadJSON('manara-settings', { sfx: true, tts: true });
   Sound.setEnabled(prefs.sfx !== false);
 
-  // migrate the old 3-option gradeLevel (elementary/secondary/university) → 0-5
-  const OLD_GRADE_MAP = { elementary: 1, secondary: 3, university: 5 };
-  if (state.onboarding?.gradeLevel in OLD_GRADE_MAP) {
-    state.level = OLD_GRADE_MAP[state.onboarding.gradeLevel];
-    state.onboarding.gradeLevel = String(state.level);
+  const MAX_LEVEL = 12; // school grades 0 (KG) … 12 (final secondary year)
+
+  // migrations for users who onboarded under an older level scheme
+  // 1) the original 3 text options
+  const TEXT_GRADE_MAP = { elementary: 3, secondary: 9, university: 12 };
+  // 2) the 6-band scheme (0-5) that replaced it, mapped onto real grades
+  const BAND_GRADE_MAP = { 0: 0, 1: 2, 2: 5, 3: 8, 4: 11, 5: 12 };
+
+  if (!state.levelScheme) {
+    const g = state.onboarding?.gradeLevel;
+    if (g in TEXT_GRADE_MAP) {
+      state.level = TEXT_GRADE_MAP[g];
+    } else if (state.onboardingDone || state.level) {
+      state.level = BAND_GRADE_MAP[Number(state.level) || 0] ?? 0;
+    }
+    if (state.onboarding) state.onboarding.gradeLevel = String(state.level);
+    state.levelScheme = 'grades-0-12';
+    state.level = Math.min(MAX_LEVEL, Math.max(0, Number(state.level) || 0));
+    saveState(); // persist now, otherwise the migration re-runs on every load
   }
-  state.level = Math.min(5, Math.max(0, Number(state.level) || 0));
+  state.level = Math.min(MAX_LEVEL, Math.max(0, Number(state.level) || 0));
 
   function loadJSON(k, fallback) {
     try { return Object.assign({}, fallback, JSON.parse(localStorage.getItem(k) || '{}')); }
@@ -239,7 +254,7 @@
       chip.className = 'level-chip'
         + (lv.level === currentPathLevel() ? ' active' : '')
         + (isMine ? ' mine' : '');
-      chip.innerHTML = `${lv.icon} المستوى ${lv.level}${isMine ? ' ⭐' : ''}`;
+      chip.innerHTML = `${lv.icon} ${lv.title}${isMine ? ' ⭐' : ''}`;
       chip.title = lv.title + ' — ' + lv.stage;
       chip.addEventListener('click', () => {
         Sound.click();
@@ -273,7 +288,7 @@
     if (levelEntry) {
       const head = document.createElement('div');
       head.className = 'path-level-head';
-      head.innerHTML = `${levelEntry.icon} <b>المستوى ${levelEntry.level} — ${levelEntry.title}</b> <span>(${levelEntry.stage})</span>`;
+      head.innerHTML = `${levelEntry.icon} <b>${levelEntry.title}</b> <span>(${levelEntry.stage})</span>`;
       wrap.appendChild(head);
     }
 
@@ -395,7 +410,7 @@
           let unitTitle = '';
           for (const lv of levelsFor(s.id)) {
             const unit = lv.units.find(u => u.lessonIds.includes(l.id));
-            if (unit) { unitTitle = `المستوى ${lv.level} · ${unit.title}`; break; }
+            if (unit) { unitTitle = `${lv.title} · ${unit.title}`; break; }
           }
           hits.push({ subject: s, lesson: l, unitTitle });
         }
@@ -432,7 +447,7 @@
     levelsFor(subject).forEach(lv => {
       const chapter = document.createElement('div');
       chapter.className = 'book-chapter';
-      chapter.innerHTML = `<div class="book-chapter-head"><span class="book-chapter-icon">${lv.icon}</span> المستوى ${lv.level}: ${lv.title} <span class="book-chapter-stage">(${lv.stage})</span></div>`;
+      chapter.innerHTML = `<div class="book-chapter-head"><span class="book-chapter-icon">${lv.icon}</span> ${lv.title} <span class="book-chapter-stage">(${lv.stage})</span></div>`;
       lv.units.forEach(unit => {
         const unitHead = document.createElement('div');
         unitHead.className = 'book-unit-head';
@@ -1165,10 +1180,10 @@
     $('btn-login-from-profile').style.display = loggedIn ? 'none' : 'block';
     $('btn-logout').style.display = loggedIn ? 'block' : 'none';
 
-    // school level chosen during onboarding (0-5)
+    // school grade chosen during onboarding (0-12)
     const schoolLv = MATH_LEVELS.find(l => l.level === state.level);
     $('profile-school-level').innerHTML = schoolLv
-      ? `${schoolLv.icon} المستوى الدراسي ${schoolLv.level} — ${schoolLv.title} <span>(${schoolLv.stage})</span>`
+      ? `${schoolLv.icon} ${schoolLv.title} <span>(${schoolLv.stage})</span>`
       : '';
 
     $('profile-xp').textContent = state.xp;
@@ -1295,15 +1310,22 @@
 
   const ONBOARDING_STEPS = [
     {
-      key: 'gradeLevel', type: 'cards',
-      question: 'ما هو مستواك الدراسي؟', subtext: 'سنفتح لك وحدات ودروس مستواك مباشرة — مثل مدرستك تمامًا',
+      key: 'gradeLevel', type: 'chips',
+      question: 'في أي صف دراسي أنت؟', subtext: 'سنفتح لك وحدات ودروس صفّك مباشرة — مثل مدرستك تمامًا',
       options: [
-        { value: '0', label: 'المستوى 0 — التمهيدي (رياض الأطفال)', img: 'img/onboarding/level-young.png' },
-        { value: '1', label: 'المستوى 1 — ابتدائي أدنى (صفوف 1-3)', img: 'img/onboarding/level-young.png' },
-        { value: '2', label: 'المستوى 2 — ابتدائي أعلى (صفوف 4-6)', img: 'img/onboarding/level-teen.png' },
-        { value: '3', label: 'المستوى 3 — المتوسط / الإعدادي', img: 'img/onboarding/level-teen.png' },
-        { value: '4', label: 'المستوى 4 — الثانوي', img: 'img/onboarding/level-adult.png' },
-        { value: '5', label: 'المستوى 5 — الجامعي والمتقدم', img: 'img/onboarding/level-adult.png' },
+        { value: '0',  label: '🧸 رياض الأطفال' },
+        { value: '1',  label: '1️⃣ الأول ابتدائي' },
+        { value: '2',  label: '2️⃣ الثاني ابتدائي' },
+        { value: '3',  label: '3️⃣ الثالث ابتدائي' },
+        { value: '4',  label: '4️⃣ الرابع ابتدائي' },
+        { value: '5',  label: '5️⃣ الخامس ابتدائي' },
+        { value: '6',  label: '6️⃣ السادس ابتدائي' },
+        { value: '7',  label: '📗 الأول متوسط' },
+        { value: '8',  label: '📘 الثاني متوسط' },
+        { value: '9',  label: '📙 الثالث متوسط' },
+        { value: '10', label: '📕 الأول ثانوي' },
+        { value: '11', label: '📔 الثاني ثانوي' },
+        { value: '12', label: '🎓 الثالث ثانوي' },
       ]
     },
     {
@@ -1449,7 +1471,7 @@
   function finishOnboarding() {
     state.onboarding = onboardingAnswers;
     state.onboardingDone = true;
-    state.level = Math.min(5, Math.max(0, Number(onboardingAnswers.gradeLevel) || 0));
+    state.level = Math.min(MAX_LEVEL, Math.max(0, Number(onboardingAnswers.gradeLevel) || 0));
     browsingLevel = null; // land on the newly chosen level
     saveState();
     Sound.correct();

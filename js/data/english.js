@@ -1842,43 +1842,83 @@ const ENGLISH_LESSONS = [
    ═══════════════════════════════════════════════════════════ */
 const ENGLISH_LEVELS = [
   {
-    level: 0, title: 'التمهيدي', stage: 'رياض الأطفال', icon: '🧸',
+    level: 0, title: 'رياض الأطفال', stage: 'التمهيدي', icon: '🧸',
     units: [
-      { title: 'أول الكلمات', icon: '🔤', lessonIds: ['en-alphabet', 'en-colors', 'en-numbers-basic', 'en-animals'] },
+      { title: 'أول الكلمات', icon: '🔤', lessonIds: ['en-alphabet', 'en-colors'] },
     ]
   },
   {
-    level: 1, title: 'الابتدائي الأدنى', stage: 'الصفوف 1-3', icon: '📗',
+    level: 1, title: 'الصف الأول', stage: 'ابتدائي', icon: '1️⃣',
     units: [
-      { title: 'عالمي من حولي', icon: '📚', lessonIds: ['en-vocab-basic', 'en-family', 'en-food', 'en-body'] },
+      { title: 'الأرقام والحيوانات', icon: '🔢', lessonIds: ['en-numbers-basic', 'en-animals'] },
     ]
   },
   {
-    level: 2, title: 'الابتدائي الأعلى', stage: 'الصفوف 4-6', icon: '📘',
+    level: 2, title: 'الصف الثاني', stage: 'ابتدائي', icon: '2️⃣',
     units: [
-      { title: 'الجمل والوقت', icon: '💬', lessonIds: ['en-simple-sentences', 'en-numbers-time', 'en-days-months', 'en-weather'] },
+      { title: 'أنا وعائلتي', icon: '👨‍👩‍👧‍👦', lessonIds: ['en-vocab-basic', 'en-family'] },
     ]
   },
   {
-    level: 3, title: 'المتوسط', stage: 'الإعدادي', icon: '📙',
+    level: 3, title: 'الصف الثالث', stage: 'ابتدائي', icon: '3️⃣',
+    units: [
+      { title: 'الطعام والجسم', icon: '🍎', lessonIds: ['en-food', 'en-body'] },
+    ]
+  },
+  {
+    level: 4, title: 'الصف الرابع', stage: 'ابتدائي', icon: '4️⃣',
+    units: [
+      { title: 'الجمل والوقت', icon: '💬', lessonIds: ['en-simple-sentences', 'en-numbers-time'] },
+    ]
+  },
+  {
+    level: 5, title: 'الصف الخامس', stage: 'ابتدائي', icon: '5️⃣',
+    units: [
+      { title: 'الأيام والطقس', icon: '📅', lessonIds: ['en-days-months', 'en-weather'] },
+    ]
+  },
+  {
+    level: 6, title: 'الصف السادس', stage: 'ابتدائي', icon: '6️⃣',
+    units: [
+      { title: 'أدوات اللغة', icon: '❓', lessonIds: ['en-questions', 'en-prepositions'] },
+    ]
+  },
+  {
+    level: 7, title: 'الأول المتوسط', stage: 'إعدادي', icon: '📗',
     units: [
       { title: 'الأزمنة الأساسية', icon: '🏃', lessonIds: ['en-present-continuous', 'en-past-simple'] },
-      { title: 'أدوات اللغة', icon: '❓', lessonIds: ['en-questions', 'en-prepositions'] },
+    ]
+  },
+  {
+    level: 8, title: 'الثاني المتوسط', stage: 'إعدادي', icon: '📘',
+    units: [
       { title: 'الصفات والظروف', icon: '🎨', lessonIds: ['en-adjectives', 'en-adverbs'] },
     ]
   },
   {
-    level: 4, title: 'الثانوي', stage: 'المرحلة الثانوية', icon: '📕',
+    level: 9, title: 'الثالث المتوسط', stage: 'إعدادي', icon: '📙',
     units: [
-      { title: 'أزمنة متقدمة', icon: '🔮', lessonIds: ['en-future', 'en-present-perfect', 'en-past-continuous'] },
-      { title: 'المقارنة والأفعال الناقصة', icon: '⚖️', lessonIds: ['en-comparatives', 'en-modals'] },
-      { title: 'الجمل المركّبة', icon: '🔗', lessonIds: ['en-relative-clauses'] },
+      { title: 'الماضي المستمر والمقارنة', icon: '⏳', lessonIds: ['en-past-continuous', 'en-comparatives'] },
     ]
   },
   {
-    level: 5, title: 'الجامعي والمتقدم', stage: 'قواعد متقدمة', icon: '🎓',
+    level: 10, title: 'الأول الثانوي', stage: 'ثانوي', icon: '📕',
     units: [
-      { title: 'التراكيب المتقدمة', icon: '🔀', lessonIds: ['en-conditionals', 'en-passive', 'en-reported-speech'] },
+      { title: 'المستقبل والمضارع التام', icon: '🔮', lessonIds: ['en-future', 'en-present-perfect'] },
+      { title: 'الأفعال الناقصة', icon: '🔑', lessonIds: ['en-modals'] },
+    ]
+  },
+  {
+    level: 11, title: 'الثاني الثانوي', stage: 'ثانوي', icon: '📔',
+    units: [
+      { title: 'الجمل المركّبة', icon: '🔗', lessonIds: ['en-relative-clauses', 'en-conditionals'] },
+      { title: 'المبني للمجهول', icon: '🏗️', lessonIds: ['en-passive'] },
+    ]
+  },
+  {
+    level: 12, title: 'الثالث الثانوي', stage: 'ثانوي — إنجليزية متقدمة', icon: '🎓',
+    units: [
+      { title: 'الكلام المنقول', icon: '💬', lessonIds: ['en-reported-speech'] },
       { title: 'الإنجليزية الأصيلة', icon: '💡', lessonIds: ['en-phrasal-verbs', 'en-idioms', 'en-academic-writing'] },
     ]
   },
