@@ -1451,55 +1451,39 @@ const ENGLISH_LEVELS = [
   {
     level: 0, title: 'التمهيدي', stage: 'رياض الأطفال', icon: '🧸',
     units: [
-      { title: 'الحروف والتحيات', icon: '🔤', lessonIds: ['en-alphabet'] },
-      { title: 'الألوان', icon: '🎨', lessonIds: ['en-colors'] },
-      { title: 'الأرقام', icon: '🔢', lessonIds: ['en-numbers-basic'] },
-      { title: 'الحيوانات', icon: '🐘', lessonIds: ['en-animals'] },
+      { title: 'أول الكلمات', icon: '🔤', lessonIds: ['en-alphabet', 'en-colors', 'en-numbers-basic', 'en-animals'] },
     ]
   },
   {
     level: 1, title: 'الابتدائي الأدنى', stage: 'الصفوف 1-3', icon: '📗',
     units: [
-      { title: 'مفردات أساسية', icon: '📚', lessonIds: ['en-vocab-basic'] },
-      { title: 'العائلة', icon: '👨‍👩‍👧‍👦', lessonIds: ['en-family'] },
-      { title: 'الطعام والشراب', icon: '🍎', lessonIds: ['en-food'] },
-      { title: 'أجزاء الجسم', icon: '👤', lessonIds: ['en-body'] },
+      { title: 'عالمي من حولي', icon: '📚', lessonIds: ['en-vocab-basic', 'en-family', 'en-food', 'en-body'] },
     ]
   },
   {
     level: 2, title: 'الابتدائي الأعلى', stage: 'الصفوف 4-6', icon: '📘',
     units: [
-      { title: 'الجمل البسيطة', icon: '💬', lessonIds: ['en-simple-sentences'] },
-      { title: 'الأرقام والوقت', icon: '🕐', lessonIds: ['en-numbers-time'] },
-      { title: 'الأيام والشهور', icon: '📅', lessonIds: ['en-days-months'] },
-      { title: 'الطقس والفصول', icon: '🌦️', lessonIds: ['en-weather'] },
+      { title: 'الجمل والوقت', icon: '💬', lessonIds: ['en-simple-sentences', 'en-numbers-time', 'en-days-months', 'en-weather'] },
     ]
   },
   {
     level: 3, title: 'المتوسط', stage: 'الإعدادي', icon: '📙',
     units: [
-      { title: 'المضارع المستمر', icon: '🏃', lessonIds: ['en-present-continuous'] },
-      { title: 'الماضي البسيط', icon: '⏪', lessonIds: ['en-past-simple'] },
-      { title: 'أدوات الاستفهام', icon: '❓', lessonIds: ['en-questions'] },
-      { title: 'حروف الجر', icon: '📍', lessonIds: ['en-prepositions'] },
+      { title: 'الأزمنة الأساسية', icon: '🏃', lessonIds: ['en-present-continuous', 'en-past-simple'] },
+      { title: 'أدوات اللغة', icon: '❓', lessonIds: ['en-questions', 'en-prepositions'] },
     ]
   },
   {
     level: 4, title: 'الثانوي', stage: 'المرحلة الثانوية', icon: '📕',
     units: [
-      { title: 'المستقبل', icon: '🔮', lessonIds: ['en-future'] },
-      { title: 'المقارنة والتفضيل', icon: '⚖️', lessonIds: ['en-comparatives'] },
-      { title: 'المضارع التام', icon: '✅', lessonIds: ['en-present-perfect'] },
-      { title: 'الأفعال الناقصة', icon: '🔑', lessonIds: ['en-modals'] },
+      { title: 'أزمنة متقدمة', icon: '🔮', lessonIds: ['en-future', 'en-present-perfect'] },
+      { title: 'المقارنة والأفعال الناقصة', icon: '⚖️', lessonIds: ['en-comparatives', 'en-modals'] },
     ]
   },
   {
     level: 5, title: 'الجامعي والمتقدم', stage: 'قواعد متقدمة', icon: '🎓',
     units: [
-      { title: 'الجمل الشرطية', icon: '🔀', lessonIds: ['en-conditionals'] },
-      { title: 'المبني للمجهول', icon: '🏗️', lessonIds: ['en-passive'] },
-      { title: 'الكلام المنقول', icon: '💬', lessonIds: ['en-reported-speech'] },
-      { title: 'الأفعال المركبة', icon: '🧩', lessonIds: ['en-phrasal-verbs'] },
+      { title: 'التراكيب المتقدمة', icon: '🔀', lessonIds: ['en-conditionals', 'en-passive', 'en-reported-speech', 'en-phrasal-verbs'] },
     ]
   },
 ];
