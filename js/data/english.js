@@ -1441,6 +1441,399 @@ const ENGLISH_LESSONS = [
       { type: 'choice', q: 'أي جملة صحيحة مع الضمير؟', options: ['Turn it on.', 'Turn on it.', 'Turn on it off.', 'It turn on.'], correct: 0, why: 'مع الضمير يجب وضعه في المنتصف: Turn it on.' },
       { type: 'write', q: 'اكتب الفعل المركب الذي يعني "يعتني بـ" (كلمتان):', accept: ['look after'], answer: 'look after', why: '"look after" = يعتني بشخص أو شيء.' }
     ]
+  },
+
+  /* ═══════════ المستوى 3: الصفات ═══════════ */
+  {
+    id: 'en-adjectives',
+    title: 'الصفات',
+    icon: '🎨',
+    explanations: [
+      {
+        bubble: 'الصفة تصف الاسم — تخبرنا كيف هو الشيء! 🎨',
+        steps: [
+          LTR('big') + ' = كبير، ' + LTR('small') + ' = صغير',
+          LTR('happy') + ' = سعيد، ' + LTR('sad') + ' = حزين',
+          LTR('hot') + ' = حار، ' + LTR('cold') + ' = بارد',
+          LTR('new') + ' = جديد، ' + LTR('old') + ' = قديم',
+          'موقعها: <span class="hl">قبل</span> الاسم أو بعد فعل يكون',
+          '<span class="hl2">' + LTR('a big house') + ' / ' + LTR('The house is big.') + '</span>'
+        ],
+        speech: 'الصفة تصف الاسم وتخبرنا كيف هو الشيء. بيغ كبير، وسمول صغير. هابي سعيد، وساد حزين. هوت حار، وكولد بارد. نيو جديد، وأولد قديم. وموقعها إما قبل الاسم أو بعد فعل يكون: أ بيغ هاوس، أو ذا هاوس إز بيغ.'
+      },
+      {
+        bubble: 'قاعدة مهمة: الصفة في الإنجليزية <span class="hl">لا تتغيّر</span> أبدًا! ⚠️',
+        steps: [
+          'في العربية نقول: ولد كبير / بنت كبيرة / أولاد كبار',
+          'الصفة تتغيّر حسب المذكر والمؤنث والجمع',
+          'لكن في الإنجليزية <span class="hl2">أبدًا</span>!',
+          LTR('a big boy') + '، ' + LTR('a big girl') + '، ' + LTR('big boys'),
+          '❌ ' + LTR('bigs boys') + ' — خطأ شائع جدًا!',
+          '<span class="hl">صفة واحدة تصلح لكل شيء — أسهل من العربية!</span> 😊'
+        ],
+        speech: 'قاعدة مهمة: الصفة في الإنجليزية لا تتغير أبداً! في العربية نقول ولد كبير، وبنت كبيرة، وأولاد كبار، فالصفة تتغير حسب المذكر والمؤنث والجمع. لكن في الإنجليزية أبداً: أ بيغ بوي، أ بيغ غيرل، بيغ بويز. ولا نقول بيغز بويز، فهذا خطأ شائع جداً. صفة واحدة تصلح لكل شيء، وهذا أسهل من العربية!'
+      },
+      {
+        bubble: 'ترتيب الصفات إذا اجتمعت! 📋 قاعدة يجهلها الكثيرون:',
+        steps: [
+          'الترتيب الصحيح: <span class="hl">رأي ← حجم ← عمر ← لون</span>',
+          '✓ ' + LTR('a beautiful big old red car'),
+          '❌ ' + LTR('a red old big beautiful car'),
+          'الرأي أولًا (جميل)، ثم الحجم (كبير)،',
+          'ثم العمر (قديم)، ثم اللون (أحمر)',
+          '<span class="hl2">لا تقلق — الأذن تعتاد الترتيب بالممارسة</span> 👂'
+        ],
+        speech: 'ترتيب الصفات إذا اجتمعت، قاعدة يجهلها الكثيرون! الترتيب الصحيح: الرأي ثم الحجم ثم العمر ثم اللون. فنقول أ بيوتيفول بيغ أولد ريد كار. ولا نقول أ ريد أولد بيغ بيوتيفول كار. الرأي أولاً مثل جميل، ثم الحجم، ثم العمر، ثم اللون. ولا تقلق فالأذن تعتاد الترتيب بالممارسة.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: الصفة = كلمة تجيب على سؤال "كيف؟"',
+        steps: [
+          'انظر لأي شيء واسأل: <span class="hl">كيف هو؟</span>',
+          'الكرة... كيف هي؟ <span class="hl2">كبيرة</span> ← ' + LTR('big'),
+          'الشاي... كيف هو؟ <span class="hl2">حار</span> ← ' + LTR('hot'),
+          'ضع الكلمة قبل الاسم وانتهى الأمر:',
+          LTR('a big ball') + '، ' + LTR('hot tea'),
+          '<span class="hl">فقط لا تضف s للصفة أبدًا!</span> ✓'
+        ],
+        speech: 'أبسط شرح ممكن: الصفة هي كلمة تجيب على سؤال كيف. انظر لأي شيء واسأل كيف هو؟ الكرة كيف هي؟ كبيرة، أي بيغ. والشاي كيف هو؟ حار، أي هوت. ضع الكلمة قبل الاسم وانتهى الأمر: أ بيغ بول، هوت تي. فقط لا تضف إس للصفة أبداً!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ماذا تعني كلمة "big"؟', options: ['كبير', 'صغير', 'سعيد', 'بارد'], correct: 0, why: '"big" = كبير.' },
+      { type: 'choice', q: 'أي جملة صحيحة؟', options: ['They are big boys.', 'They are bigs boys.', 'They are boys big.', 'They big are boys.'], correct: 0, why: 'الصفة لا تأخذ s أبدًا وتأتي قبل الاسم.' },
+      { type: 'write', q: 'اكتب عكس كلمة "hot" بالإنجليزية:', accept: ['cold'], answer: 'cold', why: '"cold" = بارد، عكس hot.' },
+      { type: 'choice', q: 'أين نضع الصفة عادةً؟', options: ['قبل الاسم أو بعد فعل يكون', 'بعد الاسم دائمًا', 'في نهاية الجملة', 'قبل الفاعل'], correct: 0, why: 'a big house / The house is big.' },
+      { type: 'choice', q: 'ما الترتيب الصحيح للصفات؟', options: ['a beautiful big old red car', 'a red old big beautiful car', 'a big beautiful red old car', 'a old red beautiful big car'], correct: 0, why: 'الترتيب: رأي ← حجم ← عمر ← لون.' },
+      { type: 'write', q: 'اكتب عكس كلمة "new" بالإنجليزية:', accept: ['old'], answer: 'old', why: '"old" = قديم، عكس new.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 3: الظروف ═══════════ */
+  {
+    id: 'en-adverbs',
+    title: 'ظروف الحال والتكرار',
+    icon: '🏃',
+    explanations: [
+      {
+        bubble: 'الصفة تصف <span class="hl">الاسم</span>، والظرف يصف <span class="hl">الفعل</span>! 🏃',
+        steps: [
+          'صفة: ' + LTR('He is a slow runner.') + ' (يصف الشخص)',
+          'ظرف: ' + LTR('He runs slowly.') + ' (يصف كيف يجري)',
+          'القاعدة: أضف <span class="hl2">' + LTR('ly') + '</span> للصفة',
+          LTR('quick → quickly') + ' (بسرعة)',
+          LTR('careful → carefully') + ' (بعناية)',
+          LTR('slow → slowly') + ' (ببطء)'
+        ],
+        speech: 'الصفة تصف الاسم، والظرف يصف الفعل! الصفة: هي إز أ سلو رانر، تصف الشخص. والظرف: هي رانز سلولي، يصف كيف يجري. والقاعدة: أضف إل واي للصفة. كويك تصبح كويكلي بسرعة. وكيرفل تصبح كيرفلي بعناية. وسلو تصبح سلولي ببطء.'
+      },
+      {
+        bubble: 'ظروف التكرار: كم مرة يحدث الشيء؟ 🔁 وموقعها مهم!',
+        steps: [
+          LTR('always') + ' = دائمًا (100%)',
+          LTR('usually') + ' = عادةً (80%)',
+          LTR('sometimes') + ' = أحيانًا (50%)',
+          LTR('rarely') + ' = نادرًا (10%)',
+          LTR('never') + ' = أبدًا (0%)',
+          'موقعها: <span class="hl2">قبل الفعل الأساسي، بعد فعل يكون</span>',
+          LTR('I always eat breakfast.') + ' / ' + LTR('He is always late.')
+        ],
+        speech: 'ظروف التكرار تخبرنا كم مرة يحدث الشيء، وموقعها مهم! أولويز دائماً بنسبة مئة بالمئة. يوجوالي عادة بثمانين بالمئة. سمتايمز أحياناً بخمسين بالمئة. ريرلي نادراً بعشرة بالمئة. ونيفر أبداً بصفر بالمئة. وموقعها قبل الفعل الأساسي وبعد فعل يكون: آي أولويز إيت بريكفاست، وهي إز أولويز ليت.'
+      },
+      {
+        bubble: 'استثناءات يجب حفظها! ⚠️ لا تأخذ ' + LTR('ly') + ':',
+        steps: [
+          LTR('good → well') + ' (وليس ' + LTR('goodly') + '!) ❌',
+          LTR('fast → fast') + ' (لا تتغيّر أبدًا)',
+          LTR('hard → hard') + ' (بجدّ)',
+          'انتبه: ' + LTR('hardly') + ' معناها مختلف تمامًا = <span class="hl">بالكاد</span>!',
+          LTR('He works hard.') + ' = يعمل بجدّ ✓',
+          '<span class="hl2">' + LTR('He hardly works.') + ' = بالكاد يعمل!</span> 😲'
+        ],
+        speech: 'استثناءات يجب حفظها، فهي لا تأخذ إل واي! غود تصبح ويل وليس غودلي. وفاست تبقى فاست ولا تتغير أبداً. وهارد تبقى هارد بمعنى بجد. وانتبه: هاردلي معناها مختلف تماماً وهي بالكاد! فهي وركس هارد تعني يعمل بجد، أما هي هاردلي وركس فتعني بالكاد يعمل!'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: الظرف يجيب على "كيف يفعلها؟"',
+        steps: [
+          'الفعل: يجري 🏃',
+          'اسأل: <span class="hl">كيف</span> يجري؟ ببطء ← ' + LTR('slowly'),
+          'الفعل: يتكلّم 🗣️',
+          'اسأل: كيف يتكلّم؟ بهدوء ← ' + LTR('quietly'),
+          'الوصفة السحرية: <span class="hl2">صفة + ' + LTR('ly') + ' = ظرف</span>',
+          'وضعه بعد الفعل مباشرة ✓'
+        ],
+        speech: 'أبسط شرح ممكن: الظرف يجيب على سؤال كيف يفعلها. الفعل يجري، فاسأل كيف يجري؟ ببطء، أي سلولي. والفعل يتكلم، فاسأل كيف يتكلم؟ بهدوء، أي كوايتلي. والوصفة السحرية: صفة زائد إل واي تساوي ظرفاً، وضعه بعد الفعل مباشرة.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ما ظرف الحال من الصفة "quick"؟', options: ['quickly', 'quicker', 'quick', 'quickness'], correct: 0, why: 'نضيف ly للصفة: quick → quickly.' },
+      { type: 'choice', q: 'أي جملة تستخدم الظرف بشكل صحيح؟', options: ['He runs slowly.', 'He runs slow bad.', 'He is runs slowly.', 'Slowly he is run.'], correct: 0, why: 'الظرف slowly يصف كيف يجري، ويأتي بعد الفعل.' },
+      { type: 'write', q: 'ما ظرف الحال من "careful"؟', accept: ['carefully'], answer: 'carefully', why: 'careful + ly = carefully.' },
+      { type: 'choice', q: 'ما ظرف الحال من "good"؟', options: ['well', 'goodly', 'gooder', 'good'], correct: 0, why: 'استثناء مهم: good → well وليس goodly.' },
+      { type: 'choice', q: 'أين نضع ظرف التكرار مثل always؟', options: ['قبل الفعل الأساسي وبعد فعل يكون', 'في نهاية الجملة دائمًا', 'قبل الفاعل', 'لا يهم موقعه'], correct: 0, why: 'I always eat / He is always late.' },
+      { type: 'choice', q: 'ماذا تعني "He hardly works"؟', options: ['بالكاد يعمل', 'يعمل بجدّ', 'يعمل بسرعة', 'لا يعمل أبدًا'], correct: 0, why: 'hardly = بالكاد (تختلف تمامًا عن hard = بجدّ).' }
+    ]
+  },
+
+  /* ═══════════ المستوى 4: الماضي المستمر ═══════════ */
+  {
+    id: 'en-past-continuous',
+    title: 'الماضي المستمر',
+    icon: '⏳',
+    explanations: [
+      {
+        bubble: 'حدث كان <span class="hl">مستمرًا</span> في لحظة ماضية! ⏳ كأنك تصوّر مشهدًا:',
+        steps: [
+          'القاعدة: <span class="hl2">' + LTR('was / were + فعل + ing') + '</span>',
+          LTR('I was reading at 8 PM.') + ' = كنت أقرأ الساعة 8',
+          LTR('They were playing football.') + ' = كانوا يلعبون',
+          '<span class="hl">' + LTR('I / He / She / It') + '</span> ← ' + LTR('was'),
+          '<span class="hl">' + LTR('You / We / They') + '</span> ← ' + LTR('were'),
+          'الفرق عن الماضي البسيط: هذا <span class="hl2">مستمر</span> وذاك <span class="hl2">منتهٍ</span>'
+        ],
+        speech: 'حدث كان مستمراً في لحظة ماضية، كأنك تصور مشهداً! القاعدة: واز أو وير مع الفعل زائد آي إن جي. آي واز ريدينغ آت إيت بي إم: كنت أقرأ الساعة الثامنة. ذاي وير بلايينغ فوتبول: كانوا يلعبون كرة القدم. آي وهي وشي وإت تأخذ واز، أما يو ووي وذاي فتأخذ وير.'
+      },
+      {
+        bubble: 'الاستخدام الأشهر: حدث <span class="hl">قاطع</span> حدثًا آخر! ⚡',
+        steps: [
+          LTR('I was sleeping when the phone rang.'),
+          '= كنت نائمًا <span class="hl">عندما</span> رنّ الهاتف',
+          'الحدث الطويل (النوم) ← <span class="hl2">ماضٍ مستمر</span> 📏',
+          'الحدث القصير المفاجئ (الرنين) ← <span class="hl2">ماضٍ بسيط</span> ⚡',
+          'كلمة الربط: <span class="hl">' + LTR('when') + '</span> أو <span class="hl">' + LTR('while') + '</span>',
+          LTR('While I was studying, my friend called.')
+        ],
+        speech: 'الاستخدام الأشهر: حدث قاطع حدثاً آخر! آي واز سليبينغ وين ذا فون رانغ: كنت نائماً عندما رن الهاتف. الحدث الطويل وهو النوم يأخذ الماضي المستمر، والحدث القصير المفاجئ وهو الرنين يأخذ الماضي البسيط. وكلمة الربط إما وين أو وايل.'
+      },
+      {
+        bubble: 'وصف المشهد والخلفية! 🎬 كأنك تكتب قصة:',
+        steps: [
+          LTR('It was raining. The birds were singing.'),
+          LTR('People were walking in the street.'),
+          '= كانت تمطر، والطيور تغرّد، والناس يمشون...',
+          'كل هذه <span class="hl">خلفية المشهد</span> 🖼️',
+          'ثم يأتي الحدث الرئيسي بالماضي البسيط:',
+          '<span class="hl2">' + LTR('Suddenly, I saw him.') + '</span> ⚡'
+        ],
+        speech: 'وصف المشهد والخلفية، كأنك تكتب قصة! إت واز رينينغ، ذا بيردز وير سينغينغ، بيبول وير ووكينغ إن ذا ستريت. أي كانت تمطر والطيور تغرد والناس يمشون. كل هذه خلفية المشهد. ثم يأتي الحدث الرئيسي بالماضي البسيط: سدنلي آي سو هيم، وفجأة رأيته.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: تخيّل صورة متحرّكة من الماضي 📹',
+        steps: [
+          'الماضي البسيط = <span class="hl">صورة</span> 📷 (حدث وانتهى)',
+          LTR('I ate.') + ' = أكلت (انتهى)',
+          'الماضي المستمر = <span class="hl">فيديو</span> 📹 (كان يجري)',
+          LTR('I was eating.') + ' = كنت آكل (المشهد مستمر)',
+          'الوصفة: <span class="hl2">' + LTR('was/were') + ' + الفعل + ' + LTR('ing') + '</span>',
+          'بهذه البساطة! ✓'
+        ],
+        speech: 'أبسط شرح ممكن: تخيل صورة متحركة من الماضي. الماضي البسيط مثل الصورة الفوتوغرافية، حدث وانتهى: آي أيت، أكلت. أما الماضي المستمر فمثل الفيديو، كان يجري: آي واز إيتينغ، كنت آكل والمشهد مستمر. والوصفة: واز أو وير زائد الفعل زائد آي إن جي. بهذه البساطة!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أكمل: I ____ reading at 8 PM.', options: ['was', 'were', 'am', 'is'], correct: 0, why: 'I تأخذ was في الماضي المستمر.' },
+      { type: 'choice', q: 'أكمل: They ____ playing football.', options: ['were', 'was', 'are', 'is'], correct: 0, why: 'They جمع فتأخذ were.' },
+      { type: 'write', q: 'أكمل بالفعل الصحيح: She was ____ (cook) dinner:', accept: ['cooking'], answer: 'cooking', why: 'الماضي المستمر: was + الفعل + ing.' },
+      { type: 'choice', q: 'ماذا تعني "I was sleeping when the phone rang"؟', options: ['كنت نائمًا عندما رنّ الهاتف', 'نمت بعد أن رنّ الهاتف', 'سأنام عندما يرنّ', 'لم أنم أبدًا'], correct: 0, why: 'الحدث الطويل (النوم) مستمر، والقصير (الرنين) قاطعه.' },
+      { type: 'choice', q: 'في جملة القطع، أي فعل يأخذ الماضي المستمر؟', options: ['الحدث الطويل', 'الحدث القصير المفاجئ', 'كلاهما', 'لا أحد'], correct: 0, why: 'الطويل مستمر، والقصير المفاجئ بالماضي البسيط.' },
+      { type: 'write', q: 'أكمل: We ____ watching TV (جمع، ماضٍ مستمر):', accept: ['were'], answer: 'were', why: 'We جمع فتأخذ were.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 4: الجمل الموصولة ═══════════ */
+  {
+    id: 'en-relative-clauses',
+    title: 'الجمل الموصولة',
+    icon: '🔗',
+    explanations: [
+      {
+        bubble: 'كيف تدمج جملتين في جملة واحدة أنيقة؟ 🔗 بالضمائر الموصولة:',
+        steps: [
+          'جملتان: ' + LTR('I know a man. He speaks Arabic.'),
+          'ادمجهما: <span class="hl2">' + LTR('I know a man who speaks Arabic.') + '</span>',
+          '<span class="hl">' + LTR('who') + '</span> = للأشخاص (الذي/التي)',
+          '<span class="hl">' + LTR('which') + '</span> = للأشياء والحيوانات',
+          '<span class="hl">' + LTR('that') + '</span> = للاثنين معًا (الأسهل!)',
+          '<span class="hl">' + LTR('where') + '</span> = للأماكن، <span class="hl">' + LTR('when') + '</span> = للزمان'
+        ],
+        speech: 'كيف تدمج جملتين في جملة واحدة أنيقة؟ بالضمائر الموصولة. عندنا جملتان: آي نو أ مان، وهي سبيكس أرابيك. ندمجهما فتصبح: آي نو أ مان هو سبيكس أرابيك. وهو للأشخاص، ووتش للأشياء والحيوانات، وذات تصلح للاثنين وهي الأسهل، ووير للأماكن، ووين للزمان.'
+      },
+      {
+        bubble: 'أمثلة عملية من الحياة اليومية! 🏠',
+        steps: [
+          LTR('The book which I read was great.'),
+          '= الكتاب الذي قرأته كان رائعًا',
+          LTR('This is the house where I was born.'),
+          '= هذا البيت الذي وُلدت فيه',
+          LTR('I remember the day when we met.'),
+          '= أتذكّر اليوم الذي التقينا فيه',
+          '<span class="hl2">الضمير الموصول يربط الوصف بالاسم مباشرة</span>'
+        ],
+        speech: 'أمثلة عملية من الحياة اليومية! ذا بوك وتش آي ريد واز غريت: الكتاب الذي قرأته كان رائعاً. ذيس إز ذا هاوس وير آي واز بورن: هذا البيت الذي ولدت فيه. آي ريممبر ذا داي وين وي مت: أتذكر اليوم الذي التقينا فيه. الضمير الموصول يربط الوصف بالاسم مباشرة.'
+      },
+      {
+        bubble: 'خطأ شائع جدًا! ⚠️ لا تكرّر الفاعل:',
+        steps: [
+          '❌ ' + LTR('The man who he speaks Arabic...'),
+          '✓ ' + LTR('The man who speaks Arabic...'),
+          'كلمة <span class="hl">' + LTR('who') + '</span> <span class="hl">هي نفسها</span> الفاعل!',
+          'فلا حاجة لإضافة ' + LTR('he') + ' بعدها',
+          'نفس الشيء: ❌ ' + LTR('the book which I read it'),
+          '✓ ' + LTR('the book which I read') + ' — بدون ' + LTR('it')
+        ],
+        speech: 'خطأ شائع جداً: لا تكرر الفاعل! لا نقول ذا مان هو هي سبيكس أرابيك، بل ذا مان هو سبيكس أرابيك. فكلمة هو هي نفسها الفاعل، ولا حاجة لإضافة هي بعدها. ونفس الشيء: لا نقول ذا بوك وتش آي ريد إت، بل ذا بوك وتش آي ريد بدون إت.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: الضمير الموصول = كلمة "الذي" بالعربية',
+        steps: [
+          'في العربية نقول: الرجل <span class="hl">الذي</span> يتكلّم',
+          'في الإنجليزية: ' + LTR('The man ') + '<span class="hl">' + LTR('who') + '</span>' + LTR(' speaks'),
+          'نفس الفكرة تمامًا! 😊',
+          'للأشخاص → ' + LTR('who'),
+          'لغير الأشخاص → ' + LTR('which'),
+          '<span class="hl2">وإن نسيت، استخدم ' + LTR('that') + ' — تصلح للجميع!</span> ✓'
+        ],
+        speech: 'أبسط شرح ممكن: الضمير الموصول هو نفسه كلمة الذي بالعربية. في العربية نقول الرجل الذي يتكلم، وفي الإنجليزية ذا مان هو سبيكس. نفس الفكرة تماماً! للأشخاص نستخدم هو، ولغير الأشخاص نستخدم وتش. وإن نسيت فاستخدم ذات فهي تصلح للجميع!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أي ضمير موصول نستخدم للأشخاص؟', options: ['who', 'which', 'where', 'when'], correct: 0, why: '"who" للأشخاص، "which" للأشياء.' },
+      { type: 'choice', q: 'أكمل: The book ____ I read was great.', options: ['which', 'who', 'where', 'whose'], correct: 0, why: 'الكتاب شيء وليس شخصًا، فنستخدم which (أو that).' },
+      { type: 'write', q: 'اكتب الضمير الموصول الخاص بالأماكن:', accept: ['where'], answer: 'where', why: '"where" للأماكن: the house where I live.' },
+      { type: 'choice', q: 'أي جملة صحيحة؟', options: ['The man who speaks Arabic.', 'The man who he speaks Arabic.', 'The man which speaks Arabic.', 'The man who he speak Arabic.'], correct: 0, why: 'who هي الفاعل نفسه، فلا نكرّر he بعدها.' },
+      { type: 'choice', q: 'أي ضمير موصول يصلح للأشخاص والأشياء معًا؟', options: ['that', 'who', 'which', 'where'], correct: 0, why: '"that" مرنة وتصلح للاثنين.' },
+      { type: 'write', q: 'أكمل: I remember the day ____ we met (للزمان):', accept: ['when'], answer: 'when', why: '"when" للزمان.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 5: التعابير الاصطلاحية ═══════════ */
+  {
+    id: 'en-idioms',
+    title: 'التعابير الاصطلاحية',
+    icon: '💡',
+    explanations: [
+      {
+        bubble: 'التعبير الاصطلاحي: معناه <span class="hl">لا يُفهم</span> من كلماته! 💡',
+        steps: [
+          LTR('It\'s raining cats and dogs.') + ' 🐱🐶',
+          'حرفيًا: تمطر قططًا وكلابًا؟! 😅',
+          'المعنى الحقيقي: <span class="hl2">تمطر بغزارة شديدة</span>',
+          LTR('Break a leg!') + ' = <span class="hl2">حظًا موفقًا!</span> (وليس اكسر ساقك)',
+          LTR('Piece of cake') + ' = <span class="hl2">سهل جدًا</span>',
+          '<span class="hl">لا تترجم حرفيًا أبدًا — احفظ المعنى كوحدة واحدة</span>'
+        ],
+        speech: 'التعبير الاصطلاحي معناه لا يفهم من كلماته! إتس رينينغ كاتس آند دوغز، أي حرفياً تمطر قططاً وكلاباً، لكن المعنى الحقيقي أنها تمطر بغزارة شديدة. وبريك أ ليغ تعني حظاً موفقاً وليس اكسر ساقك. وبيس أوف كيك تعني سهل جداً. فلا تترجم حرفياً أبداً، واحفظ المعنى كوحدة واحدة.'
+      },
+      {
+        bubble: 'تعابير تسمعها كل يوم في الأفلام والمحادثات! 🎬',
+        steps: [
+          LTR('Hit the books') + ' = يذاكر بجدّ 📚',
+          LTR('Under the weather') + ' = متوعّك/مريض قليلًا 🤒',
+          LTR('Once in a blue moon') + ' = نادرًا جدًا 🌙',
+          LTR('Cost an arm and a leg') + ' = باهظ الثمن 💸',
+          LTR('Spill the beans') + ' = يفشي السرّ 🤫',
+          '<span class="hl2">معرفتها تجعل فهمك للإنجليزية طبيعيًا</span>'
+        ],
+        speech: 'تعابير تسمعها كل يوم في الأفلام والمحادثات! هيت ذا بوكس تعني يذاكر بجد. أندر ذا ويذر تعني متوعك أو مريض قليلاً. ونس إن أ بلو مون تعني نادراً جداً. كوست آن آرم آند أ ليغ تعني باهظ الثمن. وسبيل ذا بينز تعني يفشي السر. معرفتها تجعل فهمك للإنجليزية طبيعياً.'
+      },
+      {
+        bubble: 'المقابل العربي يساعد كثيرًا! 🌍 كثير منها له نظير:',
+        steps: [
+          LTR('Kill two birds with one stone'),
+          '= يضرب عصفورين بحجر واحد ✓ (نفس المثل!)',
+          LTR('The ball is in your court') + ' = الكرة في ملعبك ✓',
+          LTR('Actions speak louder than words'),
+          '= الأفعال أبلغ من الأقوال ✓',
+          '<span class="hl2">الشعوب تفكّر بطرق متشابهة أكثر مما نظنّ!</span> 🤝'
+        ],
+        speech: 'المقابل العربي يساعد كثيراً، فكثير منها له نظير! كيل تو بيردز ويذ ون ستون تعني يضرب عصفورين بحجر واحد، وهو نفس المثل العربي. وذا بول إز إن يور كورت تعني الكرة في ملعبك. وأكشنز سبيك لاودر ذان وردز تعني الأفعال أبلغ من الأقوال. الشعوب تفكر بطرق متشابهة أكثر مما نظن!'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: هي مثل أمثالنا الشعبية تمامًا',
+        steps: [
+          'نحن نقول: "على قدّ لحافك مدّ رجليك"',
+          'الأجنبي لن يفهمها حرفيًا أبدًا! 😄',
+          'كذلك تعابيرهم بالنسبة لنا',
+          'الحلّ الوحيد: <span class="hl">احفظ التعبير + معناه معًا</span>',
+          'كأنه <span class="hl2">كلمة واحدة طويلة</span>',
+          'ابدأ بخمسة فقط وستلاحظها في كل مكان! 👀'
+        ],
+        speech: 'أبسط شرح ممكن: هي مثل أمثالنا الشعبية تماماً. نحن نقول على قد لحافك مد رجليك، والأجنبي لن يفهمها حرفياً أبداً! وكذلك تعابيرهم بالنسبة لنا. والحل الوحيد أن تحفظ التعبير ومعناه معاً كأنه كلمة واحدة طويلة. ابدأ بخمسة فقط وستلاحظها في كل مكان!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ماذا يعني "It\'s raining cats and dogs"؟', options: ['تمطر بغزارة شديدة', 'هناك قطط وكلاب', 'الطقس جميل', 'تمطر قليلًا'], correct: 0, why: 'تعبير اصطلاحي معناه المطر الغزير جدًا.' },
+      { type: 'choice', q: 'ماذا يعني "Break a leg"؟', options: ['حظًا موفقًا!', 'اكسر ساقك', 'اذهب بسرعة', 'توقّف'], correct: 0, why: 'تُقال لتمني التوفيق، خاصة قبل العروض والامتحانات.' },
+      { type: 'choice', q: 'ماذا يعني "Piece of cake"؟', options: ['سهل جدًا', 'قطعة كعك', 'مكلف', 'لذيذ'], correct: 0, why: 'تعني أن الأمر سهل للغاية.' },
+      { type: 'choice', q: 'ما المقابل العربي لـ "Kill two birds with one stone"؟', options: ['يضرب عصفورين بحجر واحد', 'الطيور على أشكالها تقع', 'في التأني السلامة', 'الوقت من ذهب'], correct: 0, why: 'مثل مطابق تمامًا في العربية.' },
+      { type: 'choice', q: 'ماذا يعني "Under the weather"؟', options: ['متوعّك أو مريض قليلًا', 'تحت المطر', 'في الخارج', 'سعيد جدًا'], correct: 0, why: 'تُستخدم لوصف الشعور بالتعب أو المرض الخفيف.' },
+      { type: 'choice', q: 'ما القاعدة الذهبية للتعابير الاصطلاحية؟', options: ['لا تترجمها حرفيًا، احفظ معناها كوحدة', 'ترجمها كلمة كلمة', 'تجاهلها تمامًا', 'استخدم القاموس فقط'], correct: 0, why: 'معنى التعبير لا يُستنتج من كلماته المفردة.' }
+    ]
+  },
+
+  /* ═══════════ المستوى 5: الكتابة الأكاديمية ═══════════ */
+  {
+    id: 'en-academic-writing',
+    title: 'أدوات الربط والكتابة',
+    icon: '✍️',
+    explanations: [
+      {
+        bubble: 'أدوات الربط تحوّل جملًا مبعثرة إلى نصّ متماسك! ✍️',
+        steps: [
+          '<span class="hl">للإضافة</span>: ' + LTR('moreover, in addition, furthermore'),
+          '<span class="hl">للتضاد</span>: ' + LTR('however, although, on the other hand'),
+          '<span class="hl">للسبب</span>: ' + LTR('because, since, due to'),
+          '<span class="hl">للنتيجة</span>: ' + LTR('therefore, as a result, thus'),
+          '<span class="hl">للخلاصة</span>: ' + LTR('in conclusion, to sum up'),
+          '<span class="hl2">هذه الكلمات ترفع مستوى كتابتك فورًا</span> 📈'
+        ],
+        speech: 'أدوات الربط تحول جملاً مبعثرة إلى نص متماسك! للإضافة نستخدم مورأوفر وإن أديشن وفيرذرمور. وللتضاد هاوإيفر وألذو وأون ذي أذر هاند. وللسبب بيكوز وسينس ودو تو. وللنتيجة ذيرفور وآز أ ريزلت وذاس. وللخلاصة إن كونكلوجن وتو سم أب. هذه الكلمات ترفع مستوى كتابتك فوراً.'
+        },
+      {
+        bubble: 'الفرق بين ' + LTR('however') + ' و' + LTR('although') + ' ⚠️ خطأ شائع:',
+        steps: [
+          '<span class="hl">' + LTR('however') + '</span> تبدأ <span class="hl">جملة جديدة</span> وبعدها فاصلة:',
+          LTR('It was raining. However, we went out.'),
+          '<span class="hl">' + LTR('although') + '</span> تربط <span class="hl">داخل</span> الجملة:',
+          LTR('Although it was raining, we went out.'),
+          '❌ ' + LTR('Although it was raining, however we went out.'),
+          '<span class="hl2">لا تجمع بينهما — واحدة تكفي!</span>'
+        ],
+        speech: 'الفرق بين هاوإيفر وألذو، وهو خطأ شائع! هاوإيفر تبدأ جملة جديدة وبعدها فاصلة: إت واز رينينغ، هاوإيفر وي وينت آوت. أما ألذو فتربط داخل الجملة: ألذو إت واز رينينغ، وي وينت آوت. ولا تجمع بينهما فواحدة تكفي!'
+      },
+      {
+        bubble: 'بنية الفقرة الأكاديمية! 🏛️ ثلاثة أجزاء دائمًا:',
+        steps: [
+          '1️⃣ <span class="hl">جملة الموضوع</span> — الفكرة الرئيسية',
+          LTR('Reading books has many benefits.'),
+          '2️⃣ <span class="hl">جمل الدعم</span> — أمثلة وأدلة',
+          LTR('Firstly, it improves vocabulary. Moreover...'),
+          '3️⃣ <span class="hl">جملة الخاتمة</span> — تلخيص',
+          LTR('In conclusion, reading is essential.'),
+          '<span class="hl2">هذه البنية مطلوبة في IELTS وTOEFL</span> 🎓'
+        ],
+        speech: 'بنية الفقرة الأكاديمية، ثلاثة أجزاء دائماً! أولاً جملة الموضوع التي تحمل الفكرة الرئيسية. ثانياً جمل الدعم بالأمثلة والأدلة. ثالثاً جملة الخاتمة التي تلخص. وهذه البنية مطلوبة في اختباري آيلتس وتوفل.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: أدوات الربط = إشارات المرور في النص 🚦',
+        steps: [
+          '🟢 ' + LTR('moreover') + ' = "وأيضًا..." (استمر بنفس الاتجاه)',
+          '🔴 ' + LTR('however') + ' = "لكن..." (انعطف للعكس)',
+          '➡️ ' + LTR('therefore') + ' = "لذلك..." (النتيجة)',
+          '🏁 ' + LTR('in conclusion') + ' = "أخيرًا..." (النهاية)',
+          'القارئ يعرف إلى أين تأخذه من هذه الإشارات',
+          '<span class="hl2">ابدأ باستخدام أربع فقط — وستتحسّن كتابتك كثيرًا!</span>'
+        ],
+        speech: 'أبسط شرح ممكن: أدوات الربط مثل إشارات المرور في النص. مورأوفر تعني وأيضاً، أي استمر بنفس الاتجاه. وهاوإيفر تعني لكن، أي انعطف للعكس. وذيرفور تعني لذلك وهي النتيجة. وإن كونكلوجن تعني أخيراً وهي النهاية. القارئ يعرف إلى أين تأخذه من هذه الإشارات. ابدأ باستخدام أربع فقط وستتحسن كتابتك كثيراً!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أي أداة نستخدم للتضاد؟', options: ['however', 'moreover', 'therefore', 'firstly'], correct: 0, why: '"however" تعني "لكن/مع ذلك" وتفيد التضاد.' },
+      { type: 'choice', q: 'أي أداة تفيد النتيجة؟', options: ['therefore', 'although', 'in addition', 'because'], correct: 0, why: '"therefore" = لذلك/بالتالي.' },
+      { type: 'write', q: 'اكتب أداة الربط التي تعني "بالإضافة إلى ذلك" (كلمة واحدة):', accept: ['moreover', 'furthermore'], answer: 'moreover', why: '"moreover" أو "furthermore" للإضافة.' },
+      { type: 'choice', q: 'أي جملة صحيحة؟', options: ['Although it was raining, we went out.', 'Although it was raining, however we went out.', 'Although, we went out it was raining.', 'However although it was raining.'], correct: 0, why: 'لا نجمع although مع however — واحدة تكفي.' },
+      { type: 'choice', q: 'ما مكوّنات الفقرة الأكاديمية؟', options: ['جملة موضوع + جمل دعم + خاتمة', 'مقدمة فقط', 'أسئلة فقط', 'قائمة كلمات'], correct: 0, why: 'البنية الثلاثية المعتمدة في الكتابة الأكاديمية.' },
+      { type: 'write', q: 'اكتب أداة الربط التي تعني "في الختام" (كلمتان):', accept: ['in conclusion'], answer: 'in conclusion', why: '"in conclusion" تُستخدم لتلخيص النص.' }
+    ]
   }
 ];
 
@@ -1471,19 +1864,22 @@ const ENGLISH_LEVELS = [
     units: [
       { title: 'الأزمنة الأساسية', icon: '🏃', lessonIds: ['en-present-continuous', 'en-past-simple'] },
       { title: 'أدوات اللغة', icon: '❓', lessonIds: ['en-questions', 'en-prepositions'] },
+      { title: 'الصفات والظروف', icon: '🎨', lessonIds: ['en-adjectives', 'en-adverbs'] },
     ]
   },
   {
     level: 4, title: 'الثانوي', stage: 'المرحلة الثانوية', icon: '📕',
     units: [
-      { title: 'أزمنة متقدمة', icon: '🔮', lessonIds: ['en-future', 'en-present-perfect'] },
+      { title: 'أزمنة متقدمة', icon: '🔮', lessonIds: ['en-future', 'en-present-perfect', 'en-past-continuous'] },
       { title: 'المقارنة والأفعال الناقصة', icon: '⚖️', lessonIds: ['en-comparatives', 'en-modals'] },
+      { title: 'الجمل المركّبة', icon: '🔗', lessonIds: ['en-relative-clauses'] },
     ]
   },
   {
     level: 5, title: 'الجامعي والمتقدم', stage: 'قواعد متقدمة', icon: '🎓',
     units: [
-      { title: 'التراكيب المتقدمة', icon: '🔀', lessonIds: ['en-conditionals', 'en-passive', 'en-reported-speech', 'en-phrasal-verbs'] },
+      { title: 'التراكيب المتقدمة', icon: '🔀', lessonIds: ['en-conditionals', 'en-passive', 'en-reported-speech'] },
+      { title: 'الإنجليزية الأصيلة', icon: '💡', lessonIds: ['en-phrasal-verbs', 'en-idioms', 'en-academic-writing'] },
     ]
   },
 ];
