@@ -67,6 +67,7 @@
   let typeToken = 0;
   let confettiRAF = 0;
   let googleRendered = false;
+  let questionStartedAt = 0; // for measuring how long each question takes
 
   /* ---------------- mascot: منير the dolphin ---------------- */
   function mascotSVG() {
@@ -168,7 +169,7 @@
   const screens = [
     'screen-home', 'screen-subjects', 'screen-path', 'screen-lesson', 'screen-quiz', 'screen-congrats',
     'screen-login', 'screen-signup', 'screen-forgot', 'screen-profile', 'screen-paywall',
-    'screen-library', 'screen-book', 'screen-book-lesson', 'screen-onboarding'
+    'screen-library', 'screen-book', 'screen-book-lesson', 'screen-onboarding', 'screen-report'
   ];
   const NAV_VISIBLE_SCREENS = new Set(['screen-path', 'screen-library', 'screen-book', 'screen-book-lesson', 'screen-profile']);
   const NAV_KEY_FOR_SCREEN = {
@@ -586,6 +587,7 @@
   function renderQuestion() {
     answered = false;
     quizSelected = -1;
+    questionStartedAt = Date.now();
     const q = currentQ();
 
     $('quiz-progress').style.width = (quizIdx / lesson.quiz.length * 100) + '%';
@@ -657,13 +659,44 @@
     return lines.some(line => q.accept.some(a => line === normalize(a)));
   }
 
+  /** which unit does the current lesson belong to (for the analytics report) */
+  function unitTitleOf(subject, lessonId) {
+    for (const lv of levelsFor(subject)) {
+      const u = lv.units.find(u => u.lessonIds.includes(lessonId));
+      if (u) return u.title;
+    }
+    return '';
+  }
+
+  /** log one answered question so the profile report can learn from it */
+  function logAnswer(q, ok, skipped, userAnswer) {
+    try {
+      Analytics.record({
+        subject: currentSubject,
+        level: currentPathLevel(),
+        unit: unitTitleOf(currentSubject, lesson.id),
+        lessonId: lesson.id,
+        lessonTitle: lesson.title,
+        qIndex: quizIdx,
+        qType: q.type,
+        question: q.q,
+        correct: ok,
+        skipped,
+        userAnswer,
+        correctAnswer: q.type === 'choice' ? q.options[q.correct] : q.answer,
+        ms: questionStartedAt ? Date.now() - questionStartedAt : 0,
+      });
+    } catch (e) { console.warn('analytics record failed:', e.message); }
+  }
+
   function check() {
     if (answered) return;
     const q = currentQ();
-    let ok;
+    let ok, userAnswer;
     if (q.type === 'choice') {
       if (quizSelected < 0) return;
       ok = quizSelected === q.correct;
+      userAnswer = q.options[quizSelected];
       const els = [...$('choices').children];
       els.forEach((el, j) => {
         el.disabled = true;
@@ -675,9 +708,11 @@
     } else {
       if (!$('write-input').value.trim()) return;
       ok = checkWrite(q);
+      userAnswer = $('write-input').value.trim();
       closeKeyboard();
     }
     answered = true;
+    logAnswer(q, ok, false, userAnswer);
     showFeedback(ok, q, false);
   }
 
@@ -694,6 +729,7 @@
     } else {
       closeKeyboard();
     }
+    logAnswer(q, false, true, '');
     showFeedback(false, q, true);
   }
 
@@ -1152,6 +1188,89 @@
     }
   }
 
+  /* ---------------- performance report ---------------- */
+  function renderReport() {
+    const s = Analytics.stats();
+    const body = $('report-body');
+
+    if (!s.total) {
+      body.innerHTML = `
+        <div class="report-empty-state">
+          <div class="report-empty-icon">📊</div>
+          <h3>لا توجد بيانات بعد</h3>
+          <p>أجب على أسئلة بعض الدروس، وسنحلّل إجاباتك لنُظهر لك نقاط قوتك ومواضع ضعفك بالتفصيل.</p>
+        </div>`;
+      return;
+    }
+
+    const activity = Analytics.barChart(s.days.map(d => ({ label: d.label, value: d.total })));
+    const subjectBars = Analytics.hBars(s.bySubject);
+    const typeBars = Analytics.hBars(s.byType, { color: 'var(--blue)' });
+    const weak = Analytics.hBars(s.weakest, { color: 'var(--wrong)' });
+    const strong = Analytics.hBars(s.strongest, { color: 'var(--correct)' });
+    const levelBars = Analytics.hBars(s.byLevel, { color: 'var(--purple)' });
+
+    const misses = s.topMisses.length ? s.topMisses.map(m => `
+      <div class="miss-row">
+        <div class="miss-count">${m.misses}×</div>
+        <div class="miss-body">
+          <div class="miss-q">${m.question || '—'}</div>
+          <div class="miss-meta">${m.lessonTitle} · الإجابة الصحيحة: <b>${m.correctAnswer}</b></div>
+        </div>
+      </div>`).join('') : '<div class="report-empty">لم تُخطئ في أي سؤال بعد — ممتاز! 🎉</div>';
+
+    body.innerHTML = `
+      <div class="report-kpis">
+        ${Analytics.donut(s.accuracy, 'الدقة العامة', s.accuracy >= 70 ? 'var(--correct)' : 'var(--primary)')}
+        <div class="kpi-stack">
+          <div class="kpi"><span class="kpi-v">${s.total}</span><span class="kpi-l">سؤالًا أجبت عليه</span></div>
+          <div class="kpi"><span class="kpi-v">${s.correct}</span><span class="kpi-l">إجابة صحيحة</span></div>
+          <div class="kpi"><span class="kpi-v">${s.totalMinutes}</span><span class="kpi-l">دقيقة تعلّم</span></div>
+          <div class="kpi"><span class="kpi-v">${s.avgSeconds}s</span><span class="kpi-l">متوسط زمن السؤال</span></div>
+        </div>
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-title">📅 نشاطك في آخر 7 أيام</div>
+        ${activity}
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-title">🔴 أضعف الدروس — تحتاج مراجعة</div>
+        <div class="report-hint">الدروس التي أخطأت فيها أكثر (بعد 3 محاولات على الأقل)</div>
+        ${weak}
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-title">🟢 أقوى مهاراتك</div>
+        ${strong}
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-title">📚 الأداء حسب المادة</div>
+        ${subjectBars}
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-title">✍️ الاختيار مقابل الكتابة</div>
+        <div class="report-hint">هل تجد صعوبة أكبر في كتابة الإجابة بنفسك؟</div>
+        ${typeBars}
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-title">🎓 الأداء حسب المستوى الدراسي</div>
+        ${levelBars}
+      </div>
+
+      <div class="report-card">
+        <div class="report-card-title">❌ الأسئلة الأكثر خطأً</div>
+        <div class="report-hint">راجع هذه تحديدًا — تكرّر خطؤك فيها</div>
+        ${misses}
+      </div>
+
+      <p class="report-privacy">🔒 كل هذه البيانات محفوظة على جهازك فقط.</p>`;
+  }
+
   async function subscribePremium() {
     if (!Auth.isLoggedIn()) { show('screen-login'); return; }
     try {
@@ -1476,6 +1595,16 @@
     $('btn-close-paywall').addEventListener('click', () => { Sound.click(); show('screen-profile'); renderProfile(); });
     $('btn-subscribe').addEventListener('click', subscribePremium);
 
+    // ---- performance report ----
+    $('btn-goto-report').addEventListener('click', () => { Sound.click(); renderReport(); show('screen-report'); });
+    $('btn-close-report').addEventListener('click', () => { Sound.click(); show('screen-profile'); renderProfile(); });
+    $('btn-clear-report').addEventListener('click', () => {
+      if (!confirm('هل تريد مسح كل بيانات التقرير؟ لن يؤثر ذلك على تقدّمك في الدروس.')) return;
+      Analytics.clear();
+      Sound.click();
+      renderReport();
+    });
+
     // number keys 1-4 select choices, Enter checks / continues
     document.addEventListener('keydown', (e) => {
       if (!$('screen-quiz').classList.contains('active')) return;
@@ -1502,6 +1631,7 @@
       library: () => { renderLibrary(); show('screen-library'); },
       profile: () => { show('screen-profile'); renderProfile(); },
       paywall: () => { show('screen-paywall'); },
+      report: () => { renderReport(); show('screen-report'); },
       login: () => { clearAuthErrors(); renderGoogleButtons(); show('screen-login'); },
       signup: () => { clearAuthErrors(); renderGoogleButtons(); show('screen-signup'); },
     };
