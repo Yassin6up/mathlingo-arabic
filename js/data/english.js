@@ -2164,6 +2164,452 @@ const ENGLISH_LESSONS = [
       { type: 'choice', q: 'متى نستخدم some في السؤال؟', options: ['في العرض المؤدّب مثل Would you like some tea?', 'دائمًا', 'أبدًا', 'مع النفي فقط'], correct: 0, why: 'العروض والطلبات المؤدّبة استثناء من قاعدة any.' },
       { type: 'choice', q: 'أي كلمة تصلح للمعدود وغير المعدود معًا؟', options: ['a lot of', 'many', 'much', 'few'], correct: 0, why: '"a lot of" مرنة وتصلح للاثنين.' }
     ]
+  },
+
+  /* ═══════════════════════════════════════════════════════════
+     دروس إضافية للمرحلة الابتدائية (الصفوف 0-6)
+     ═══════════════════════════════════════════════════════════ */
+
+  {
+    id: 'en-greetings',
+    title: 'التحيات — Greetings',
+    icon: '👋',
+    explanations: [
+      {
+        bubble: 'أول ما تقوله لأي شخص! التحية تفتح كل باب 👋',
+        steps: [
+          LTR('Hello') + ' = مرحبًا (في أي وقت)',
+          LTR('Good morning') + ' = صباح الخير 🌅',
+          LTR('Good evening') + ' = مساء الخير 🌇',
+          LTR('Goodbye') + ' / ' + LTR('Bye') + ' = مع السلامة 👋',
+          LTR('Thank you') + ' = شكرًا · ' + LTR('Please') + ' = من فضلك',
+          '<span class="hl2">' + LTR('Sorry') + ' = آسف · ' + LTR("You're welcome") + ' = عفوًا</span>'
+        ],
+        speech: 'أول ما تقوله لأي شخص هو التحية، وهي تفتح كل باب. هالو تعني مرحباً في أي وقت. وقود مورنينغ تعني صباح الخير. وقود إيفننغ تعني مساء الخير. وقود باي أو باي تعني مع السلامة. وثانك يو تعني شكراً، وبليز تعني من فضلك. وسوري تعني آسف، ويور ويلكم تعني عفواً.'
+      },
+      {
+        bubble: 'حوار كامل من أربع جمل فقط! 💬',
+        steps: [
+          '👦 ' + LTR('Hello! What is your name?'),
+          '👧 ' + LTR('My name is Sara. And you?'),
+          '👦 ' + LTR('I am Omar. Nice to meet you!'),
+          '👧 ' + LTR('Nice to meet you too!'),
+          LTR('Nice to meet you') + ' = تشرّفنا 🤝',
+          '<span class="hl2">احفظ هذا الحوار وستستطيع بدء أي محادثة</span> ✓'
+        ],
+        speech: 'حوار كامل من أربع جمل فقط. الأول يقول: هالو، وات إز يور نيم؟ والثانية تجيب: ماي نيم إز سارة، آند يو؟ فيقول: آي آم عمر، نايس تو ميت يو. فترد: نايس تو ميت يو تو. ونايس تو ميت يو تعني تشرفنا. احفظ هذا الحوار وستستطيع بدء أي محادثة.'
+      },
+      {
+        bubble: 'خطأ شائع: متى نقول ' + LTR('How are you?') + ' وكيف نجيب؟ ⚠️',
+        steps: [
+          LTR('How are you?') + ' = كيف حالك؟',
+          'الجواب: ' + LTR("I'm fine, thank you") + ' = بخير، شكرًا',
+          'أو ببساطة: ' + LTR("I'm good") + ' ✓',
+          '❌ الخطأ: ' + LTR('I am fine you?') + ' (ناقصة)',
+          '✅ الصواب: ' + LTR("I'm fine. And you?"),
+          '<span class="hl2">لا تنسَ ' + LTR('And') + ' قبل ' + LTR('you') + '!</span>'
+        ],
+        speech: 'خطأ شائع في السؤال هاو آر يو، أي كيف حالك. الجواب هو آيم فاين ثانك يو، أي بخير شكراً، أو ببساطة آيم قود. الخطأ الشائع أن تقول آي آم فاين يو، وهي ناقصة. والصواب آيم فاين، آند يو. لا تنس كلمة آند قبل يو.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: ثلاث كلمات فقط تكفي اليوم! ✨',
+        steps: [
+          'الصباح ← قل <span class="hl">' + LTR('Good morning') + '</span> 🌅',
+          'عند الشكر ← قل <span class="hl">' + LTR('Thank you') + '</span> 🙏',
+          'عند الوداع ← قل <span class="hl">' + LTR('Bye') + '</span> 👋',
+          'هذه الثلاث تغطّي معظم يومك!',
+          'جرّبها اليوم مع أي شخص',
+          '<span class="hl2">ابدأ صغيرًا، وستكبر لغتك سريعًا</span> 🌱'
+        ],
+        speech: 'أبسط شرح ممكن: ثلاث كلمات فقط تكفيك اليوم. في الصباح قل قود مورنينغ. وعند الشكر قل ثانك يو. وعند الوداع قل باي. هذه الثلاث تغطي معظم يومك. جربها اليوم مع أي شخص. ابدأ صغيراً وستكبر لغتك سريعاً.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ماذا تقول في الصباح؟', options: ['Good morning', 'Good night', 'Goodbye', 'Good evening'], correct: 0, why: 'Good morning للفترة الصباحية حتى الظهر.' },
+      { type: 'write', q: 'اكتب "شكرًا" بالإنجليزية:', accept: ['thank you', 'thanks'], answer: 'Thank you', why: 'Thank you هي الصيغة الكاملة، وThanks أقصر وأقل رسمية.' },
+      { type: 'choice', q: 'ما معنى "Nice to meet you"؟', options: ['تشرّفنا بلقائك', 'مع السلامة', 'كيف حالك؟', 'أنا آسف'], correct: 0, why: 'تُقال عند التعارف لأول مرة.' },
+      { type: 'choice', q: 'أحدهم قال لك Thank you. بماذا ترد؟', options: ["You're welcome", 'Thank you', 'Good night', 'Please'], correct: 0, why: "You're welcome = عفوًا، وهي الرد المعتاد على الشكر." },
+      { type: 'write', q: 'أكمل: "How are you?" — "I\'m ___, thank you."', accept: ['fine', 'good', 'well', 'ok', 'okay'], answer: 'fine', why: 'fine أو good كلاهما جواب صحيح ومهذّب.' },
+      { type: 'choice', q: 'ما معنى "Please"؟', options: ['من فضلك', 'شكرًا', 'آسف', 'مرحبًا'], correct: 0, why: 'Please تُضاف للطلب فتجعله مهذّبًا.' }
+    ]
+  },
+  {
+    id: 'en-shapes-sizes',
+    title: 'الأشكال والأحجام — Shapes',
+    icon: '🔺',
+    explanations: [
+      {
+        bubble: 'أشكال من حولك، بالإنجليزية! 🔺',
+        steps: [
+          LTR('circle') + ' = دائرة ⭕',
+          LTR('square') + ' = مربع ⬜',
+          LTR('triangle') + ' = مثلث 🔺',
+          LTR('rectangle') + ' = مستطيل ▭',
+          LTR('star') + ' = نجمة ⭐ · ' + LTR('heart') + ' = قلب ❤️',
+          '<span class="hl2">' + LTR('The sun is a circle') + ' = الشمس دائرة</span>'
+        ],
+        speech: 'أشكال من حولك بالإنجليزية. سيركل تعني دائرة. وسكوير تعني مربع. وترايانغل تعني مثلث. وريكتانغل تعني مستطيل. وستار تعني نجمة، وهارت تعني قلب. مثال: ذا سن إز أ سيركل، أي الشمس دائرة.'
+      },
+      {
+        bubble: 'صف الحجم: كبير، صغير، طويل، قصير 📏',
+        steps: [
+          LTR('big') + ' = كبير · ' + LTR('small') + ' = صغير',
+          LTR('long') + ' = طويل · ' + LTR('short') + ' = قصير',
+          LTR('tall') + ' = طويل (للأشخاص والمباني) 🏢',
+          'انتبه: ' + LTR('long') + ' للأشياء الممتدة، ' + LTR('tall') + ' للمرتفعة',
+          LTR('a long river') + ' 🏞️ · ' + LTR('a tall boy') + ' 🧍',
+          '<span class="hl2">الصفة تأتي <b>قبل</b> الاسم في الإنجليزية!</span>'
+        ],
+        speech: 'لتصف الحجم: بيغ تعني كبير وسمول تعني صغير. ولونغ تعني طويل وشورت تعني قصير. وتول تعني طويل للأشخاص والمباني. انتبه أن لونغ للأشياء الممتدة أفقياً، وتول للمرتفعة. نقول أ لونغ ريفر أي نهر طويل، وأ تول بوي أي ولد طويل. والصفة تأتي قبل الاسم في الإنجليزية.'
+      },
+      {
+        bubble: 'خطأ شائع عند العرب: ترتيب الصفة! ⚠️',
+        steps: [
+          'في العربية: «بيت <span class="hl">كبير</span>» — الصفة بعد الاسم',
+          'في الإنجليزية: العكس تمامًا!',
+          '❌ ' + LTR('a house big'),
+          '✅ ' + LTR('a big house') + ' 🏠',
+          '❌ ' + LTR('a circle red') + ' → ✅ ' + LTR('a red circle'),
+          '<span class="hl2">الصفة دائمًا قبل الاسم: ' + LTR('big + house') + '</span>'
+        ],
+        speech: 'خطأ شائع عند العرب هو ترتيب الصفة. في العربية نقول بيت كبير، فالصفة بعد الاسم. أما في الإنجليزية فالعكس تماماً. لا نقول أ هاوس بيغ، بل أ بيغ هاوس. ولا نقول أ سيركل ريد بل أ ريد سيركل. الصفة دائماً قبل الاسم.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: انظر حولك وسمِّ شكلين! 👀',
+        steps: [
+          'الساعة على الحائط ← <span class="hl">' + LTR('circle') + '</span> ⭕',
+          'باب غرفتك ← <span class="hl">' + LTR('rectangle') + '</span> ▭',
+          'قطعة البيتزا ← <span class="hl">' + LTR('triangle') + '</span> 🔺',
+          'الآن أضف صفة: ' + LTR('a big circle'),
+          'أو: ' + LTR('a small triangle'),
+          '<span class="hl2">شكل + صفة = جملة إنجليزية كاملة!</span> ✓'
+        ],
+        speech: 'أبسط شرح ممكن: انظر حولك وسم شكلين. الساعة على الحائط سيركل أي دائرة. وباب غرفتك ريكتانغل أي مستطيل. وقطعة البيتزا ترايانغل أي مثلث. الآن أضف صفة فتقول أ بيغ سيركل، أو أ سمول ترايانغل. شكل مع صفة يصنعان جملة إنجليزية كاملة.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ما معنى "triangle"؟', options: ['مثلث', 'مربع', 'دائرة', 'مستطيل'], correct: 0, why: 'tri تعني ثلاثة، وangle تعني زاوية.' },
+      { type: 'write', q: 'اكتب "دائرة" بالإنجليزية:', accept: ['circle', 'a circle'], answer: 'circle', why: 'circle = دائرة.' },
+      { type: 'choice', q: 'أيهما صحيح؟', options: ['a big house', 'a house big', 'big a house', 'house a big'], correct: 0, why: 'الصفة تسبق الاسم دائمًا في الإنجليزية.' },
+      { type: 'choice', q: 'ما عكس "big"؟', options: ['small', 'long', 'tall', 'round'], correct: 0, why: 'big = كبير وsmall = صغير.' },
+      { type: 'write', q: 'ترجم: "مربع أحمر" (استخدم red وsquare):', accept: ['a red square', 'red square'], answer: 'a red square', why: 'الصفة red قبل الاسم square.' },
+      { type: 'choice', q: 'متى نستخدم "tall" بدل "long"؟', options: ['للأشخاص والمباني المرتفعة', 'للأنهار', 'للطرق', 'لا فرق بينهما'], correct: 0, why: 'tall للارتفاع الرأسي، long للامتداد الأفقي.' }
+    ]
+  },
+  {
+    id: 'en-classroom',
+    title: 'داخل الفصل — In the Classroom',
+    icon: '🎒',
+    explanations: [
+      {
+        bubble: 'كل ما حولك في الفصل، بالإنجليزية! 🎒',
+        steps: [
+          LTR('book') + ' = كتاب 📕 · ' + LTR('pen') + ' = قلم حبر 🖊️',
+          LTR('pencil') + ' = قلم رصاص ✏️ · ' + LTR('bag') + ' = حقيبة',
+          LTR('desk') + ' = مكتب · ' + LTR('chair') + ' = كرسي 💺',
+          LTR('board') + ' = سبّورة · ' + LTR('teacher') + ' = معلّم 👩‍🏫',
+          LTR('student') + ' = طالب · ' + LTR('classroom') + ' = فصل',
+          '<span class="hl2">' + LTR('This is my book') + ' = هذا كتابي</span>'
+        ],
+        speech: 'كل ما حولك في الفصل بالإنجليزية. بوك تعني كتاب، وبن تعني قلم حبر، وبنسل تعني قلم رصاص، وباغ تعني حقيبة. وديسك تعني مكتب، وتشير تعني كرسي. وبورد تعني سبورة، وتيتشر تعني معلم، وستيودنت تعني طالب، وكلاسروم تعني فصل. مثال: ذس إز ماي بوك أي هذا كتابي.'
+      },
+      {
+        bubble: 'جمل يقولها معلّمك كل يوم! 👂',
+        steps: [
+          LTR('Open your book') + ' = افتح كتابك 📖',
+          LTR('Close the door') + ' = أغلق الباب 🚪',
+          LTR('Listen carefully') + ' = استمع جيدًا 👂',
+          LTR('Raise your hand') + ' = ارفع يدك ✋',
+          LTR('Sit down') + ' = اجلس · ' + LTR('Stand up') + ' = قف',
+          '<span class="hl2">هذه أوامر، تبدأ بالفعل مباشرة بلا فاعل</span>'
+        ],
+        speech: 'جمل يقولها معلمك كل يوم. أوبن يور بوك أي افتح كتابك. وكلوز ذا دور أي أغلق الباب. ولسن كيرفلي أي استمع جيداً. وريز يور هاند أي ارفع يدك. وسِت داون أي اجلس، وستاند أب أي قف. هذه أوامر تبدأ بالفعل مباشرة بلا فاعل.'
+      },
+      {
+        bubble: 'كيف تطلب شيئًا بأدب في الفصل؟ 🙋',
+        steps: [
+          LTR('Can I borrow your pen, please?') + ' 🖊️',
+          '= هل يمكنني استعارة قلمك من فضلك؟',
+          LTR('May I go out, please?') + ' = هل لي أن أخرج؟',
+          LTR('I have a question') + ' = لديّ سؤال ❓',
+          LTR("I don't understand") + ' = لم أفهم 🤔',
+          '<span class="hl2">كلمة ' + LTR('please') + ' تحوّل الطلب إلى أدب</span> ✨'
+        ],
+        speech: 'كيف تطلب شيئاً بأدب في الفصل؟ تقول: كان آي بورو يور بن بليز، أي هل يمكنني استعارة قلمك من فضلك. أو ماي آي غو آوت بليز، أي هل لي أن أخرج. وآي هاف أ كويستشن أي لدي سؤال. وآي دونت أندرستاند أي لم أفهم. كلمة بليز تحول الطلب إلى أدب.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: سمِّ ثلاثة أشياء أمامك الآن! 👇',
+        steps: [
+          'أمسك قلمك وقل: <span class="hl">' + LTR('This is a pen') + '</span>',
+          'أشر لكتابك وقل: <span class="hl">' + LTR('This is a book') + '</span>',
+          'أشر لحقيبتك: <span class="hl">' + LTR('This is a bag') + '</span>',
+          'للأشياء البعيدة استخدم ' + LTR('That'),
+          LTR('That is the board') + ' = تلك هي السبّورة',
+          '<span class="hl2">' + LTR('This') + ' قريب · ' + LTR('That') + ' بعيد</span> 👍'
+        ],
+        speech: 'أبسط شرح ممكن: سم ثلاثة أشياء أمامك الآن. أمسك قلمك وقل ذس إز أ بن. وأشر لكتابك وقل ذس إز أ بوك. وأشر لحقيبتك وقل ذس إز أ باغ. وللأشياء البعيدة استخدم ذات، فتقول ذات إز ذا بورد أي تلك هي السبورة. ذس للقريب وذات للبعيد.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ما معنى "pencil"؟', options: ['قلم رصاص', 'قلم حبر', 'كتاب', 'حقيبة'], correct: 0, why: 'pencil = قلم رصاص، أما pen فقلم حبر.' },
+      { type: 'write', q: 'اكتب "حقيبة" بالإنجليزية:', accept: ['bag', 'a bag'], answer: 'bag', why: 'bag = حقيبة.' },
+      { type: 'choice', q: 'ماذا يعني "Raise your hand"؟', options: ['ارفع يدك', 'اجلس', 'افتح كتابك', 'أغلق الباب'], correct: 0, why: 'raise = ارفع، hand = يد.' },
+      { type: 'choice', q: 'كيف تقول "لم أفهم"؟', options: ["I don't understand", 'I understand', 'I have a question', 'I am fine'], correct: 0, why: "don't تنفي الفعل understand." },
+      { type: 'write', q: 'أكمل: "___ is a book" (تشير إلى كتاب في يدك):', accept: ['this'], answer: 'This', why: 'This للقريب، That للبعيد.' },
+      { type: 'choice', q: 'لماذا نضيف "please" إلى الطلب؟', options: ['لجعله مهذّبًا', 'لجعله أطول', 'لأنه إلزامي نحويًا', 'لا سبب'], correct: 0, why: 'please هي علامة الأدب في الطلبات الإنجليزية.' }
+    ]
+  },
+  {
+    id: 'en-pronouns',
+    title: 'الضمائر — I, You, He, She',
+    icon: '🙋',
+    explanations: [
+      {
+        bubble: 'الضمائر تختصر الأسماء — سبعة فقط تكفيك! 🙋',
+        steps: [
+          LTR('I') + ' = أنا · ' + LTR('you') + ' = أنتَ/أنتِ/أنتم',
+          LTR('he') + ' = هو 👦 · ' + LTR('she') + ' = هي 👧',
+          LTR('it') + ' = هو/هي (لغير العاقل) 🐱',
+          LTR('we') + ' = نحن · ' + LTR('they') + ' = هم',
+          'بدل ' + LTR('Omar is tall') + ' نقول ' + LTR('He is tall'),
+          '<span class="hl2">' + LTR('I') + ' تُكتب دائمًا بحرف كبير، أينما وقعت!</span>'
+        ],
+        speech: 'الضمائر تختصر الأسماء، وسبعة منها تكفيك. آي تعني أنا، ويو تعني أنت أو أنتم. وهي تعني هو، وشي تعني هي. وإت تعني هو أو هي لغير العاقل. ووي تعني نحن، وذاي تعني هم. فبدل أن تقول عمر إز تول تقول هي إز تول. وحرف آي يكتب دائماً كبيراً أينما وقع.'
+      },
+      {
+        bubble: 'لكل ضمير فعل ' + LTR('to be') + ' خاص به! 🔑',
+        steps: [
+          LTR('I') + ' → <span class="hl">' + LTR('am') + '</span> · ' + LTR('I am a student'),
+          LTR('He / She / It') + ' → <span class="hl">' + LTR('is') + '</span>',
+          LTR('You / We / They') + ' → <span class="hl">' + LTR('are') + '</span>',
+          'مثال: ' + LTR('She is my sister') + ' 👧',
+          'مثال: ' + LTR('They are my friends') + ' 🧑‍🤝‍🧑',
+          '<span class="hl2">قاعدة واحدة: ' + LTR('I am, he is, they are') + '</span>'
+        ],
+        speech: 'لكل ضمير فعل تو بي خاص به. آي يأخذ آم، فنقول آي آم أ ستيودنت. وهي وشي وإت تأخذ إز. ويو ووي وذاي تأخذ آر. مثال: شي إز ماي سستر أي هي أختي. ومثال آخر: ذاي آر ماي فريندز أي هم أصدقائي. القاعدة الواحدة: آي آم، هي إز، ذاي آر.'
+      },
+      {
+        bubble: 'خطأ شائع عند العرب: حذف الضمير! ⚠️',
+        steps: [
+          'في العربية نقول: «طالبٌ» بلا ضمير ✓',
+          'لكن الإنجليزية <span class="hl">تُلزمك</span> بالضمير دائمًا',
+          '❌ ' + LTR('Am a student') + ' — ناقصة!',
+          '✅ ' + LTR('I am a student') + ' ✓',
+          '❌ ' + LTR('Is my brother') + ' → ✅ ' + LTR('He is my brother'),
+          '<span class="hl2">كل جملة إنجليزية تحتاج فاعلًا ظاهرًا</span> 📌'
+        ],
+        speech: 'خطأ شائع عند العرب هو حذف الضمير. في العربية نقول طالب بلا ضمير وهذا صحيح، لكن الإنجليزية تلزمك بالضمير دائماً. لا تقل آم أ ستيودنت فهي ناقصة، بل آي آم أ ستيودنت. ولا تقل إز ماي بروذر بل هي إز ماي بروذر. كل جملة إنجليزية تحتاج فاعلاً ظاهراً.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: أشِر بإصبعك! 👉',
+        steps: [
+          'أشر إلى نفسك ← <span class="hl">' + LTR('I') + '</span> 👈',
+          'أشر إلى صديقك ← <span class="hl">' + LTR('you') + '</span> 👉',
+          'أشر إلى ولد بعيد ← <span class="hl">' + LTR('he') + '</span> 👦',
+          'أشر إلى بنت بعيدة ← <span class="hl">' + LTR('she') + '</span> 👧',
+          'أشر إلى قطة ← <span class="hl">' + LTR('it') + '</span> 🐱',
+          '<span class="hl2">الضمير = من تشير إليه، لا أكثر</span> ✓'
+        ],
+        speech: 'أبسط شرح ممكن: أشر بإصبعك. أشر إلى نفسك فتقول آي. وأشر إلى صديقك فتقول يو. وأشر إلى ولد بعيد فتقول هي. وأشر إلى بنت بعيدة فتقول شي. وأشر إلى قطة فتقول إت. الضمير هو من تشير إليه لا أكثر.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أي ضمير نستخدم للحديث عن بنت؟', options: ['she', 'he', 'it', 'they'], correct: 0, why: 'she للمؤنث العاقل.' },
+      { type: 'write', q: 'أكمل: "___ am a teacher."', accept: ['i'], answer: 'I', why: 'am يأتي فقط مع I، وتُكتب بحرف كبير دائمًا.' },
+      { type: 'choice', q: 'أكمل: "They ___ my friends."', options: ['are', 'is', 'am', 'be'], correct: 0, why: 'they تأخذ are.' },
+      { type: 'choice', q: 'أي ضمير للقطة أو الكتاب؟', options: ['it', 'he', 'she', 'they'], correct: 0, why: 'it لغير العاقل والأشياء.' },
+      { type: 'write', q: 'أكمل: "He ___ my brother."', accept: ['is'], answer: 'is', why: 'he / she / it تأخذ is.' },
+      { type: 'choice', q: 'لماذا "Is my brother" جملة خاطئة؟', options: ['لأنها بلا فاعل — يجب أن تبدأ بـ He', 'لأن brother مؤنث', 'لأن is خطأ', 'ليست خاطئة'], correct: 0, why: 'الإنجليزية لا تحذف الفاعل كما تفعل العربية.' }
+    ]
+  },
+  {
+    id: 'en-verbs-daily',
+    title: 'أفعال يومي — Daily Verbs',
+    icon: '🏃',
+    explanations: [
+      {
+        bubble: 'عشرة أفعال تصف يومك كله! 🏃',
+        steps: [
+          LTR('wake up') + ' = يستيقظ ⏰ · ' + LTR('eat') + ' = يأكل 🍽️',
+          LTR('drink') + ' = يشرب 🥤 · ' + LTR('go') + ' = يذهب 🚶',
+          LTR('study') + ' = يدرس 📚 · ' + LTR('play') + ' = يلعب ⚽',
+          LTR('read') + ' = يقرأ · ' + LTR('write') + ' = يكتب ✍️',
+          LTR('sleep') + ' = ينام 😴 · ' + LTR('help') + ' = يساعد 🤝',
+          '<span class="hl2">' + LTR('I go to school every day') + '</span>'
+        ],
+        speech: 'عشرة أفعال تصف يومك كله. ويك أب تعني يستيقظ، وإيت تعني يأكل، ودرنك تعني يشرب، وغو تعني يذهب. وستَدي تعني يدرس، وبلاي تعني يلعب، وريد تعني يقرأ، ورايت تعني يكتب. وسليب تعني ينام، وهيلب تعني يساعد. مثال: آي غو تو سكول إفري داي.'
+      },
+      {
+        bubble: 'سرّ الحرف ' + LTR('s') + ' — مع ' + LTR('he') + ' و' + LTR('she') + ' فقط! 🔑',
+        steps: [
+          LTR('I play') + ' · ' + LTR('You play') + ' · ' + LTR('We play') + ' ✓',
+          'لكن: ' + LTR('He play') + '<span class="hl">s</span> · ' + LTR('She play') + '<span class="hl">s</span>',
+          'ولماذا؟ قاعدة إنجليزية قديمة، احفظها فقط',
+          LTR('He eats') + ' · ' + LTR('She reads') + ' · ' + LTR('It sleeps'),
+          'الأفعال المنتهية بـ' + LTR('o, sh, ch') + ' تأخذ ' + LTR('es'),
+          '<span class="hl2">' + LTR('He goes') + ' · ' + LTR('She watches') + '</span> 👀'
+        ],
+        speech: 'سر الحرف إس هو أنه يأتي مع هي وشي وإت فقط. نقول آي بلاي ويو بلاي ووي بلاي، لكن هي بلايز وشي بلايز بإضافة إس. ولماذا؟ قاعدة إنجليزية قديمة احفظها فقط. فنقول هي إيتس وشي ريدز وإت سليبس. والأفعال المنتهية بأو أو إس إتش أو سي إتش تأخذ إي إس، مثل هي غوز وشي واتشز.'
+      },
+      {
+        bubble: 'اصنع جملة كاملة: من + فعل + ماذا + متى 🧩',
+        steps: [
+          '<span class="hl">من</span>: ' + LTR('I'),
+          '<span class="hl">الفعل</span>: ' + LTR('study'),
+          '<span class="hl">ماذا</span>: ' + LTR('English'),
+          '<span class="hl">متى</span>: ' + LTR('every evening'),
+          'اجمعها: ' + LTR('I study English every evening') + ' ✓',
+          '<span class="hl2">هذا هو ترتيب الجملة الإنجليزية دائمًا</span> 📐'
+        ],
+        speech: 'اصنع جملة كاملة بأربعة أجزاء: من، ثم الفعل، ثم ماذا، ثم متى. من هو آي. والفعل ستَدي. وماذا إنغلش. ومتى إفري إيفننغ. اجمعها فتصير آي ستَدي إنغلش إفري إيفننغ. هذا هو ترتيب الجملة الإنجليزية دائماً.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: احكِ يومك بثلاث جمل! ☀️',
+        steps: [
+          'الصباح: ' + LTR('I wake up at 7') + ' ⏰',
+          'النهار: ' + LTR('I go to school') + ' 🏫',
+          'المساء: ' + LTR('I sleep at 10') + ' 😴',
+          'ثلاث جمل وصفت يومك كاملًا!',
+          'الآن غيّر الضمير: ' + LTR('He wakes up at 7'),
+          '<span class="hl2">لاحظ الـ' + LTR('s') + ' التي ظهرت مع ' + LTR('he') + '</span> ✓'
+        ],
+        speech: 'أبسط شرح ممكن: احك يومك بثلاث جمل. في الصباح آي ويك أب آت سفن. وفي النهار آي غو تو سكول. وفي المساء آي سليب آت تن. ثلاث جمل وصفت يومك كاملاً. الآن غير الضمير فتقول هي ويكس أب آت سفن، ولاحظ الإس التي ظهرت مع هي.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ما معنى "wake up"؟', options: ['يستيقظ', 'ينام', 'يأكل', 'يلعب'], correct: 0, why: 'wake up = يستيقظ من النوم.' },
+      { type: 'write', q: 'أكمل: "She ___ English." (استخدم study)', accept: ['studies'], answer: 'studies', why: 'مع she نضيف s، وstudy تنتهي بـ y بعد ساكن فتصير studies.' },
+      { type: 'choice', q: 'أي جملة صحيحة؟', options: ['He plays football', 'He play football', 'He playing football', 'He plaies football'], correct: 0, why: 'he تأخذ الفعل + s.' },
+      { type: 'write', q: 'أكمل: "I ___ to school every day." (استخدم go)', accept: ['go'], answer: 'go', why: 'مع I نستخدم الفعل مجردًا بلا s.' },
+      { type: 'choice', q: 'أكمل: "He ___ to school."', options: ['goes', 'go', 'gos', 'going'], correct: 0, why: 'go تنتهي بـ o فتأخذ es مع he.' },
+      { type: 'choice', q: 'مع أي ضمائر نضيف s إلى الفعل؟', options: ['he, she, it', 'I, you', 'we, they', 'كل الضمائر'], correct: 0, why: 'المفرد الغائب فقط يأخذ s في المضارع البسيط.' }
+    ]
+  },
+  {
+    id: 'en-places-directions',
+    title: 'الأماكن والاتجاهات — Places',
+    icon: '🗺️',
+    explanations: [
+      {
+        bubble: 'أماكن تزورها كل أسبوع! 🗺️',
+        steps: [
+          LTR('school') + ' = مدرسة 🏫 · ' + LTR('home') + ' = بيت 🏠',
+          LTR('shop') + ' = محل 🏪 · ' + LTR('market') + ' = سوق',
+          LTR('hospital') + ' = مستشفى 🏥 · ' + LTR('mosque') + ' = مسجد 🕌',
+          LTR('park') + ' = حديقة 🏞️ · ' + LTR('street') + ' = شارع',
+          LTR('city') + ' = مدينة 🏙️ · ' + LTR('village') + ' = قرية',
+          '<span class="hl2">' + LTR('I go to the park on Friday') + '</span>'
+        ],
+        speech: 'أماكن تزورها كل أسبوع. سكول تعني مدرسة، وهوم تعني بيت. وشوب تعني محل، وماركت تعني سوق. وهوسبيتال تعني مستشفى، وموسك تعني مسجد. وبارك تعني حديقة، وستريت تعني شارع. وسيتي تعني مدينة، وفيليدج تعني قرية.'
+      },
+      {
+        bubble: 'حروف المكان: أين بالضبط؟ 📍',
+        steps: [
+          LTR('in') + ' = داخل · ' + LTR('The book is in the bag') + ' 🎒',
+          LTR('on') + ' = فوق سطح · ' + LTR('The pen is on the desk'),
+          LTR('under') + ' = تحت · ' + LTR('The cat is under the chair') + ' 🐱',
+          LTR('next to') + ' = بجانب · ' + LTR('near') + ' = قريب من',
+          LTR('between') + ' = بين شيئين',
+          '<span class="hl2">' + LTR('in') + ' محاط · ' + LTR('on') + ' ملامس للسطح</span>'
+        ],
+        speech: 'حروف المكان تحدد أين بالضبط. إن تعني داخل، فنقول ذا بوك إز إن ذا باغ. وأون تعني فوق سطح، فنقول ذا بن إز أون ذا ديسك. وأندر تعني تحت، فنقول ذا كات إز أندر ذا تشير. ونيكست تو تعني بجانب، ونير تعني قريب من. وبتوين تعني بين شيئين. فإن للمحاط، وأون للملامس للسطح.'
+      },
+      {
+        bubble: 'اسأل عن الطريق وافهم الجواب 🧭',
+        steps: [
+          LTR('Where is the hospital?') + ' = أين المستشفى؟',
+          LTR('Go straight') + ' = امشِ مستقيمًا ⬆️',
+          LTR('Turn right') + ' = انعطف يمينًا ➡️',
+          LTR('Turn left') + ' = انعطف يسارًا ⬅️',
+          LTR("It's on your right") + ' = إنه على يمينك',
+          '<span class="hl2">أربع عبارات تكفيك في أي مدينة</span> 🌍'
+        ],
+        speech: 'اسأل عن الطريق وافهم الجواب. وير إز ذا هوسبيتال أي أين المستشفى. والجواب: غو ستريت أي امش مستقيماً. أو تيرن رايت أي انعطف يميناً. أو تيرن لفت أي انعطف يساراً. أو إتس أون يور رايت أي إنه على يمينك. أربع عبارات تكفيك في أي مدينة.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: ضع قلمك في ثلاثة أماكن! ✏️',
+        steps: [
+          'ضعه <span class="hl">داخل</span> الحقيبة ← ' + LTR('in the bag'),
+          'ضعه <span class="hl">فوق</span> الطاولة ← ' + LTR('on the table'),
+          'ضعه <span class="hl">تحت</span> الكتاب ← ' + LTR('under the book'),
+          'الآن قل جملة كاملة:',
+          LTR('My pen is on the table') + ' ✓',
+          '<span class="hl2">جرّبها بيدك — ستحفظها للأبد</span> 🖐️'
+        ],
+        speech: 'أبسط شرح ممكن: ضع قلمك في ثلاثة أماكن. ضعه داخل الحقيبة فتقول إن ذا باغ. وضعه فوق الطاولة فتقول أون ذا تيبل. وضعه تحت الكتاب فتقول أندر ذا بوك. الآن قل جملة كاملة: ماي بن إز أون ذا تيبل. جربها بيدك وستحفظها للأبد.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ما معنى "hospital"؟', options: ['مستشفى', 'مدرسة', 'سوق', 'حديقة'], correct: 0, why: 'hospital = مستشفى.' },
+      { type: 'choice', q: 'أكمل: "The cat is ___ the chair." (القطة تحت الكرسي)', options: ['under', 'on', 'in', 'next'], correct: 0, why: 'under = تحت.' },
+      { type: 'write', q: 'أكمل: "The book is ___ the bag." (داخل الحقيبة)', accept: ['in', 'inside'], answer: 'in', why: 'in للمكان المحاط من كل الجهات.' },
+      { type: 'choice', q: 'ماذا يعني "Turn left"؟', options: ['انعطف يسارًا', 'انعطف يمينًا', 'امشِ مستقيمًا', 'توقّف'], correct: 0, why: 'left = يسار، right = يمين.' },
+      { type: 'write', q: 'اكتب "مدرسة" بالإنجليزية:', accept: ['school', 'a school'], answer: 'school', why: 'school = مدرسة.' },
+      { type: 'choice', q: 'ما الفرق بين in وon؟', options: ['in داخل الشيء، on فوق سطحه', 'لا فرق', 'in للأماكن فقط', 'on للزمن فقط'], correct: 0, why: 'in يعني محاطًا، on يعني ملامسًا للسطح من فوق.' }
+    ]
+  },
+  {
+    id: 'en-questions-wh',
+    title: 'أدوات السؤال — Wh Questions',
+    icon: '❓',
+    explanations: [
+      {
+        bubble: 'ستّ كلمات تفتح لك كل سؤال! ❓',
+        steps: [
+          LTR('What') + ' = ماذا · ' + LTR('What is your name?'),
+          LTR('Where') + ' = أين · ' + LTR('Where do you live?') + ' 📍',
+          LTR('When') + ' = متى · ' + LTR('When is the exam?') + ' 📅',
+          LTR('Who') + ' = مَن · ' + LTR('Who is your teacher?') + ' 👤',
+          LTR('Why') + ' = لماذا · ' + LTR('Why are you late?'),
+          '<span class="hl2">' + LTR('How') + ' = كيف · ' + LTR('How are you?') + '</span>'
+        ],
+        speech: 'ست كلمات تفتح لك كل سؤال. وات تعني ماذا، فنقول وات إز يور نيم. ووير تعني أين، فنقول وير دو يو لِف. ووِن تعني متى، فنقول وِن إز ذي إغزام. وهو تعني من، فنقول هو إز يور تيتشر. وواي تعني لماذا، فنقول واي آر يو ليت. وهاو تعني كيف، فنقول هاو آر يو.'
+      },
+      {
+        bubble: 'أداة السؤال تأتي في <span class="hl">أول</span> الجملة دائمًا 📌',
+        steps: [
+          'الترتيب: ' + LTR('Wh + فعل مساعد + فاعل + بقية الجملة'),
+          LTR('Where') + ' + ' + LTR('do') + ' + ' + LTR('you') + ' + ' + LTR('live?'),
+          LTR('What') + ' + ' + LTR('is') + ' + ' + LTR('your name?'),
+          LTR('When') + ' + ' + LTR('does') + ' + ' + LTR('he') + ' + ' + LTR('go?'),
+          '❌ ' + LTR('You live where?') + ' — ترتيب خاطئ',
+          '<span class="hl2">✅ ' + LTR('Where do you live?') + '</span> ✓'
+        ],
+        speech: 'أداة السؤال تأتي في أول الجملة دائماً. والترتيب هو: أداة السؤال، ثم الفعل المساعد، ثم الفاعل، ثم بقية الجملة. فنقول وير دو يو لف. ووات إز يور نيم. ووِن دَز هي غو. ولا نقول يو لف وير فهذا ترتيب خاطئ، بل وير دو يو لف.'
+      },
+      {
+        bubble: 'كل أداة تنتظر نوعًا مختلفًا من الجواب 🎯',
+        steps: [
+          LTR('Where?') + ' ← مكان: ' + LTR('In Cairo') + ' 📍',
+          LTR('When?') + ' ← وقت: ' + LTR('On Sunday') + ' 📅',
+          LTR('Who?') + ' ← شخص: ' + LTR('My brother') + ' 👦',
+          LTR('Why?') + ' ← سبب: يبدأ الجواب بـ<span class="hl">' + LTR('Because') + '</span>',
+          LTR('How many?') + ' ← عدد: ' + LTR('Five') + ' 🔢',
+          '<span class="hl2">اعرف الأداة تعرف شكل الجواب</span> 💡'
+        ],
+        speech: 'كل أداة تنتظر نوعاً مختلفاً من الجواب. وير تنتظر مكاناً مثل إن كايرو. ووِن تنتظر وقتاً مثل أون سنداي. وهو تنتظر شخصاً مثل ماي بروذر. وواي تنتظر سبباً، ويبدأ الجواب بكلمة بيكوز. وهاو ميني تنتظر عدداً مثل فايف. اعرف الأداة تعرف شكل الجواب.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: اسأل صديقك ثلاثة أسئلة! 🗣️',
+        steps: [
+          '1️⃣ ' + LTR('What is your name?') + ' → ' + LTR('My name is…'),
+          '2️⃣ ' + LTR('Where do you live?') + ' → ' + LTR('I live in…'),
+          '3️⃣ ' + LTR('How old are you?') + ' → ' + LTR('I am … years old'),
+          'ثلاثة أسئلة = تعارف كامل!',
+          'لاحظ أن الجواب يعيد كلمات السؤال',
+          '<span class="hl2">إذا نسيت الجواب، انسخ صيغة السؤال</span> 🔁'
+        ],
+        speech: 'أبسط شرح ممكن: اسأل صديقك ثلاثة أسئلة. الأول وات إز يور نيم فيجيب ماي نيم إز. والثاني وير دو يو لف فيجيب آي لف إن. والثالث هاو أولد آر يو فيجيب آي آم كذا يرز أولد. ثلاثة أسئلة تصنع تعارفاً كاملاً. ولاحظ أن الجواب يعيد كلمات السؤال، فإذا نسيت الجواب انسخ صيغة السؤال.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أي أداة نستخدم للسؤال عن المكان؟', options: ['Where', 'When', 'Who', 'What'], correct: 0, why: 'Where = أين، وتسأل عن المكان.' },
+      { type: 'write', q: 'أكمل: "___ is your name?"', accept: ['what'], answer: 'What', why: 'What للسؤال عن الشيء أو الاسم.' },
+      { type: 'choice', q: '"When is the exam?" — أي جواب مناسب؟', options: ['On Sunday', 'In Cairo', 'My teacher', 'Because I study'], correct: 0, why: 'When تسأل عن الوقت، فالجواب وقت.' },
+      { type: 'choice', q: 'أي جملة مرتّبة بشكل صحيح؟', options: ['Where do you live?', 'You live where?', 'Do where you live?', 'Where you do live?'], correct: 0, why: 'الترتيب: أداة السؤال + فعل مساعد + فاعل + الفعل.' },
+      { type: 'write', q: 'أكمل: "___ are you late?" (تسأل عن السبب)', accept: ['why'], answer: 'Why', why: 'Why = لماذا، ويُجاب عنها بـ Because.' },
+      { type: 'choice', q: 'بماذا يبدأ عادةً جواب سؤال Why؟', options: ['Because', 'Yes', 'In', 'At'], correct: 0, why: 'Because تعني «لأن» وتقدّم السبب.' }
+    ]
   }
 ];
 
@@ -2175,42 +2621,49 @@ const ENGLISH_LEVELS = [
     level: 0, title: 'رياض الأطفال', stage: 'التمهيدي', icon: '🧸',
     units: [
       { title: 'أول الكلمات', icon: '🔤', lessonIds: ['en-alphabet', 'en-colors'] },
+      { title: 'مرحبًا بالعالم', icon: '👋', lessonIds: ['en-greetings'] },
     ]
   },
   {
     level: 1, title: 'الصف الأول', stage: 'ابتدائي', icon: '1️⃣',
     units: [
       { title: 'الأرقام والحيوانات', icon: '🔢', lessonIds: ['en-numbers-basic', 'en-animals'] },
+      { title: 'الأشكال والأحجام', icon: '🔺', lessonIds: ['en-shapes-sizes'] },
     ]
   },
   {
     level: 2, title: 'الصف الثاني', stage: 'ابتدائي', icon: '2️⃣',
     units: [
       { title: 'أنا وعائلتي', icon: '👨‍👩‍👧‍👦', lessonIds: ['en-vocab-basic', 'en-family'] },
+      { title: 'داخل الفصل', icon: '🎒', lessonIds: ['en-classroom'] },
     ]
   },
   {
     level: 3, title: 'الصف الثالث', stage: 'ابتدائي', icon: '3️⃣',
     units: [
       { title: 'الطعام والجسم', icon: '🍎', lessonIds: ['en-food', 'en-body'] },
+      { title: 'الضمائر', icon: '🙋', lessonIds: ['en-pronouns'] },
     ]
   },
   {
     level: 4, title: 'الصف الرابع', stage: 'ابتدائي', icon: '4️⃣',
     units: [
       { title: 'الجمل والوقت', icon: '💬', lessonIds: ['en-simple-sentences', 'en-numbers-time'] },
+      { title: 'أفعال يومي', icon: '🏃', lessonIds: ['en-verbs-daily'] },
     ]
   },
   {
     level: 5, title: 'الصف الخامس', stage: 'ابتدائي', icon: '5️⃣',
     units: [
       { title: 'الأيام والطقس', icon: '📅', lessonIds: ['en-days-months', 'en-weather'] },
+      { title: 'الأماكن والاتجاهات', icon: '🗺️', lessonIds: ['en-places-directions'] },
     ]
   },
   {
     level: 6, title: 'الصف السادس', stage: 'ابتدائي', icon: '6️⃣',
     units: [
       { title: 'أدوات اللغة', icon: '❓', lessonIds: ['en-questions', 'en-prepositions'] },
+      { title: 'أدوات السؤال', icon: '🔍', lessonIds: ['en-questions-wh'] },
     ]
   },
   {
