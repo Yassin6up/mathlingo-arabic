@@ -114,24 +114,25 @@ const Analytics = (() => {
 
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-  /** vertical bars — used for the 7-day activity chart */
-  function barChart(items, { height = 120, color = 'var(--primary)' } = {}) {
+  /** vertical bars — used for the 7-day activity chart.
+      Built from flexbox divs rather than SVG: a viewBox stretched with
+      preserveAspectRatio="none" (the previous approach) scales x and y by
+      different factors, which smears the day labels sideways. */
+  function barChart(items, { height = 130, color = 'var(--primary)' } = {}) {
     if (!items.length) return '';
     const max = Math.max(...items.map(i => i.value), 1);
-    const bw = 100 / items.length;
-    const bars = items.map((it, i) => {
-      const h = (it.value / max) * (height - 26);
-      const x = i * bw + bw * 0.18;
-      const w = bw * 0.64;
+    const cols = items.map(it => {
+      const pct = Math.round((it.value / max) * 100);
       return `
-        <rect x="${x}%" y="${height - 20 - h}" width="${w}%" height="${Math.max(h, 2)}"
-              rx="3" fill="${it.value ? color : 'var(--gray-border)'}"/>
-        <text x="${x + w / 2}%" y="${height - 6}" font-size="9" fill="var(--text-soft)"
-              text-anchor="middle" font-family="inherit">${esc(it.label)}</text>
-        ${it.value ? `<text x="${x + w / 2}%" y="${height - 24 - h}" font-size="9" fill="var(--text-soft)"
-              text-anchor="middle" font-family="inherit">${it.value}</text>` : ''}`;
+        <div class="vbar-col${it.value ? '' : ' empty'}">
+          <div class="vbar-value">${it.value || ''}</div>
+          <div class="vbar-track">
+            <div class="vbar-fill" style="height:${it.value ? Math.max(pct, 6) : 0}%;background:${color}"></div>
+          </div>
+          <div class="vbar-label">${esc(it.label)}</div>
+        </div>`;
     }).join('');
-    return `<svg viewBox="0 0 100 ${height}" preserveAspectRatio="none" class="chart-svg" style="height:${height}px">${bars}</svg>`;
+    return `<div class="vbar-chart" style="--vbar-h:${height}px">${cols}</div>`;
   }
 
   /** horizontal labelled bars — used for weak/strong lists */

@@ -1,7 +1,9 @@
 /* ============================================================
-   MathLingo — text-to-speech
-   Uses ElevenLabs when an API key is saved in Settings,
-   otherwise falls back to the browser's built-in voice.
+   منارة (Manara) — text-to-speech
+   The ElevenLabs key and voice id live on the Rased server: every
+   request goes through the shared /api/manara/public/tts proxy, so
+   no visitor ever needs (or can paste) a key. If the proxy is
+   unreachable we fall back to the browser's built-in voice.
    Animates the mascot's mouth while speaking.
 
    Latency notes:
@@ -17,7 +19,6 @@ const Speech = (() => {
   let currentAudio = null;
   let talkingEls = [];
   let warmed = false;
-  const DEFAULT_VOICE = '21m00Tcm4TlvDq8ikWAM'; // ElevenLabs "Rachel"
 
   function settings() {
     try { return JSON.parse(localStorage.getItem('manara-settings') || '{}'); }
@@ -74,34 +75,15 @@ const Speech = (() => {
     return playBlob(blob);
   }
 
-  /* Direct to ElevenLabs, using the user's own key pasted in Settings. */
-  function speakElevenDirect(text, key, voiceId, speed) {
-    return fetch(
-      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream?optimize_streaming_latency=4`,
-      {
-        method: 'POST',
-        headers: { 'xi-api-key': key, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          text,
-          model_id: 'eleven_flash_v2_5', // fastest ElevenLabs model, supports Arabic
-          voice_settings: {
-            stability: 0.45, similarity_boost: 0.75, style: 0.35,
-            speed: Math.min(1.2, Math.max(0.7, speed || 1.2))
-          }
-        })
-      }
-    ).then(speakFromResponse);
-  }
-
-  /* Via the shared Manara backend proxy — no personal key required.
-     Silently unavailable (caught by the caller) until MANARA_CONFIG.API_BASE
-     is configured, or if the request fails for any reason. */
-  function speakElevenProxy(text, voiceId, speed) {
+  /* Via the shared Manara backend proxy — the key and voice id both live in
+     the Rased server's environment. Silently unavailable (caught by the
+     caller) until MANARA_CONFIG.API_BASE is configured, or on any failure. */
+  function speakElevenProxy(text, speed) {
     if (!MANARA_CONFIG.API_BASE) return Promise.reject(new Error('proxy not configured'));
     return fetch(MANARA_CONFIG.API_BASE + '/api/manara/public/tts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-App-Id': MANARA_CONFIG.APP_SLUG },
-      body: JSON.stringify({ text, voiceId: voiceId || undefined, speed })
+      body: JSON.stringify({ text, speed })
     }).then(speakFromResponse);
   }
 
@@ -216,15 +198,10 @@ const Speech = (() => {
       if (s.tts === false) return;
       this.stop();
 
-      // 1) a personal ElevenLabs key, if the user pasted one in Settings
-      if (s.elevenKey) {
-        try { return await speakElevenDirect(text, s.elevenKey, s.elevenVoice || DEFAULT_VOICE, s.elevenSpeed); }
-        catch (e) { console.warn('ElevenLabs (personal key) failed, trying free voice:', e.message); }
-      }
-      // 2) the shared /api/tts proxy — works with zero setup for any visitor
-      try { return await speakElevenProxy(text, s.elevenVoice, s.elevenSpeed); }
+      // 1) the shared server voice — works with zero setup for any visitor
+      try { return await speakElevenProxy(text, s.elevenSpeed); }
       catch (e) { console.warn('Shared voice proxy unavailable, using browser voice:', e.message); }
-      // 3) last resort: the browser's own voice
+      // 2) last resort: the browser's own voice
       return speakBrowser(text);
     }
   };

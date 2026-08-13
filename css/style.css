@@ -1191,3 +1191,237 @@ body {
 @media (min-width: 1080px) {
   .report-body { max-width: 640px; margin: 0 auto; width: 100%; }
 }
+
+/* ============================================================
+   Auth gate · level lock · avatars · dictionary · activity chart
+   ============================================================ */
+
+/* ---- signed-out chrome ---- */
+.app-sidebar.hidden { display: none !important; }
+
+.home-gate-note {
+  font-size: 12.5px; font-weight: 700; color: var(--text-soft);
+  text-align: center; line-height: 1.6; max-width: 320px; margin: 4px auto 0;
+}
+.google-note {
+  font-size: 12px; font-weight: 700; color: var(--text-soft);
+  text-align: center; line-height: 1.55; margin: 2px 0 4px; display: none;
+}
+.dev-code-note {
+  font-size: 13px; font-weight: 800; color: var(--primary-text);
+  background: var(--primary-light); border-radius: 12px;
+  padding: 10px 12px; margin-bottom: 10px; text-align: center; line-height: 1.5;
+}
+:root[data-theme="dark"] .dev-code-note { background: #3a2a10; color: #ffbe5c; }
+
+/* ---- transient toast ---- */
+.app-toast {
+  position: fixed; left: 50%; bottom: 92px; transform: translate(-50%, 20px);
+  background: var(--navy); color: #fff; font-family: var(--font);
+  font-size: 13.5px; font-weight: 800; line-height: 1.5;
+  padding: 12px 18px; border-radius: 14px; max-width: min(440px, 88vw);
+  text-align: center; z-index: 400; pointer-events: none;
+  opacity: 0; transition: opacity .22s ease, transform .22s ease;
+  box-shadow: 0 10px 28px rgba(0,0,0,.24);
+}
+.app-toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---- locked levels ---- */
+.level-chip.locked {
+  opacity: .55; border-style: dashed; background: transparent; cursor: not-allowed;
+}
+.level-chip.locked:hover { opacity: .72; }
+
+.node-unlocked, .node-nextlock {
+  font-size: 11.5px; font-weight: 800; line-height: 1.5;
+  margin-top: 6px; padding: 5px 10px; border-radius: 10px; max-width: 220px;
+}
+.node-unlocked { background: var(--correct-light); color: var(--correct-text); }
+.node-nextlock { background: var(--gray-border); color: var(--text-soft); }
+:root[data-theme="dark"] .node-nextlock { background: #2a2b31; }
+
+/* ---- 7-day activity chart ----
+   Flex bars instead of an SVG: the old viewBox with
+   preserveAspectRatio="none" scaled x and y by different factors, which
+   smeared the day labels sideways across the card. */
+.vbar-chart {
+  display: flex; align-items: flex-end; gap: 6px;
+  height: var(--vbar-h, 130px); padding-top: 4px;
+}
+.vbar-col {
+  flex: 1 1 0; min-width: 0; height: 100%;
+  display: flex; flex-direction: column; align-items: center;
+}
+.vbar-value {
+  font-size: 11px; font-weight: 800; color: var(--text-soft);
+  height: 15px; line-height: 15px;
+}
+.vbar-track {
+  flex: 1; width: 100%; max-width: 34px;
+  display: flex; align-items: flex-end;
+  background: var(--gray-border); border-radius: 8px; overflow: hidden;
+}
+.vbar-fill { width: 100%; border-radius: 8px; transition: height .5s ease; }
+.vbar-col.empty .vbar-track { opacity: .5; }
+.vbar-label {
+  font-size: 10.5px; font-weight: 800; color: var(--text-soft);
+  margin-top: 6px; height: 16px; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+}
+
+/* ---- profile avatar + name ---- */
+.avatar-slot {
+  position: relative; width: 116px; height: 116px; padding: 0;
+  border: none; background: none; cursor: pointer; display: block;
+  margin: 4px auto 10px;
+}
+.avatar-slot:active { transform: scale(.96); }
+.avatar-art, .avatar-art .avatar-svg { display: block; width: 100%; height: 100%; }
+.avatar-edit-badge {
+  position: absolute; inset-inline-end: -2px; bottom: 2px;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--primary); color: #fff; border: 3px solid var(--bg);
+  font-size: 15px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.profile-name-row { display: flex; align-items: center; justify-content: center; gap: 8px; }
+.name-edit-btn {
+  border: 2px solid var(--gray-border); background: none; color: var(--text-soft);
+  width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
+  font-size: 14px; font-weight: 800; flex: 0 0 auto;
+}
+.name-edit-btn:hover { border-color: var(--primary); color: var(--primary); }
+.profile-email {
+  font-size: 12.5px; font-weight: 700; color: var(--text-soft);
+  text-align: center; margin-top: 2px; direction: ltr;
+}
+
+.avatar-choices {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 10px; margin: 6px 0 4px;
+}
+.avatar-choice {
+  border: 3px solid var(--gray-border); border-radius: 16px; background: none;
+  padding: 10px 6px 8px; cursor: pointer; display: flex;
+  flex-direction: column; align-items: center; gap: 6px; transition: .15s;
+}
+.avatar-choice.selected { border-color: var(--primary); background: var(--primary-light); }
+:root[data-theme="dark"] .avatar-choice.selected { background: #3a2a10; }
+.avatar-choice-art { width: 62px; height: 62px; display: block; }
+.avatar-choice-art .avatar-svg { width: 100%; height: 100%; display: block; }
+.avatar-choice-name { font-size: 11px; font-weight: 800; text-align: center; line-height: 1.35; }
+
+.field-select {
+  width: 100%; border: 2px solid var(--gray-border); border-radius: 14px;
+  padding: 12px 14px; font-family: var(--font); font-size: 15px; font-weight: 700;
+  color: var(--text); background: var(--bg); cursor: pointer;
+}
+.field-select:focus { outline: none; border-color: var(--primary); }
+:root[data-theme="dark"] .field-select { background: #212227; }
+
+/* ---- dictionary promo card in the library ---- */
+.dict-promo {
+  width: 100%; margin-top: 16px; border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 14px; text-align: start;
+  padding: 16px 18px; border-radius: 22px;
+  background: linear-gradient(135deg, #5e35b1, #9a4dff);
+  color: #fff; box-shadow: 0 6px 0 #43248a; transition: .12s;
+}
+.dict-promo:active { transform: translateY(3px); box-shadow: 0 3px 0 #43248a; }
+.dict-promo-art {
+  position: relative; flex: 0 0 auto; width: 58px; height: 58px;
+  border-radius: 18px; background: rgba(255,255,255,.18);
+  display: flex; align-items: center; justify-content: center;
+}
+.dict-promo-glyph { font-size: 30px; }
+.dict-promo-spark {
+  position: absolute; font-size: 12px; font-weight: 900;
+  background: #fff; color: #5e35b1; border-radius: 6px; padding: 1px 4px;
+}
+.dict-promo-spark.s1 { top: -6px; inset-inline-start: -6px; }
+.dict-promo-spark.s2 { bottom: -6px; inset-inline-start: -4px; }
+.dict-promo-spark.s3 { top: -4px; inset-inline-end: -8px; }
+.dict-promo-text { flex: 1; min-width: 0; }
+.dict-promo-title { display: block; font-size: 17px; font-weight: 800; }
+.dict-promo-sub { display: block; font-size: 12px; font-weight: 700; opacity: .88; margin-top: 3px; line-height: 1.5; }
+.dict-promo-arrow { font-size: 26px; font-weight: 800; opacity: .8; }
+
+/* ---- dictionary screen ---- */
+.dict-body { flex: 1; overflow-y: auto; padding: 14px 16px 100px; }
+.dict-search-wrap { margin-bottom: 12px; }
+.dict-cats {
+  display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px;
+  scrollbar-width: none; margin-bottom: 4px;
+}
+.dict-cats::-webkit-scrollbar { display: none; }
+.dict-cat {
+  flex: 0 0 auto; cursor: pointer; white-space: nowrap;
+  border: 2px solid var(--gray-border); background: var(--bg); color: var(--text);
+  border-radius: 999px; padding: 8px 13px;
+  font-family: var(--font); font-size: 12.5px; font-weight: 800;
+}
+.dict-cat.active {
+  color: #fff; border-color: transparent;
+  background: linear-gradient(135deg, var(--cat-c1), var(--cat-c2));
+}
+.dict-cat-n { opacity: .65; font-size: 11px; }
+.dict-count { font-size: 12px; font-weight: 800; color: var(--text-soft); margin: 4px 2px 10px; }
+
+.dict-grid {
+  display: grid; gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+}
+.dict-card {
+  border: 2px solid var(--gray-border); border-radius: 18px; background: var(--bg);
+  cursor: pointer; overflow: hidden; text-align: center;
+  display: flex; flex-direction: column; transition: .14s;
+}
+.dict-card:hover { transform: translateY(-3px); border-color: var(--cat-c1); }
+.dict-card-art {
+  display: block; padding: 16px 8px;
+  background: linear-gradient(135deg, var(--cat-c1), var(--cat-c2));
+}
+.dict-card-glyph { font-size: 40px; line-height: 1; filter: drop-shadow(0 3px 5px rgba(0,0,0,.22)); }
+.dict-card-body { display: block; padding: 9px 8px 11px; }
+.dict-card-w { display: block; font-size: 15px; font-weight: 800; }
+.dict-card-ar { display: block; font-size: 12.5px; font-weight: 700; color: var(--text-soft); margin-top: 2px; }
+
+/* ---- word detail sheet ---- */
+.word-modal { padding: 0 !important; overflow: hidden; max-width: 420px; }
+.word-hero {
+  position: relative; padding: 30px 16px 26px; text-align: center;
+  background: linear-gradient(135deg, var(--cat-c1), var(--cat-c2));
+}
+.word-hero-glyph { font-size: 78px; line-height: 1; filter: drop-shadow(0 5px 9px rgba(0,0,0,.25)); }
+.word-close {
+  position: absolute; top: 12px; inset-inline-end: 12px;
+  width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
+  background: rgba(255,255,255,.28); color: #fff; font-size: 16px; font-weight: 800;
+}
+.word-main { padding: 18px 20px 20px; }
+.word-en { font-size: 30px; font-weight: 800; text-align: center; line-height: 1.2; }
+.word-ipa { font-size: 13.5px; font-weight: 700; color: var(--text-soft); text-align: center; margin-top: 3px; }
+.word-pos {
+  display: inline-block; margin-inline-start: 6px; padding: 1px 8px;
+  border-radius: 8px; background: var(--gray-border); font-size: 11px;
+}
+.word-ar {
+  font-size: 22px; font-weight: 800; text-align: center;
+  color: var(--primary-text); margin: 10px 0 14px;
+}
+.word-listen { margin-bottom: 14px; }
+.word-example { border: 2px solid var(--gray-border); border-radius: 16px; padding: 13px 14px; }
+.word-example-label { font-size: 11.5px; font-weight: 800; color: var(--text-soft); margin-bottom: 6px; }
+.word-example-en { font-size: 15.5px; font-weight: 700; line-height: 1.55; }
+.word-example-ar { font-size: 14px; font-weight: 700; color: var(--text-soft); margin-top: 4px; line-height: 1.6; }
+.word-example .btn { margin-top: 10px; }
+.word-cat-tag { margin-top: 12px; text-align: center; font-size: 12px; font-weight: 800; color: var(--text-soft); }
+
+:root[data-theme="dark"] .dict-cat,
+:root[data-theme="dark"] .dict-card { background: #212227; }
+:root[data-theme="dark"] .word-pos { background: #33343a; }
+
+@media (min-width: 1080px) {
+  .dict-body { max-width: 900px; margin: 0 auto; width: 100%; }
+  .dict-grid { grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); }
+}

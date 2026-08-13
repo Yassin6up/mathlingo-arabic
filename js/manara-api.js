@@ -29,7 +29,15 @@ const ManaraAPI = (() => {
   }
 
   return {
+    /** true when there is a real server + a real (non-local) session */
+    available() { return !!MANARA_CONFIG.API_BASE && Auth.isServerBacked() && Auth.isLoggedIn(); },
+
     getStats() { return apiFetch('/api/manara/stats').then(r => r.data); },
+
+    /** partial profile update — send only the fields that changed */
+    updateProfile(patch) {
+      return apiFetch('/api/manara/profile', { method: 'PATCH', body: patch }).then(r => r.data);
+    },
 
     postProgress(attempt) {
       return apiFetch('/api/manara/progress', { method: 'POST', body: attempt }).then(r => r.data);

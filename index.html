@@ -49,8 +49,9 @@
         <div class="library-watermark-arrow">‹</div>
       </button>
 
-      <button class="btn btn-ghost btn-wide" id="btn-login-home">تسجيل الدخول</button>
+      <button class="btn btn-ghost btn-wide" id="btn-login-home">لدي حساب بالفعل</button>
       <button class="btn btn-ghost btn-wide" id="btn-settings-home">⚙️&nbsp; الإعدادات</button>
+      <p class="home-gate-note" id="home-gate-note">🔒 أنشئ حسابك المجاني لحفظ تقدّمك ومتابعة مستواك على كل أجهزتك.</p>
     </div>
   </section>
 
@@ -201,6 +202,7 @@
     <div class="auth-body">
       <div class="mascot-slot mascot-auth" id="mascot-login"></div>
       <div id="google-btn-login" class="google-btn-slot"></div>
+      <p class="google-note" id="google-note-login"></p>
       <div class="auth-divider"><span>أو</span></div>
       <input type="email" id="login-email" class="field-input" dir="ltr" placeholder="البريد الإلكتروني" autocomplete="email">
       <input type="password" id="login-password" class="field-input" dir="ltr" placeholder="كلمة المرور" autocomplete="current-password">
@@ -221,6 +223,7 @@
     <div class="auth-body">
       <div class="mascot-slot mascot-auth" id="mascot-signup"></div>
       <div id="google-btn-signup" class="google-btn-slot"></div>
+      <p class="google-note" id="google-note-signup"></p>
       <div class="auth-divider"><span>أو</span></div>
       <input type="text" id="signup-name" class="field-input" placeholder="الاسم" autocomplete="name">
       <input type="email" id="signup-email" class="field-input" dir="ltr" placeholder="البريد الإلكتروني" autocomplete="email">
@@ -250,6 +253,7 @@
 
       <div id="forgot-step-code" style="display:none">
         <p class="auth-hint">أدخل الرمز المكوّن من 6 أرقام الذي وصلك على بريدك، وكلمة مرورك الجديدة.</p>
+        <p class="dev-code-note" id="forgot-dev-code" style="display:none"></p>
         <input type="text" id="forgot-code" class="field-input" dir="ltr" placeholder="000000" maxlength="6" inputmode="numeric">
         <input type="password" id="forgot-new-password" class="field-input" dir="ltr" placeholder="كلمة المرور الجديدة" autocomplete="new-password">
         <p class="auth-error" id="forgot-code-error"></p>
@@ -266,8 +270,15 @@
       <span style="width:40px"></span>
     </header>
     <div class="profile-body">
-      <div class="mascot-slot mascot-auth" id="mascot-profile"></div>
-      <div class="profile-name" id="profile-name">ضيف</div>
+      <button class="avatar-slot" id="btn-change-avatar" title="غيّر صورتك">
+        <span class="avatar-art" id="profile-avatar"></span>
+        <span class="avatar-edit-badge">✎</span>
+      </button>
+      <div class="profile-name-row">
+        <span class="profile-name" id="profile-name">—</span>
+        <button class="name-edit-btn" id="btn-edit-name" title="غيّر اسمك">✎</button>
+      </div>
+      <div class="profile-email" id="profile-email"></div>
       <div class="school-level-badge" id="profile-school-level"></div>
       <div class="premium-badge" id="premium-badge" style="display:none">⭐ منارة بريميوم</div>
 
@@ -286,8 +297,7 @@
 
       <button class="btn btn-ghost btn-wide" id="btn-goto-report">📊&nbsp; تقرير أدائي التفصيلي</button>
       <button class="btn btn-primary btn-wide" id="btn-goto-paywall">⭐ ترقّ إلى بريميوم</button>
-      <button class="btn btn-ghost btn-wide" id="btn-login-from-profile" style="display:none">تسجيل الدخول لحفظ تقدّمك</button>
-      <button class="btn btn-danger-outline btn-wide" id="btn-logout" style="display:none">تسجيل الخروج</button>
+      <button class="btn btn-danger-outline btn-wide" id="btn-logout">تسجيل الخروج</button>
     </div>
   </section>
 
@@ -331,7 +341,39 @@
       <div id="library-books-wrap">
         <p class="library-hint">اختر كتابًا لتصفّح كل الوحدات والدروس، واقرأ الشرح الكامل بنفسك في أي وقت.</p>
         <div class="library-books" id="library-books"></div>
+
+        <button class="dict-promo" id="btn-open-dictionary">
+          <span class="dict-promo-art">
+            <span class="dict-promo-glyph">🔤</span>
+            <span class="dict-promo-spark s1">A</span>
+            <span class="dict-promo-spark s2">ب</span>
+            <span class="dict-promo-spark s3">C</span>
+          </span>
+          <span class="dict-promo-text">
+            <span class="dict-promo-title">القاموس المصوّر</span>
+            <span class="dict-promo-sub" id="dict-promo-count">كل كلمة برسمة ومعناها ومثال عليها</span>
+          </span>
+          <span class="dict-promo-arrow">‹</span>
+        </button>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ DICTIONARY SCREEN ============ -->
+  <section id="screen-dictionary" class="screen">
+    <header class="topbar">
+      <button class="icon-btn close-btn" id="btn-close-dictionary">✕</button>
+      <div class="lesson-title">🔤 القاموس المصوّر</div>
+      <span style="width:40px"></span>
+    </header>
+    <div class="dict-body">
+      <div class="dict-search-wrap">
+        <input type="text" id="dict-search" class="library-search-input" dir="auto"
+          placeholder="🔍 ابحث بالعربية أو بالإنجليزية...">
+      </div>
+      <div class="dict-cats" id="dict-cats"></div>
+      <div class="dict-count" id="dict-count"></div>
+      <div class="dict-grid" id="dict-grid"></div>
     </div>
   </section>
 
@@ -361,7 +403,7 @@
     <header class="topbar">
       <button class="icon-btn close-btn" id="btn-close-report">✕</button>
       <div class="lesson-title">📊 تقرير أدائي</div>
-      <button class="icon-btn" id="btn-clear-report" title="مسح بيانات التقرير">🗑️</button>
+      <span style="width:40px"></span>
     </header>
     <div class="report-body" id="report-body"></div>
   </section>
@@ -399,6 +441,38 @@
 
 </div>
 
+<!-- ============ DICTIONARY WORD SHEET ============ -->
+<div class="modal-overlay" id="word-modal">
+  <div class="modal word-modal" id="word-modal-inner"></div>
+</div>
+
+<!-- ============ AVATAR PICKER MODAL ============ -->
+<div class="modal-overlay" id="avatar-modal">
+  <div class="modal">
+    <h2 class="modal-title">🎨 اختر صورتك</h2>
+    <p class="modal-hint" style="margin-top:0">اختر الشخصية التي تعبّر عنك — يمكنك تغييرها في أي وقت.</p>
+    <div class="avatar-choices" id="avatar-choices"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="btn-avatar-cancel">إلغاء</button>
+      <button class="btn btn-primary" id="btn-avatar-save">حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ EDIT NAME MODAL ============ -->
+<div class="modal-overlay" id="name-modal">
+  <div class="modal">
+    <h2 class="modal-title">✎ غيّر اسمك</h2>
+    <label class="field-label">الاسم الذي يظهر في ملفك</label>
+    <input type="text" id="edit-name-input" class="field-input" maxlength="40" placeholder="اسمك">
+    <p class="auth-error" id="edit-name-error"></p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="btn-name-cancel">إلغاء</button>
+      <button class="btn btn-primary" id="btn-name-save">حفظ</button>
+    </div>
+  </div>
+</div>
+
 <!-- ============ SETTINGS MODAL ============ -->
 <div class="modal-overlay" id="settings-modal">
   <div class="modal">
@@ -428,6 +502,26 @@
     </div>
 
     <div class="settings-section">
+      <div class="settings-section-title">🎓 مستواي الدراسي</div>
+      <p class="modal-hint" style="margin-top:0">غيّر صفّك متى شئت — سنعيد ترتيب الوحدات والدروس لتناسبه.</p>
+      <select id="set-school-level" class="field-select">
+        <option value="0">🧸 رياض الأطفال</option>
+        <option value="1">1️⃣ الأول ابتدائي</option>
+        <option value="2">2️⃣ الثاني ابتدائي</option>
+        <option value="3">3️⃣ الثالث ابتدائي</option>
+        <option value="4">4️⃣ الرابع ابتدائي</option>
+        <option value="5">5️⃣ الخامس ابتدائي</option>
+        <option value="6">6️⃣ السادس ابتدائي</option>
+        <option value="7">📗 الأول متوسط</option>
+        <option value="8">📘 الثاني متوسط</option>
+        <option value="9">📙 الثالث متوسط</option>
+        <option value="10">📕 الأول ثانوي</option>
+        <option value="11">📔 الثاني ثانوي</option>
+        <option value="12">🎓 الثالث ثانوي</option>
+      </select>
+    </div>
+
+    <div class="settings-section">
       <div class="settings-section-title">🔊 الصوت</div>
       <label class="toggle-row">
         <span>المؤثرات الصوتية</span>
@@ -439,24 +533,10 @@
         <input type="checkbox" id="set-tts" checked>
         <span class="toggle-pill"></span>
       </label>
-    </div>
-
-    <details class="settings-advanced">
-      <summary>🔑 إعدادات متقدمة (مفاتيح API شخصية)</summary>
-      <p class="modal-hint">لا تملك مفاتيح؟ لا مشكلة — الصوت والشرح الذكي يعملان تلقائيًا بدون أي إعداد. أضف مفاتيحك الخاصة فقط إذا أردت صوتًا مخصصًا.</p>
-
-      <label class="field-label">مفتاح Claude API <span class="field-note">(لشرح أذكى عند عدم الفهم)</span></label>
-      <input type="password" id="set-claude-key" class="field-input" dir="ltr" placeholder="sk-ant-...">
-
-      <label class="field-label">مفتاح ElevenLabs API <span class="field-note">(لصوت واقعي)</span></label>
-      <input type="password" id="set-eleven-key" class="field-input" dir="ltr" placeholder="xi-...">
-
-      <label class="field-label">معرّف صوت ElevenLabs <span class="field-note">(اختياري)</span></label>
-      <input type="text" id="set-eleven-voice" class="field-input" dir="ltr" placeholder="21m00Tcm4TlvDq8ikWAM">
-
-      <label class="field-label">سرعة الصوت <span class="field-note">(<span id="set-eleven-speed-val">1.2</span>×ـ الحد الأقصى المسموح به من ElevenLabs)</span></label>
+      <label class="field-label">سرعة الصوت <span class="field-note">(<span id="set-eleven-speed-val">1.20</span>×)</span></label>
       <input type="range" id="set-eleven-speed" class="field-range" min="0.7" max="1.2" step="0.05" value="1.2">
-    </details>
+      <p class="modal-hint">🔒 الصوت والشرح الذكي يعملان تلقائيًا عبر خادم منارة — لا تحتاج إلى أي مفاتيح.</p>
+    </div>
 
     <div class="settings-section settings-danger">
       <div class="settings-section-title">🗑️ البيانات</div>
@@ -475,6 +555,8 @@
 <script src="js/data/helpers.js"></script>
 <script src="js/data/math.js"></script>
 <script src="js/data/english.js"></script>
+<script src="js/data/dictionary.js"></script>
+<script src="js/avatars.js"></script>
 <script src="js/speech.js"></script>
 <script src="js/ai.js"></script>
 <script src="js/auth.js"></script>

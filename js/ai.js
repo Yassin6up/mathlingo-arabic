@@ -1,18 +1,12 @@
 /* ============================================================
-   MathLingo — Claude API
+   منارة (Manara) — Claude API
    "I didn't understand" asks Claude for a brand-new explanation.
-   Tries, in order: (1) a personal Claude key pasted in Settings,
-   (2) the shared /api/explain proxy (works with zero setup for
-   any visitor, if the site owner configured ANTHROPIC_API_KEY),
-   (3) falls back to the built-in explanation variants in
-   exercises.js if both are unavailable.
+   The key lives on the Rased server: every request goes through
+   the shared /api/manara/public/explain proxy, so no visitor ever
+   needs (or can paste) an API key. If the proxy is unreachable we
+   fall back to the built-in explanation variants in the lesson.
    ============================================================ */
 const AI = (() => {
-  function settings() {
-    try { return JSON.parse(localStorage.getItem('manara-settings') || '{}'); }
-    catch { return {}; }
-  }
-
   const SYSTEM_PROMPT =
     'You are "مومو" (Momo), a super friendly cartoon owl math tutor, like the Duolingo mascot. ' +
     'You speak Modern Standard Arabic ONLY. The student did NOT understand the previous explanations, ' +
@@ -84,30 +78,6 @@ const AI = (() => {
     throw new Error('Claude JSON missing required fields: ' + JSON.stringify(Object.keys(parsed)));
   }
 
-  /* Direct to Anthropic, using the user's own key pasted in Settings. */
-  async function explainDirect(system, content, key) {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true',
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-5',
-        max_tokens: 1600,
-        system,
-        messages: [{ role: 'user', content }]
-      })
-    });
-    if (!res.ok) {
-      const errBody = await res.text().catch(() => '');
-      throw new Error(`Claude API error ${res.status}: ${errBody.slice(0, 200)}`);
-    }
-    return parseAnthropicResponse(await res.json());
-  }
-
   /* Via the shared Manara backend proxy — no personal key required.
      Throws (caught by the caller) until MANARA_CONFIG.API_BASE is configured. */
   async function explainProxy(system, content) {
@@ -130,14 +100,8 @@ const AI = (() => {
      * Returns { bubble, steps[], speech } or null if every path failed.
      */
     async reExplain(lesson, previousExplanations) {
-      const key = settings().claudeKey;
       const system = SYSTEM_PROMPT;
       const content = buildUserContent(lesson, previousExplanations);
-
-      if (key) {
-        try { return await explainDirect(system, content, key); }
-        catch (e) { console.warn('Claude (personal key) failed, trying shared proxy:', e.message); }
-      }
       try { return await explainProxy(system, content); }
       catch (e) { console.warn('Claude shared proxy unavailable, using built-in variant:', e.message); }
       return null;
