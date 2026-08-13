@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;600;700;800&family=Nunito:wght@700;800;900&family=Patrick+Hand&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=7">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐬</text></svg>">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -207,6 +207,7 @@
       <input type="email" id="login-email" class="field-input" dir="ltr" placeholder="البريد الإلكتروني" autocomplete="email">
       <input type="password" id="login-password" class="field-input" dir="ltr" placeholder="كلمة المرور" autocomplete="current-password">
       <p class="auth-error" id="login-error"></p>
+      <button class="btn btn-ghost btn-wide" id="btn-resend-verification" style="display:none">📩&nbsp; أعد إرسال رسالة التأكيد</button>
       <button class="btn btn-primary btn-wide" id="btn-login-submit">دخول</button>
       <button class="btn-link" id="btn-goto-forgot">نسيت كلمة المرور؟</button>
       <button class="btn-link" id="btn-goto-signup">ليس لديك حساب؟ أنشئ حسابًا</button>
@@ -550,18 +551,21 @@
   </div>
 </div>
 
-<script src="js/config.js"></script>
-<script src="js/sound.js"></script>
-<script src="js/data/helpers.js"></script>
-<script src="js/data/math.js"></script>
-<script src="js/data/english.js"></script>
-<script src="js/data/dictionary.js"></script>
-<script src="js/avatars.js"></script>
-<script src="js/speech.js"></script>
-<script src="js/ai.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/manara-api.js"></script>
-<script src="js/analytics.js"></script>
-<script src="js/app.js"></script>
+<!-- ?v= is bumped on every release: GitHub Pages sends long cache headers,
+     so without it returning visitors keep running the previous build's JS
+     against the new HTML. Bump this one number when you deploy. -->
+<script src="js/config.js?v=7"></script>
+<script src="js/sound.js?v=7"></script>
+<script src="js/data/helpers.js?v=7"></script>
+<script src="js/data/math.js?v=7"></script>
+<script src="js/data/english.js?v=7"></script>
+<script src="js/data/dictionary.js?v=7"></script>
+<script src="js/avatars.js?v=7"></script>
+<script src="js/speech.js?v=7"></script>
+<script src="js/ai.js?v=7"></script>
+<script src="js/auth.js?v=7"></script>
+<script src="js/manara-api.js?v=7"></script>
+<script src="js/analytics.js?v=7"></script>
+<script src="js/app.js?v=7"></script>
 </body>
 </html>

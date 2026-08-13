@@ -51,7 +51,13 @@ const Auth = (() => {
     }
     const data = await res.json().catch(() => ({}));
     if (!res.ok || data.success === false) {
-      throw new Error(data.message || 'حدث خطأ في الخادم');
+      const err = new Error(data.message || 'حدث خطأ في الخادم');
+      // the server tags some failures so the UI can offer a way out —
+      // notably EMAIL_NOT_VERIFIED, which needs a "resend" button rather
+      // than just an error message the user can do nothing about
+      err.code = data.code;
+      err.email = data.email;
+      throw err;
     }
     return data;
   }
@@ -166,6 +172,12 @@ const Auth = (() => {
       const { data } = await apiFetch('/api/auth/google-login', { method: 'POST', body: { idToken } });
       setState({ token: data.token, user: data.user });
       return { user: data.user, isNewUser: !!data.isNewUser };
+    },
+
+    /** ask the server to send the confirmation link again */
+    async resendVerification(email) {
+      if (!serverConfigured()) return;
+      return apiFetch('/api/auth/resend-verification-email', { method: 'POST', body: { email } });
     },
 
     /** resolves to a dev code string when running server-less, otherwise null */

@@ -1288,6 +1288,8 @@
       $(id).textContent = '';
       $(id).classList.remove('show');
     });
+    const resend = $('btn-resend-verification');
+    if (resend) resend.style.display = 'none';
   }
 
   function updateHomeAuthUI() {
@@ -1419,6 +1421,7 @@
 
   async function submitLogin() {
     clearAuthErrors();
+    $('btn-resend-verification').style.display = 'none';
     const email = $('login-email').value.trim();
     const password = $('login-password').value;
     if (!email || !password) return showAuthError('login-error', 'أدخل البريد الإلكتروني وكلمة المرور');
@@ -1426,7 +1429,26 @@
       Sound.click();
       const { isNewUser } = await Auth.login(email, password);
       await postAuthSuccess(isNewUser);
-    } catch (e) { showAuthError('login-error', e.message); }
+    } catch (e) {
+      showAuthError('login-error', e.message);
+      // an unconfirmed account can't be fixed by retrying — offer the resend
+      if (e.code === 'EMAIL_NOT_VERIFIED') $('btn-resend-verification').style.display = 'block';
+    }
+  }
+
+  async function resendVerification() {
+    const email = $('login-email').value.trim();
+    if (!email) return showAuthError('login-error', 'أدخل بريدك الإلكتروني أولًا');
+    const btn = $('btn-resend-verification');
+    btn.disabled = true;
+    try {
+      Sound.click();
+      await Auth.resendVerification(email);
+      btn.style.display = 'none';
+      toast('📩 أرسلنا لك رابط التأكيد — تحقّق من بريدك');
+    } catch (e) {
+      showAuthError('login-error', e.message);
+    } finally { btn.disabled = false; }
   }
 
   async function submitSignup() {
@@ -1600,19 +1622,24 @@
       $('edit-name-error').classList.add('show');
       return;
     }
+    let localOnly = false;
     if (ManaraAPI.available()) {
       try { await ManaraAPI.updateProfile({ name }); }
       catch (e) {
-        $('edit-name-error').textContent = e.message;
-        $('edit-name-error').classList.add('show');
-        return;
+        // the endpoint simply isn't deployed yet — keep the rename locally
+        if (!e.notDeployed) {
+          $('edit-name-error').textContent = e.message;
+          $('edit-name-error').classList.add('show');
+          return;
+        }
+        localOnly = true;
       }
     }
     Auth.updateCachedUser({ name });
     Sound.correct();
     $('name-modal').classList.remove('open');
     $('profile-name').textContent = name;
-    toast('✓ تم تحديث اسمك');
+    toast(localOnly ? '✓ تم تحديث اسمك على هذا الجهاز' : '✓ تم تحديث اسمك');
   }
 
   /* ---------------- performance report ---------------- */
@@ -2017,6 +2044,7 @@
     $('btn-goto-signup').addEventListener('click', () => { Sound.click(); clearAuthErrors(); renderGoogleButtons(); show('screen-signup'); });
     $('btn-goto-login').addEventListener('click', () => { Sound.click(); clearAuthErrors(); renderGoogleButtons(); show('screen-login'); });
     $('btn-login-submit').addEventListener('click', submitLogin);
+    $('btn-resend-verification').addEventListener('click', resendVerification);
     $('btn-signup-submit').addEventListener('click', submitSignup);
     $('btn-forgot-send').addEventListener('click', submitForgotSend);
     $('btn-forgot-reset').addEventListener('click', submitForgotReset);

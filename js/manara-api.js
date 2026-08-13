@@ -23,6 +23,14 @@ const ManaraAPI = (() => {
     } catch {
       throw new Error('تعذّر الاتصال بالخادم');
     }
+    // A route the running server doesn't have yet (404/501) is a deployment
+    // gap, not a user error — callers degrade to local-only instead of
+    // showing "حدث خطأ في الخادم" for something the user can't fix.
+    if (res.status === 404 || res.status === 501) {
+      const err = new Error('هذه الميزة غير متاحة على الخادم بعد');
+      err.notDeployed = true;
+      throw err;
+    }
     const data = await res.json().catch(() => ({}));
     if (!res.ok || data.success === false) throw new Error(data.message || 'حدث خطأ في الخادم');
     return data;
