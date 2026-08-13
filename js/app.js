@@ -207,7 +207,7 @@
     if (!PUBLIC_SCREENS.has(id) && !Auth.isLoggedIn()) {
       clearAuthErrors();
       id = 'screen-login';
-      requestAnimationFrame(renderGoogleButtons);
+      scheduleGoogleRender();
     }
     screens.forEach(s => $(s).classList.toggle('active', s === id));
     if (id !== 'screen-congrats') stopConfetti();
@@ -233,7 +233,7 @@
     ['btn-close-login', 'btn-close-signup'].forEach(b => {
       $(b).style.visibility = loggedIn ? 'visible' : 'hidden';
     });
-    if (id === 'screen-login' || id === 'screen-signup') requestAnimationFrame(renderGoogleButtons);
+    if (id === 'screen-login' || id === 'screen-signup') scheduleGoogleRender();
   }
 
   /* ---------------- subject selection ---------------- */
@@ -1358,22 +1358,37 @@
       // Render into whichever slot is currently on screen. GSI produces a
       // zero-width button inside a display:none parent, so a slot that was
       // rendered while hidden has to be re-rendered once it becomes visible.
+      // The "already done" test is the slot's real content, not a flag —
+      // a flag lies if GSI silently failed and left the slot empty.
       ['google-btn-login', 'google-btn-signup'].forEach(id => {
         const el = $(id);
-        if (!el || !el.offsetParent) return;           // still hidden — skip
-        if (el.dataset.rendered === '1') return;        // already drawn while visible
-        el.innerHTML = '';
+        if (!el || !el.offsetParent) return;   // still hidden — skip
+        if (el.childElementCount > 0) return;   // a button is already there
         google.accounts.id.renderButton(el, {
           type: 'standard', theme: 'outline', shape: 'pill',
           size: 'large', text: 'continue_with', locale: 'ar', width: 280,
         });
-        el.dataset.rendered = '1';
       });
       setGoogleNote('');
     } catch (e) {
       console.warn('Google button render failed:', e.message);
       setGoogleNote('تعذّر تجهيز الدخول بجوجل: ' + e.message);
     }
+  }
+
+  /* Draw the button once an auth screen is actually on show.
+     Deliberately NOT requestAnimationFrame: rAF is suspended whenever the
+     page isn't compositing (background tab, hidden window), so the button
+     would silently never appear there. A short bounded poll works
+     regardless of paint state and stops as soon as the slot has content. */
+  function scheduleGoogleRender() {
+    let tries = 0;
+    (function attempt() {
+      renderGoogleButtons();
+      const drawn = ['google-btn-login', 'google-btn-signup']
+        .some(id => { const el = $(id); return el && el.offsetParent && el.childElementCount > 0; });
+      if (!drawn && ++tries < 12) setTimeout(attempt, 250);
+    })();
   }
 
   /** shared post-auth flow: sync guest progress, then onboarding (new accounts) or straight to path */
@@ -1999,7 +2014,7 @@
     $('btn-settings-save').addEventListener('click', saveSettings);
     $('btn-reset-progress').addEventListener('click', resetProgress);
     $('btn-settings-login').addEventListener('click', () => {
-      Sound.click(); $('settings-modal').classList.remove('open'); clearAuthErrors(); renderGoogleButtons(); show('screen-login');
+      Sound.click(); $('settings-modal').classList.remove('open'); clearAuthErrors(); scheduleGoogleRender(); show('screen-login');
     });
     $('btn-settings-logout').addEventListener('click', () => {
       Sound.click();
@@ -2036,13 +2051,13 @@
     $('btn-back-path').addEventListener('click', () => { Sound.click(); renderPath(); show('screen-path'); });
 
     // ---- auth screens ----
-    $('btn-login-home').addEventListener('click', () => { Sound.click(); clearAuthErrors(); renderGoogleButtons(); show('screen-login'); });
+    $('btn-login-home').addEventListener('click', () => { Sound.click(); clearAuthErrors(); scheduleGoogleRender(); show('screen-login'); });
     $('btn-close-login').addEventListener('click', () => { Sound.click(); show(Auth.isLoggedIn() ? 'screen-path' : 'screen-home'); });
     $('btn-close-signup').addEventListener('click', () => { Sound.click(); show(Auth.isLoggedIn() ? 'screen-path' : 'screen-home'); });
     $('btn-close-forgot').addEventListener('click', () => { Sound.click(); show('screen-login'); });
     $('btn-goto-forgot').addEventListener('click', () => { Sound.click(); openForgotScreen(); });
-    $('btn-goto-signup').addEventListener('click', () => { Sound.click(); clearAuthErrors(); renderGoogleButtons(); show('screen-signup'); });
-    $('btn-goto-login').addEventListener('click', () => { Sound.click(); clearAuthErrors(); renderGoogleButtons(); show('screen-login'); });
+    $('btn-goto-signup').addEventListener('click', () => { Sound.click(); clearAuthErrors(); scheduleGoogleRender(); show('screen-signup'); });
+    $('btn-goto-login').addEventListener('click', () => { Sound.click(); clearAuthErrors(); scheduleGoogleRender(); show('screen-login'); });
     $('btn-login-submit').addEventListener('click', submitLogin);
     $('btn-resend-verification').addEventListener('click', resendVerification);
     $('btn-signup-submit').addEventListener('click', submitSignup);
