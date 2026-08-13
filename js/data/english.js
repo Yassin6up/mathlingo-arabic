@@ -1834,6 +1834,336 @@ const ENGLISH_LESSONS = [
       { type: 'choice', q: 'ما مكوّنات الفقرة الأكاديمية؟', options: ['جملة موضوع + جمل دعم + خاتمة', 'مقدمة فقط', 'أسئلة فقط', 'قائمة كلمات'], correct: 0, why: 'البنية الثلاثية المعتمدة في الكتابة الأكاديمية.' },
       { type: 'write', q: 'اكتب أداة الربط التي تعني "في الختام" (كلمتان):', accept: ['in conclusion'], answer: 'in conclusion', why: '"in conclusion" تُستخدم لتلخيص النص.' }
     ]
+  },
+
+  /* ═══════════ الأول المتوسط: أدوات التعريف والتنكير ═══════════ */
+  {
+    id: 'en-articles',
+    title: 'أدوات التعريف والتنكير',
+    icon: '🅰️',
+    explanations: [
+      {
+        bubble: 'ثلاث كلمات صغيرة تربك كل متعلّم عربي! 🅰️ ' + LTR('a / an / the') + ':',
+        steps: [
+          '<span class="hl">' + LTR('a') + '</span> = شيء <span class="hl">غير محدّد</span> يبدأ بحرف ساكن',
+          LTR('a book') + '، ' + LTR('a car') + '، ' + LTR('a student'),
+          '<span class="hl">' + LTR('an') + '</span> = غير محدّد يبدأ بحرف <span class="hl">متحرّك</span> (a,e,i,o,u)',
+          LTR('an apple') + '، ' + LTR('an egg') + '، ' + LTR('an hour'),
+          '<span class="hl">' + LTR('the') + '</span> = شيء <span class="hl2">محدّد ومعروف</span> = "ال" التعريف',
+          LTR('the book') + ' = الكتاب (الذي نعرفه)'
+        ],
+        speech: 'ثلاث كلمات صغيرة تربك كل متعلم عربي: أ، آن، وذا. نستخدم أ لشيء غير محدد يبدأ بحرف ساكن، مثل أ بوك وأ كار. ونستخدم آن لشيء غير محدد يبدأ بحرف متحرك، مثل آن آبل وآن إيغ. أما ذا فتعني شيئاً محدداً ومعروفاً، وهي تقابل ال التعريف في العربية.'
+      },
+      {
+        bubble: 'متى ' + LTR('a') + ' ومتى ' + LTR('the') + '؟ 🎯 القاعدة الذهبية:',
+        steps: [
+          'أول مرة تذكر الشيء ← <span class="hl">' + LTR('a') + '</span>',
+          LTR('I saw a dog.') + ' (كلب ما، لا تعرفه)',
+          'المرة الثانية ← <span class="hl2">' + LTR('the') + '</span>',
+          LTR('The dog was black.') + ' (نفس الكلب الآن معروف)',
+          'وكذلك للأشياء الفريدة:',
+          LTR('the sun') + '، ' + LTR('the moon') + '، ' + LTR('the world') + ' 🌍'
+        ],
+        speech: 'متى نستخدم أ ومتى ذا؟ القاعدة الذهبية: في أول مرة تذكر الشيء استخدم أ، فتقول آي سو أ دوغ أي رأيت كلباً ما لا تعرفه. وفي المرة الثانية استخدم ذا، فتقول ذا دوغ واز بلاك، أي نفس الكلب صار معروفاً الآن. وكذلك نستخدم ذا للأشياء الفريدة مثل ذا صن وذا مون وذا وورلد.'
+      },
+      {
+        bubble: '⚠️ الخطأ الأشهر: العرب ينسون الأداة تمامًا!',
+        steps: [
+          'في العربية نقول: "أنا طالب" — بلا أداة',
+          'لكن الإنجليزية <span class="hl">تُلزمك</span> بها:',
+          '❌ ' + LTR('I am student.'),
+          '✓ <span class="hl2">' + LTR('I am a student.') + '</span>',
+          'القاعدة: كل اسم مفرد معدود <span class="hl">يحتاج أداة</span>',
+          'إما ' + LTR('a/an') + ' أو ' + LTR('the') + ' أو ' + LTR('my/his') + '...'
+        ],
+        speech: 'الخطأ الأشهر: العرب ينسون الأداة تماماً! في العربية نقول أنا طالب بلا أداة، لكن الإنجليزية تلزمك بها. فلا نقول آي آم ستيودنت، بل آي آم أ ستيودنت. والقاعدة: كل اسم مفرد معدود يحتاج أداة، إما أ أو آن أو ذا أو ضمير ملكية.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: اسأل نفسك سؤالين فقط',
+        steps: [
+          'سؤال 1: هل السامع <span class="hl">يعرف</span> أيّ واحد أقصد؟',
+          'نعم ← ' + LTR('the') + '  |  لا ← ' + LTR('a/an'),
+          'سؤال 2: هل الكلمة تبدأ بصوت متحرّك؟',
+          'نعم ← ' + LTR('an') + '  |  لا ← ' + LTR('a'),
+          '<span class="hl2">سؤالان وانتهى الأمر!</span> ✓',
+          'مثال: "قلم ما" ← ' + LTR('a pen') + ' | "القلم" ← ' + LTR('the pen')
+        ],
+        speech: 'أبسط شرح ممكن: اسأل نفسك سؤالين فقط. السؤال الأول: هل السامع يعرف أي واحد أقصد؟ إذا نعم استخدم ذا، وإذا لا استخدم أ أو آن. والسؤال الثاني: هل الكلمة تبدأ بصوت متحرك؟ إذا نعم استخدم آن، وإذا لا استخدم أ. سؤالان وانتهى الأمر!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أكمل: I have ___ apple.', options: ['an', 'a', 'the', 'بدون أداة'], correct: 0, why: 'apple تبدأ بحرف متحرك، فنستخدم an.' },
+      { type: 'choice', q: 'أكمل: I am ___ student.', options: ['a', 'an', 'the', 'بدون أداة'], correct: 0, why: 'الاسم المفرد المعدود يحتاج أداة، وstudent تبدأ بساكن.' },
+      { type: 'write', q: 'أكمل: The sun is ___ star (نجم ما):', accept: ['a'], answer: 'a', why: 'star تبدأ بساكن وغير محددة → a.' },
+      { type: 'choice', q: 'متى نستخدم "the"؟', options: ['عندما يعرف السامع أي شيء نقصد', 'دائمًا', 'مع الجمع فقط', 'مع الحروف المتحركة'], correct: 0, why: 'the للمحدّد المعروف، مثل "ال" التعريف.' },
+      { type: 'choice', q: 'أي جملة صحيحة؟', options: ['I saw a dog. The dog was black.', 'I saw the dog. A dog was black.', 'I saw dog. Dog was black.', 'I saw an dog.'], correct: 0, why: 'أول ذكر بـa، وبعد أن صار معروفًا نستخدم the.' },
+      { type: 'write', q: 'أكمل: She is ___ engineer:', accept: ['an'], answer: 'an', why: 'engineer تبدأ بصوت متحرك → an.' }
+    ]
+  },
+
+  /* ═══════════ الأول المتوسط: الجمع ═══════════ */
+  {
+    id: 'en-plurals',
+    title: 'صيغة الجمع',
+    icon: '👥',
+    explanations: [
+      {
+        bubble: 'الجمع في الإنجليزية أسهل بكثير من العربية! 👥 القاعدة الأساسية:',
+        steps: [
+          'أضف <span class="hl2">' + LTR('s') + '</span> في آخر الاسم:',
+          LTR('book → books') + '، ' + LTR('car → cars'),
+          'إذا انتهى بـ ' + LTR('s, x, ch, sh') + ' أضف <span class="hl">' + LTR('es') + '</span>:',
+          LTR('bus → buses') + '، ' + LTR('box → boxes'),
+          LTR('watch → watches') + '، ' + LTR('dish → dishes'),
+          'إذا انتهى بـ <span class="hl">ساكن + y</span> ← احذف ' + LTR('y') + ' وأضف ' + LTR('ies'),
+          LTR('baby → babies') + '، ' + LTR('city → cities')
+        ],
+        speech: 'الجمع في الإنجليزية أسهل بكثير من العربية. القاعدة الأساسية: أضف حرف إس في آخر الاسم، فبوك تصبح بوكس وكار تصبح كارز. وإذا انتهى الاسم بـ إس أو إكس أو تش أو ش فأضف إي إس، مثل باص تصبح باصيز وبوكس تصبح بوكسيز. وإذا انتهى بساكن ثم واي فاحذف الواي وأضف آي إي إس، مثل بيبي تصبح بيبيز وسيتي تصبح سيتيز.'
+      },
+      {
+        bubble: 'الجموع الشاذّة — احفظها فهي كثيرة الاستعمال! ⚠️',
+        steps: [
+          LTR('man → men') + ' (رجل ← رجال)',
+          LTR('woman → women') + ' (امرأة ← نساء)',
+          LTR('child → children') + ' (طفل ← أطفال)',
+          LTR('foot → feet') + '، ' + LTR('tooth → teeth'),
+          LTR('mouse → mice') + '، ' + LTR('person → people'),
+          'وبعضها <span class="hl2">لا يتغيّر أبدًا</span>:',
+          LTR('fish → fish') + '، ' + LTR('sheep → sheep') + '، ' + LTR('deer → deer')
+        ],
+        speech: 'الجموع الشاذة، احفظها فهي كثيرة الاستعمال. مان تصبح مين. ووومان تصبح ويمن. وتشايلد تصبح تشيلدرن. وفوت تصبح فيت. وتوث تصبح تيث. وماوس تصبح مايس. وبيرسون تصبح بيبول. وبعضها لا يتغير أبداً مثل فيش وشيب ودير.'
+      },
+      {
+        bubble: 'الأسماء غير المعدودة! 🚰 لا تُجمع أبدًا:',
+        steps: [
+          'السوائل: ' + LTR('water, milk, oil') + ' 💧',
+          'المواد: ' + LTR('rice, sugar, bread') + ' 🍚',
+          'المعنويات: ' + LTR('information, advice, money') + ' 💡',
+          '❌ ' + LTR('informations') + '، ❌ ' + LTR('advices') + ' — خطأ شائع جدًا!',
+          'لعدّها نستخدم وحدة: <span class="hl2">' + LTR('two cups of water') + '</span>',
+          LTR('a piece of advice') + ' = نصيحة واحدة ✓'
+        ],
+        speech: 'الأسماء غير المعدودة لا تجمع أبداً. السوائل مثل واتر وميلك وأويل. والمواد مثل رايس وشوغر وبريد. والمعنويات مثل إنفورميشن وأدفايس وموني. ولا نقول إنفورميشنز ولا أدفايسز، فهذا خطأ شائع جداً. ولعدها نستخدم وحدة، فنقول تو كابس أوف واتر، أو أ بيس أوف أدفايس أي نصيحة واحدة.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: 90% من الكلمات تأخذ ' + LTR('s') + ' فقط',
+        steps: [
+          'لا تعقّد الأمر! معظم الكلمات: <span class="hl2">+ ' + LTR('s') + '</span>',
+          LTR('one book → two books') + ' ✓',
+          'الاستثناءات قليلة — احفظ أشهر خمسة:',
+          LTR('men, women, children, feet, people'),
+          'وإن أخطأت في جمع كلمة نادرة، <span class="hl">سيفهمك الناس</span> 😊',
+          'التواصل أهم من الكمال!'
+        ],
+        speech: 'أبسط شرح ممكن: تسعون بالمئة من الكلمات تأخذ إس فقط. لا تعقد الأمر! ون بوك تصبح تو بوكس. والاستثناءات قليلة، فاحفظ أشهر خمسة: مين، ويمن، تشيلدرن، فيت، بيبول. وإن أخطأت في جمع كلمة نادرة سيفهمك الناس، فالتواصل أهم من الكمال!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ما جمع كلمة "book"؟', options: ['books', 'bookes', 'bookies', 'book'], correct: 0, why: 'القاعدة العامة: نضيف s.' },
+      { type: 'choice', q: 'ما جمع كلمة "box"؟', options: ['boxes', 'boxs', 'boxies', 'box'], correct: 0, why: 'المنتهي بـ x يأخذ es.' },
+      { type: 'write', q: 'اكتب جمع كلمة "child":', accept: ['children'], answer: 'children', why: 'جمع شاذ: child → children.' },
+      { type: 'choice', q: 'ما جمع كلمة "city"؟', options: ['cities', 'citys', 'cityes', 'city'], correct: 0, why: 'ساكن + y ← نحذف y ونضيف ies.' },
+      { type: 'choice', q: 'أي كلمة لا تُجمع؟', options: ['water', 'book', 'car', 'boy'], correct: 0, why: 'water اسم غير معدود، نقول two cups of water.' },
+      { type: 'write', q: 'اكتب جمع كلمة "woman":', accept: ['women'], answer: 'women', why: 'جمع شاذ: woman → women.' }
+    ]
+  },
+
+  /* ═══════════ الثاني المتوسط: الملكية ═══════════ */
+  {
+    id: 'en-possessives',
+    title: 'الملكية',
+    icon: '🔑',
+    explanations: [
+      {
+        bubble: 'كيف تقول إن شيئًا يخصّ شخصًا؟ 🔑 طريقتان:',
+        steps: [
+          '1️⃣ <span class="hl">ضمائر الملكية</span> قبل الاسم:',
+          LTR('my') + ' كتابي، ' + LTR('your') + ' كتابك، ' + LTR('his') + ' كتابه',
+          LTR('her') + ' كتابها، ' + LTR('our') + ' كتابنا، ' + LTR('their') + ' كتابهم',
+          LTR('my book') + ' = كتابي',
+          '2️⃣ <span class="hl">الفاصلة العليا</span> ' + LTR("'s") + ' للأشخاص:',
+          '<span class="hl2">' + LTR("Ahmed's book") + ' = كتاب أحمد</span>'
+        ],
+        speech: 'كيف تقول إن شيئاً يخص شخصاً؟ هناك طريقتان. الأولى ضمائر الملكية قبل الاسم: ماي كتابي، ويور كتابك، وهيز كتابه، وهير كتابها، وآور كتابنا، وذير كتابهم. والثانية الفاصلة العليا مع حرف إس للأشخاص، فنقول أحمدز بوك أي كتاب أحمد.'
+      },
+      {
+        bubble: 'أين نضع الفاصلة؟ 📍 القاعدة تعتمد على المفرد والجمع:',
+        steps: [
+          'مفرد ← أضف <span class="hl">' + LTR("'s") + '</span>',
+          LTR("the boy's book") + ' = كتاب الولد',
+          'جمع ينتهي بـ' + LTR('s') + ' ← أضف <span class="hl">الفاصلة فقط</span>',
+          LTR("the boys' books") + ' = كتب الأولاد',
+          'جمع شاذ ← أضف ' + LTR("'s") + ' عاديًا',
+          LTR("the children's toys") + ' = ألعاب الأطفال ✓'
+        ],
+        speech: 'أين نضع الفاصلة؟ القاعدة تعتمد على المفرد والجمع. مع المفرد أضف فاصلة وإس، فنقول ذا بويز بوك أي كتاب الولد. ومع الجمع المنتهي بإس أضف الفاصلة فقط. ومع الجمع الشاذ أضف فاصلة وإس عادياً، فنقول ذا تشيلدرنز تويز أي ألعاب الأطفال.'
+      },
+      {
+        bubble: '⚠️ لا تخلط بين ' + LTR("its") + ' و' + LTR("it's") + '! خطأ يقع فيه حتى الناطقون:',
+        steps: [
+          '<span class="hl">' + LTR('its') + '</span> (بلا فاصلة) = ملكية',
+          LTR('The cat licked its paw.') + ' = لعقت القطة كفّها',
+          '<span class="hl">' + LTR("it's") + '</span> (بفاصلة) = اختصار ' + LTR('it is'),
+          LTR("It's raining.") + ' = إنها تمطر',
+          '<span class="hl2">حيلة: إن استطعت قول ' + LTR('it is') + ' مكانها ← استخدم الفاصلة</span>',
+          'وإلا فبدونها ✓'
+        ],
+        speech: 'لا تخلط بين إتس بلا فاصلة وإتس بفاصلة، فهذا خطأ يقع فيه حتى الناطقون الأصليون. إتس بلا فاصلة تعني الملكية، فنقول ذا كات ليكد إتس بو أي لعقت القطة كفها. وإتس بفاصلة اختصار لإت إز، فنقول إتس رينينغ أي إنها تمطر. والحيلة: إن استطعت قول إت إز مكانها فاستخدم الفاصلة، وإلا فبدونها.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: الفاصلة تعني "مضاف إليه" بالعربية',
+        steps: [
+          'العربية: كتاب <span class="hl">أحمد</span> (إضافة)',
+          'الإنجليزية: <span class="hl">' + LTR("Ahmed's") + '</span> ' + LTR('book'),
+          'لاحظ: <span class="hl2">الترتيب معكوس!</span> 🔄',
+          'العربي يقول: المملوك ثم المالك',
+          'الإنجليزي يقول: المالك ثم المملوك',
+          'تذكّر هذا الانعكاس وستتقنها فورًا ✓'
+        ],
+        speech: 'أبسط شرح ممكن: الفاصلة تعني المضاف إليه بالعربية. في العربية نقول كتاب أحمد، وفي الإنجليزية نقول أحمدز بوك. ولاحظ أن الترتيب معكوس! فالعربي يقول المملوك ثم المالك، والإنجليزي يقول المالك ثم المملوك. تذكر هذا الانعكاس وستتقنها فوراً.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'كيف نقول "كتاب أحمد" بالإنجليزية؟', options: ["Ahmed's book", "book Ahmed's", 'Ahmed book', "book's Ahmed"], correct: 0, why: 'المالك أولًا ثم \'s ثم المملوك.' },
+      { type: 'choice', q: 'أكمل: This is ___ book (كتابها).', options: ['her', 'his', 'she', 'hers book'], correct: 0, why: 'her ضمير ملكية يسبق الاسم.' },
+      { type: 'write', q: 'اكتب "ألعاب الأطفال" بالإنجليزية (جمع شاذ):', accept: ["the children's toys", "children's toys"], answer: "the children's toys", why: 'الجمع الشاذ يأخذ \'s عاديًا.' },
+      { type: 'choice', q: 'أي جملة صحيحة؟', options: ['The cat licked its paw.', "The cat licked it's paw.", 'The cat licked its\' paw.', 'The cat licked it paw.'], correct: 0, why: "its بلا فاصلة للملكية، وit's اختصار it is." },
+      { type: 'choice', q: 'كيف نكتب ملكية جمع ينتهي بـ s (الأولاد)؟', options: ["the boys' books", "the boys's books", "the boy's books", 'the boys books'], correct: 0, why: 'الجمع المنتهي بـ s يأخذ الفاصلة فقط.' },
+      { type: 'write', q: 'أكمل: ___ raining outside (إنها تمطر):', accept: ["it's", 'its'], answer: "It's", why: "it's = it is." }
+    ]
+  },
+
+  /* ═══════════ الثاني المتوسط: There is / There are ═══════════ */
+  {
+    id: 'en-there-is',
+    title: 'يوجد / لا يوجد',
+    icon: '📍',
+    explanations: [
+      {
+        bubble: 'كيف تقول "يوجد" بالإنجليزية؟ 📍 تركيب ثابت بسيط:',
+        steps: [
+          '<span class="hl">' + LTR('There is') + '</span> + مفرد',
+          LTR('There is a book on the table.') + ' = يوجد كتاب',
+          '<span class="hl">' + LTR('There are') + '</span> + جمع',
+          LTR('There are three books.') + ' = توجد ثلاثة كتب',
+          'الفعل يتبع <span class="hl2">ما بعده</span> لا ما قبله!',
+          'مع غير المعدود نستخدم ' + LTR('is') + ': ' + LTR('There is water.')
+        ],
+        speech: 'كيف تقول يوجد بالإنجليزية؟ تركيب ثابت بسيط. ذير إز مع المفرد، فنقول ذير إز أ بوك أون ذا تيبل أي يوجد كتاب على الطاولة. وذير آر مع الجمع، فنقول ذير آر ثري بوكس أي توجد ثلاثة كتب. والفعل يتبع ما بعده لا ما قبله. ومع غير المعدود نستخدم إز.'
+      },
+      {
+        bubble: 'النفي والسؤال — بنفس البساطة! 🙅',
+        steps: [
+          'النفي: أضف ' + LTR('not'),
+          LTR("There isn't any milk.") + ' = لا يوجد حليب',
+          LTR("There aren't any students.") + ' = لا يوجد طلاب',
+          'السؤال: اقلب الترتيب',
+          '<span class="hl2">' + LTR('Is there a bank near here?') + '</span>',
+          LTR('Are there any questions?') + ' = هل من أسئلة؟'
+        ],
+        speech: 'النفي والسؤال بنفس البساطة. للنفي أضف نوت، فنقول ذير إزنت إني ميلك أي لا يوجد حليب، وذير آرنت إني ستيودنتس أي لا يوجد طلاب. وللسؤال اقلب الترتيب، فنقول إز ذير أ بانك نير هير؟ وآر ذير إني كويستشنز؟'
+      },
+      {
+        bubble: '⚠️ خطأ شائع: لا تترجم "يوجد" بـ ' + LTR('it has') + '!',
+        steps: [
+          '❌ ' + LTR('It has a book on the table.'),
+          '✓ <span class="hl2">' + LTR('There is a book on the table.') + '</span>',
+          'وكذلك لا تستخدم ' + LTR('have') + ':',
+          '❌ ' + LTR('Have three students in the class.'),
+          '✓ ' + LTR('There are three students in the class.'),
+          '<span class="hl">كلمة ' + LTR('There') + ' هنا لا تعني "هناك" المكانية!</span>',
+          'إنها مجرد جزء من التركيب الثابت ✓'
+        ],
+        speech: 'خطأ شائع: لا تترجم يوجد بإت هاز! فلا نقول إت هاز أ بوك أون ذا تيبل، بل ذير إز أ بوك أون ذا تيبل. وكذلك لا تستخدم هاف، فلا نقول هاف ثري ستيودنتس، بل ذير آر ثري ستيودنتس. وكلمة ذير هنا لا تعني هناك المكانية، إنها مجرد جزء من التركيب الثابت.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: واحد أم أكثر؟',
+        steps: [
+          'انظر للشيء الذي بعده مباشرة:',
+          'واحد ← <span class="hl2">' + LTR('There is') + '</span>',
+          'أكثر من واحد ← <span class="hl2">' + LTR('There are') + '</span>',
+          'كتاب واحد: ' + LTR('There is a book.'),
+          'كتب كثيرة: ' + LTR('There are books.'),
+          '<span class="hl">قرار واحد فقط وانتهى!</span> ✓'
+        ],
+        speech: 'أبسط شرح ممكن: واحد أم أكثر؟ انظر للشيء الذي بعده مباشرة. إذا كان واحداً استخدم ذير إز، وإذا كان أكثر من واحد استخدم ذير آر. كتاب واحد: ذير إز أ بوك. كتب كثيرة: ذير آر بوكس. قرار واحد فقط وانتهى!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أكمل: ___ a book on the table.', options: ['There is', 'There are', 'It has', 'Have'], correct: 0, why: 'مفرد (a book) فنستخدم There is.' },
+      { type: 'choice', q: 'أكمل: ___ three students in the class.', options: ['There are', 'There is', 'It has', 'There have'], correct: 0, why: 'جمع (three students) فنستخدم There are.' },
+      { type: 'write', q: 'اكتب "يوجد ماء" بالإنجليزية (3 كلمات):', accept: ['there is water', 'there is water.'], answer: 'There is water.', why: 'water غير معدود فيأخذ is.' },
+      { type: 'choice', q: 'كيف تسأل "هل يوجد بنك قريب؟"', options: ['Is there a bank near here?', 'There is a bank near here?', 'Has a bank near here?', 'There a bank is?'], correct: 0, why: 'السؤال يقلب الترتيب: Is there...' },
+      { type: 'choice', q: 'أي جملة خاطئة؟', options: ['It has a book on the table.', 'There is a book on the table.', 'There are books on the table.', "There isn't any milk."], correct: 0, why: 'لا نترجم "يوجد" بـ it has — الصحيح There is.' },
+      { type: 'write', q: 'أكمل النفي: There ___ any milk (لا يوجد حليب):', accept: ["isn't", 'is not'], answer: "isn't", why: 'milk غير معدود ومفرد → isn\'t.' }
+    ]
+  },
+
+  /* ═══════════ الثالث المتوسط: الكميات ═══════════ */
+  {
+    id: 'en-quantifiers',
+    title: 'كلمات الكمية',
+    icon: '⚖️',
+    explanations: [
+      {
+        bubble: 'كيف تعبّر عن الكمية؟ ⚖️ والسرّ في: معدود أم غير معدود؟',
+        steps: [
+          'مع <span class="hl">المعدود</span> (كتب، أولاد):',
+          LTR('many books') + ' = كتب كثيرة',
+          LTR('a few books') + ' = بضعة كتب',
+          'مع <span class="hl">غير المعدود</span> (ماء، وقت):',
+          LTR('much water') + ' = ماء كثير',
+          LTR('a little water') + ' = قليل من الماء',
+          '<span class="hl2">' + LTR('a lot of') + ' تصلح للاثنين — الأسهل!</span> ✓'
+        ],
+        speech: 'كيف تعبر عن الكمية؟ والسر في السؤال: معدود أم غير معدود؟ مع المعدود مثل الكتب والأولاد نستخدم ميني أي كثير، وأ فيو أي بضعة. ومع غير المعدود مثل الماء والوقت نستخدم متش أي كثير، وأ ليتل أي قليل. وعبارة أ لوت أوف تصلح للاثنين وهي الأسهل!'
+      },
+      {
+        bubble: 'الفرق بين ' + LTR('some') + ' و' + LTR('any') + '! 🎯 قاعدة واضحة:',
+        steps: [
+          '<span class="hl">' + LTR('some') + '</span> في الجُمل <span class="hl">المُثبتة</span>:',
+          LTR('I have some money.') + ' = معي بعض المال',
+          '<span class="hl">' + LTR('any') + '</span> في النفي والسؤال:',
+          LTR("I don't have any money.") + ' = ليس معي مال',
+          LTR('Do you have any money?') + ' = هل معك مال؟',
+          '<span class="hl2">استثناء: نستخدم ' + LTR('some') + ' في العرض المؤدَّب</span>',
+          LTR('Would you like some tea?') + ' ☕'
+        ],
+        speech: 'الفرق بين سم وإني، قاعدة واضحة. سم في الجمل المثبتة، فنقول آي هاف سم موني أي معي بعض المال. وإني في النفي والسؤال، فنقول آي دونت هاف إني موني، ودو يو هاف إني موني؟ وهناك استثناء: نستخدم سم في العرض المؤدب، فنقول وود يو لايك سم تي؟'
+      },
+      {
+        bubble: 'انتبه للفرق الدقيق! ⚠️ ' + LTR('a few') + ' مقابل ' + LTR('few') + ':',
+        steps: [
+          '<span class="hl">' + LTR('a few') + '</span> = بضعة (<span class="hl2">إيجابي</span>) 😊',
+          LTR('I have a few friends.') + ' = لديّ بضعة أصدقاء (جيد)',
+          '<span class="hl">' + LTR('few') + '</span> (بلا ' + LTR('a') + ') = قليل جدًا (<span class="hl2">سلبي</span>) 😕',
+          LTR('I have few friends.') + ' = لديّ أصدقاء قليلون (شكوى!)',
+          'نفس الشيء: ' + LTR('a little') + ' إيجابي، ' + LTR('little') + ' سلبي',
+          '<span class="hl">حرف واحد يغيّر المشاعر كلها!</span> 🎭'
+        ],
+        speech: 'انتبه للفرق الدقيق بين أ فيو وفيو. أ فيو تعني بضعة وهي إيجابية، فنقول آي هاف أ فيو فريندز أي لدي بضعة أصدقاء وهذا جيد. أما فيو بلا أ فتعني قليلاً جداً وهي سلبية، فنقول آي هاف فيو فريندز أي لدي أصدقاء قليلون وهذه شكوى. ونفس الشيء مع أ ليتل الإيجابية وليتل السلبية. حرف واحد يغير المشاعر كلها!'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: هل يمكن عدّه بأصابعك؟',
+        steps: [
+          'يمكن عدّه (1، 2، 3...) ← <span class="hl2">' + LTR('many') + '</span>',
+          'كتب، أقلام، طلاب 📚',
+          'لا يمكن عدّه ← <span class="hl2">' + LTR('much') + '</span>',
+          'ماء، وقت، مال، معلومات 💧',
+          'وإن ترددت؟ استخدم <span class="hl">' + LTR('a lot of') + '</span>',
+          'فهي صحيحة مع الاثنين دائمًا! ✓'
+        ],
+        speech: 'أبسط شرح ممكن: هل يمكن عده بأصابعك؟ إذا كان يمكن عده مثل الكتب والأقلام والطلاب فاستخدم ميني. وإذا كان لا يمكن عده مثل الماء والوقت والمال فاستخدم متش. وإن ترددت فاستخدم أ لوت أوف، فهي صحيحة مع الاثنين دائماً!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أكمل: How ___ books do you have?', options: ['many', 'much', 'little', 'a little'], correct: 0, why: 'books معدودة فنستخدم many.' },
+      { type: 'choice', q: 'أكمل: How ___ water do you need?', options: ['much', 'many', 'few', 'a few'], correct: 0, why: 'water غير معدود فنستخدم much.' },
+      { type: 'write', q: 'أكمل: I don\'t have ___ money (نفي):', accept: ['any'], answer: 'any', why: 'any تُستخدم في النفي والسؤال.' },
+      { type: 'choice', q: 'ما الفرق بين "a few friends" و"few friends"؟', options: ['a few إيجابية (بضعة)، few سلبية (قليلون جدًا)', 'لا فرق', 'few أكثر عددًا', 'a few للجمع فقط'], correct: 0, why: 'وجود a يجعل المعنى إيجابيًا.' },
+      { type: 'choice', q: 'متى نستخدم some في السؤال؟', options: ['في العرض المؤدّب مثل Would you like some tea?', 'دائمًا', 'أبدًا', 'مع النفي فقط'], correct: 0, why: 'العروض والطلبات المؤدّبة استثناء من قاعدة any.' },
+      { type: 'choice', q: 'أي كلمة تصلح للمعدود وغير المعدود معًا؟', options: ['a lot of', 'many', 'much', 'few'], correct: 0, why: '"a lot of" مرنة وتصلح للاثنين.' }
+    ]
   }
 ];
 
@@ -1887,18 +2217,21 @@ const ENGLISH_LEVELS = [
     level: 7, title: 'الأول المتوسط', stage: 'إعدادي', icon: '📗',
     units: [
       { title: 'الأزمنة الأساسية', icon: '🏃', lessonIds: ['en-present-continuous', 'en-past-simple'] },
+      { title: 'أساسيات القواعد', icon: '🅰️', lessonIds: ['en-articles', 'en-plurals'] },
     ]
   },
   {
     level: 8, title: 'الثاني المتوسط', stage: 'إعدادي', icon: '📘',
     units: [
       { title: 'الصفات والظروف', icon: '🎨', lessonIds: ['en-adjectives', 'en-adverbs'] },
+      { title: 'الملكية والوجود', icon: '🔑', lessonIds: ['en-possessives', 'en-there-is'] },
     ]
   },
   {
     level: 9, title: 'الثالث المتوسط', stage: 'إعدادي', icon: '📙',
     units: [
       { title: 'الماضي المستمر والمقارنة', icon: '⏳', lessonIds: ['en-past-continuous', 'en-comparatives'] },
+      { title: 'كلمات الكمية', icon: '⚖️', lessonIds: ['en-quantifiers'] },
     ]
   },
   {
