@@ -1,0 +1,98 @@
+tiger|نمر|animals|🐯|The tiger is very strong.|النمر قويّ جدًا.
+bear|دبّ|animals|🐻|The bear sleeps in winter.|ينام الدبّ في الشتاء.
+monkey|قرد|animals|🐒|Monkeys love bananas.|القرود تحب الموز.
+snake|أفعى|animals|🐍|Do not touch the snake.|لا تلمس الأفعى.
+frog|ضفدع|animals|🐸|The frog jumps into the water.|يقفز الضفدع في الماء.
+duck|بطّة|animals|🦆|The duck swims in the lake.|تسبح البطّة في البحيرة.
+chicken|دجاجة|animals|🐔|The chicken lays eggs.|الدجاجة تبيض.
+goat|عنزة|animals|🐐|The goat eats grass.|العنزة تأكل العشب.
+donkey|حمار|animals|🫏|The donkey carries the bags.|يحمل الحمار الأكياس.
+mouse|فأر|animals|🐭|A mouse ran under the table.|جرى فأر تحت الطاولة.
+ant|نملة|animals|🐜|Ants work all day.|النمل يعمل طوال اليوم.
+spider|عنكبوت|animals|🕷️|A spider has eight legs.|للعنكبوت ثماني أرجل.
+shark|قرش|animals|🦈|The shark lives in the sea.|يعيش القرش في البحر.
+whale|حوت|animals|🐋|The whale is the biggest animal.|الحوت أكبر حيوان.
+eagle|نسر|animals|🦅|The eagle flies very high.|يطير النسر عاليًا جدًا.
+owl|بومة|animals|🦉|The owl sees at night.|البومة ترى في الليل.
+wolf|ذئب|animals|🐺|The wolf lives in the forest.|يعيش الذئب في الغابة.
+fox|ثعلب|animals|🦊|The fox is clever.|الثعلب ذكي.
+meat|لحم|food|🥩|We eat meat on Friday.|نأكل اللحم يوم الجمعة.
+fish (food)|سمك|food|🍣|Fish is healthy food.|السمك طعام صحّي.
+salad|سلطة|food|🥗|I eat salad with lunch.|آكل السلطة مع الغداء.
+soup (dish)|حساء|food|🥣|Hot soup is good in winter.|الحساء الساخن جيد في الشتاء.
+butter|زبدة|food|🧈|Put butter on the bread.|ضع الزبدة على الخبز.
+honey|عسل|food|🍯|Bees make honey.|النحل يصنع العسل.
+oil|زيت|food|🫒|We cook with olive oil.|نطبخ بزيت الزيتون.
+salt|ملح|food|🧂|Add a little salt.|أضف قليلًا من الملح.
+pepper|فلفل|food|🌶️|This pepper is very hot.|هذا الفلفل حارّ جدًا.
+onion|بصل|food|🧅|Onions make me cry.|البصل يجعلني أبكي.
+potato|بطاطس|food|🥔|I like fried potatoes.|أحب البطاطس المقلية.
+tomato|طماطم|food|🍅|The tomato is red.|الطماطم حمراء.
+carrot|جزر|food|🥕|Rabbits eat carrots.|الأرانب تأكل الجزر.
+cucumber|خيار|food|🥒|Cucumber is in the salad.|الخيار في السلطة.
+grapes|عنب|food|🍇|These grapes are sweet.|هذا العنب حلو.
+watermelon|بطيخ|food|🍉|Watermelon is great in summer.|البطيخ رائع في الصيف.
+lemon|ليمون|food|🍋|Lemon is very sour.|الليمون حامض جدًا.
+strawberry|فراولة|food|🍓|I love strawberry juice.|أحب عصير الفراولة.
+juice|عصير|food|🧃|I drink orange juice.|أشرب عصير البرتقال.
+coffee|قهوة|food|☕|My father drinks coffee.|يشرب أبي القهوة.
+cake|كعكة|food|🍰|We eat cake on birthdays.|نأكل الكعك في أعياد الميلاد.
+ice cream|آيس كريم|food|🍦|Children love ice cream.|يحب الأطفال الآيس كريم.
+breakfast|فطور|food|🌅|I eat breakfast at seven.|أتناول الفطور في السابعة.
+lunch|غداء|food|🍛|Lunch is at two o'clock.|الغداء في الثانية.
+dinner|عشاء|food|🌙|We have dinner together.|نتناول العشاء معًا.
+plate|طبق|home|🍽️|Put the food on the plate.|ضع الطعام في الطبق.
+cup|كوب|home|☕|I need a cup of tea.|أحتاج كوب شاي.
+spoon|ملعقة|home|🥄|Eat the soup with a spoon.|كل الحساء بالملعقة.
+fork|شوكة|home|🍴|Use a fork, please.|استخدم الشوكة من فضلك.
+knife|سكّين|home|🔪|Be careful with the knife.|كن حذرًا مع السكّين.
+bottle|زجاجة|home|🍾|The bottle is full of water.|الزجاجة مليئة بالماء.
+wall|جدار|home|🧱|The wall is white.|الجدار أبيض.
+floor|أرضية|home|🟫|Please clean the floor.|من فضلك نظّف الأرضية.
+roof|سقف|home|🏚️|The roof is very old.|السقف قديم جدًا.
+stairs|درج|home|🪜|Go up the stairs.|اصعد الدرج.
+mirror|مرآة|home|🪞|Look in the mirror.|انظر في المرآة.
+clock|ساعة حائط|home|🕰️|The clock is on the wall.|الساعة على الجدار.
+fridge|ثلّاجة|home|🧊|Put the milk in the fridge.|ضع الحليب في الثلّاجة.
+television|تلفاز|home|📺|We watch television at night.|نشاهد التلفاز في الليل.
+carpet|سجّادة|home|🧶|The carpet is soft.|السجّادة ناعمة.
+curtain|ستارة|home|🪟|Open the curtain, please.|افتح الستارة من فضلك.
+pillow|وسادة|home|🛏️|My pillow is very soft.|وسادتي ناعمة جدًا.
+blanket|بطّانية|home|🧣|I need a warm blanket.|أحتاج بطّانية دافئة.
+soap|صابون|home|🧼|Wash with soap and water.|اغسل بالصابون والماء.
+towel|منشفة|home|🧻|The towel is clean.|المنشفة نظيفة.
+ruler|مسطرة|school|📏|Draw a line with a ruler.|ارسم خطًا بالمسطرة.
+eraser|ممحاة|school|🧽|May I borrow your eraser?|هل لي أن أستعير ممحاتك؟
+board|سبّورة|school|📋|Look at the board.|انظر إلى السبّورة.
+desk|مكتب|school|🪑|My books are on the desk.|كتبي على المكتب.
+page|صفحة|school|📄|Open page ten.|افتح الصفحة عشرة.
+word|كلمة|school|🔤|What does this word mean?|ماذا تعني هذه الكلمة؟
+sentence|جملة|school|📝|Write a full sentence.|اكتب جملة كاملة.
+story|قصّة|school|📖|I read a nice story.|قرأت قصة جميلة.
+mark|درجة|school|💯|I got a good mark.|حصلت على درجة جيدة.
+mistake|خطأ|school|❌|Everyone makes mistakes.|الجميع يخطئ.
+test|اختبار|school|🧾|The test is on Sunday.|الاختبار يوم الأحد.
+subject|مادة دراسية|school|📚|Maths is my favourite subject.|الرياضيات مادتي المفضّلة.
+break|استراحة|school|⏸️|We play during the break.|نلعب أثناء الاستراحة.
+uniform|زيّ مدرسي|school|👔|We wear a school uniform.|نرتدي الزيّ المدرسي.
+dictionary|قاموس|school|📕|Use a dictionary for new words.|استخدم القاموس للكلمات الجديدة.
+cloud|سحابة|nature|☁️|There is one cloud in the sky.|توجد سحابة واحدة في السماء.
+storm|عاصفة|nature|🌩️|A storm is coming.|عاصفة قادمة.
+thunder|رعد|nature|⛈️|The thunder is loud.|الرعد قويّ.
+river|نهر|nature|🏞️|The river is very long.|النهر طويل جدًا.
+lake|بحيرة|nature|🌊|We swim in the lake.|نسبح في البحيرة.
+island|جزيرة|nature|🏝️|The island is beautiful.|الجزيرة جميلة.
+forest|غابة|nature|🌲|Many animals live in the forest.|تعيش حيوانات كثيرة في الغابة.
+grass|عشب|nature|🌱|The grass is green.|العشب أخضر.
+leaf|ورقة شجر|nature|🍃|A leaf fell from the tree.|سقطت ورقة من الشجرة.
+seed|بذرة|nature|🌰|Plant the seed in the soil.|ازرع البذرة في التربة.
+soil|تربة|nature|🪴|Plants grow in good soil.|تنمو النباتات في تربة جيدة.
+stone|حجر|nature|🪨|The stone is heavy.|الحجر ثقيل.
+sand|رمل|nature|🏖️|The sand is hot today.|الرمل حارّ اليوم.
+ice|جليد|nature|🧊|The ice is melting.|الجليد يذوب.
+air|هواء|nature|🌬️|We need clean air.|نحتاج هواءً نظيفًا.
+rainbow|قوس قزح|nature|🌈|Look at the rainbow!|انظر إلى قوس قزح!
+season|فصل من السنة|nature|🍂|Winter is my favourite season.|الشتاء فصلي المفضّل.
+spring|الربيع|nature|🌸|Flowers grow in spring.|تنمو الأزهار في الربيع.
+summer|الصيف|nature|☀️|Summer is very hot here.|الصيف حارّ جدًا هنا.
+winter|الشتاء|nature|❄️|It rains a lot in winter.|تمطر كثيرًا في الشتاء.

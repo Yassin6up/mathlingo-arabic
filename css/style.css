@@ -1425,3 +1425,15 @@ body {
   .dict-body { max-width: 900px; margin: 0 auto; width: 100%; }
   .dict-grid { grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); }
 }
+
+/* ---- English definition inside the word sheet ---- */
+.word-def {
+  border: 2px dashed var(--gray-border); border-radius: 14px;
+  padding: 11px 13px; margin-bottom: 14px; text-align: start;
+}
+.word-def-label {
+  font-size: 11.5px; font-weight: 800; color: var(--text-soft); margin-bottom: 5px;
+}
+.word-def-text {
+  font-size: 14px; font-weight: 700; line-height: 1.6; color: var(--text);
+}

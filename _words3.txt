@@ -1,0 +1,110 @@
+cousin|ابن العم|family|👦|My cousin lives in Dubai.|ابن عمي يعيش في دبي.
+husband|زوج|family|🤵|Her husband is a doctor.|زوجها طبيب.
+wife|زوجة|family|👰|His wife is a teacher.|زوجته معلّمة.
+parents|الوالدان|family|👨‍👩‍👦|I love my parents.|أحب والديّ.
+children|أطفال|family|🧒|The children play outside.|يلعب الأطفال في الخارج.
+neighbour|جار|family|🏘️|Our neighbour is very kind.|جارنا لطيف جدًا.
+guest|ضيف|family|🚪|We have a guest tonight.|لدينا ضيف الليلة.
+name|اسم|family|🏷️|What is your name?|ما اسمك؟
+age|عمر|family|🎂|What is your age?|كم عمرك؟
+people|ناس|family|👥|Many people came.|جاء ناس كثيرون.
+man|رجل|family|👨|That man is my uncle.|ذلك الرجل عمّي.
+woman|امرأة|family|👩|The woman is a nurse.|المرأة ممرّضة.
+shirt (formal)|قميص رسمي|clothes|👔|He wears a white shirt.|يرتدي قميصًا أبيض.
+skirt|تنّورة|clothes|👗|Her skirt is blue.|تنّورتها زرقاء.
+jacket|سترة|clothes|🧥|Wear a jacket, it is cold.|ارتدِ سترة، الجو بارد.
+belt|حزام|clothes|🩹|My belt is black.|حزامي أسود.
+ring|خاتم|clothes|💍|She wears a gold ring.|ترتدي خاتمًا ذهبيًا.
+bag (handbag)|حقيبة يد|clothes|👜|Her bag is very nice.|حقيبتها جميلة جدًا.
+pocket|جيب|clothes|🪙|The keys are in my pocket.|المفاتيح في جيبي.
+button|زرّ|clothes|🔘|A button fell off my shirt.|سقط زرّ من قميصي.
+size|مقاس|clothes|📐|What size do you need?|ما المقاس الذي تحتاجه؟
+boots|حذاء طويل|clothes|🥾|Wear boots in the rain.|ارتدِ حذاءً طويلًا في المطر.
+truck|شاحنة|transport|🚚|The truck carries food.|تحمل الشاحنة الطعام.
+taxi|سيارة أجرة|transport|🚕|We took a taxi home.|أخذنا سيارة أجرة إلى البيت.
+motorcycle|درّاجة نارية|transport|🏍️|He rides a motorcycle.|يركب درّاجة نارية.
+ship|سفينة|transport|🚢|The ship crosses the sea.|تعبر السفينة البحر.
+helicopter|مروحية|transport|🚁|A helicopter flew over us.|حلّقت مروحية فوقنا.
+station|محطّة|transport|🚉|Meet me at the station.|قابلني في المحطّة.
+driver (bus)|سائق حافلة|transport|🧑‍✈️|The bus driver is friendly.|سائق الحافلة ودود.
+wheel|عجلة|transport|🛞|The car has four wheels.|للسيارة أربع عجلات.
+bridge|جسر|transport|🌉|We crossed the bridge.|عبرنا الجسر.
+traffic|زحام مروري|transport|🚦|There is heavy traffic today.|هناك زحام شديد اليوم.
+journey|رحلة|transport|🧭|It was a long journey.|كانت رحلة طويلة.
+teacher (male)|معلّم|jobs|👨‍🏫|My teacher explains well.|معلّمي يشرح جيدًا.
+dentist|طبيب أسنان|jobs|🦷|I visit the dentist twice a year.|أزور طبيب الأسنان مرتين في السنة.
+lawyer|محامٍ|jobs|⚖️|My uncle is a lawyer.|عمّي محامٍ.
+soldier|جندي|jobs|🎖️|The soldier is brave.|الجندي شجاع.
+firefighter|رجل إطفاء|jobs|🧑‍🚒|Firefighters help people.|رجال الإطفاء يساعدون الناس.
+writer|كاتب|jobs|✍️|She is a famous writer.|هي كاتبة مشهورة.
+artist|فنّان|jobs|🎨|The artist paints every day.|يرسم الفنّان كل يوم.
+singer|مغنٍّ|jobs|🎙️|The singer has a great voice.|المغنّي لديه صوت رائع.
+player|لاعب|jobs|⚽|He is a football player.|هو لاعب كرة قدم.
+seller|بائع|jobs|🛍️|The seller is very honest.|البائع صادق جدًا.
+manager|مدير|jobs|💼|The manager is in the office.|المدير في المكتب.
+worker|عامل|jobs|👷|The workers build the road.|العمّال يبنون الطريق.
+nurse (male)|ممرّض|jobs|🧑‍⚕️|The nurse helped me.|ساعدني الممرّض.
+barber|حلّاق|jobs|💈|The barber cut my hair.|قصّ الحلّاق شعري.
+school (building)|مبنى المدرسة|places|🏫|Our school is big.|مدرستنا كبيرة.
+bank|بنك|places|🏦|The bank opens at nine.|يفتح البنك في التاسعة.
+hotel|فندق|places|🏨|We stayed in a hotel.|أقمنا في فندق.
+museum|متحف|places|🏛️|The museum is very old.|المتحف قديم جدًا.
+zoo|حديقة حيوان|places|🦓|We visited the zoo.|زرنا حديقة الحيوان.
+farm|مزرعة|places|🚜|My grandfather has a farm.|جدّي لديه مزرعة.
+beach|شاطئ|places|🏖️|We play on the beach.|نلعب على الشاطئ.
+office|مكتب عمل|places|🏢|My father works in an office.|يعمل أبي في مكتب.
+factory|مصنع|places|🏭|The factory makes cars.|المصنع يصنع السيارات.
+garage|مرآب|places|🅿️|The car is in the garage.|السيارة في المرآب.
+pharmacy|صيدلية|places|💊|Buy the medicine from the pharmacy.|اشترِ الدواء من الصيدلية.
+bakery|مخبز|places|🥖|The bakery opens early.|يفتح المخبز مبكرًا.
+country|بلد|places|🌍|Egypt is a big country.|مصر بلد كبير.
+capital|عاصمة|places|🏙️|Riyadh is the capital.|الرياض هي العاصمة.
+address|عنوان|places|📮|Write your address here.|اكتب عنوانك هنا.
+world|العالم|places|🌐|The world is beautiful.|العالم جميل.
+tablet|جهاز لوحي|tech|📱|I read on my tablet.|أقرأ على جهازي اللوحي.
+keyboard|لوحة مفاتيح|tech|⌨️|The keyboard is broken.|لوحة المفاتيح مكسورة.
+mouse (device)|فأرة الحاسوب|tech|🖱️|Move the mouse slowly.|حرّك الفأرة ببطء.
+printer|طابعة|tech|🖨️|The printer needs paper.|الطابعة تحتاج ورقًا.
+file|ملفّ|tech|📁|Save the file, please.|احفظ الملفّ من فضلك.
+email|بريد إلكتروني|tech|📧|Send me an email.|أرسل لي بريدًا إلكترونيًا.
+website|موقع إلكتروني|tech|🌐|This website is useful.|هذا الموقع مفيد.
+video|فيديو|tech|🎬|We watched a short video.|شاهدنا فيديو قصيرًا.
+battery|بطّارية|tech|🔋|My battery is empty.|بطّاريتي فارغة.
+charger|شاحن|tech|🔌|Where is my charger?|أين شاحني؟
+robot|إنسان آلي|tech|🤖|The robot can walk.|الإنسان الآلي يستطيع المشي.
+application|تطبيق|tech|📲|This application helps me study.|هذا التطبيق يساعدني على الدراسة.
+tennis|تنس|sports|🎾|We play tennis on Saturday.|نلعب التنس يوم السبت.
+running|جري|sports|🏃|Running is good for health.|الجري مفيد للصحة.
+cycling|ركوب الدرّاجات|sports|🚴|Cycling is fun.|ركوب الدرّاجات ممتع.
+race|سباق|sports|🏁|He won the race.|فاز بالسباق.
+coach|مدرّب|sports|📣|Our coach is strict.|مدرّبنا صارم.
+player (team)|لاعب فريق|sports|👕|Each player has a number.|لكل لاعب رقم.
+goal|هدف|sports|🥅|He scored a great goal.|سجّل هدفًا رائعًا.
+match|مباراة|sports|📅|The match starts at five.|تبدأ المباراة في الخامسة.
+prize|جائزة|sports|🏅|She won the first prize.|فازت بالجائزة الأولى.
+exercise|تمرين رياضي|sports|🤸|Do exercise every morning.|مارس التمارين كل صباح.
+zero|صفر|numbers|0️⃣|Zero comes before one.|الصفر يأتي قبل الواحد.
+six|ستة|numbers|6️⃣|I have six books.|لديّ ستة كتب.
+seven|سبعة|numbers|7️⃣|There are seven days in a week.|في الأسبوع سبعة أيام.
+eight|ثمانية|numbers|8️⃣|The spider has eight legs.|للعنكبوت ثماني أرجل.
+nine|تسعة|numbers|9️⃣|Nine plus one is ten.|تسعة زائد واحد يساوي عشرة.
+eleven|أحد عشر|numbers|🔢|I am eleven years old.|عمري إحدى عشرة سنة.
+twelve|اثنا عشر|numbers|🕛|There are twelve months.|هناك اثنا عشر شهرًا.
+fifty|خمسون|numbers|5️⃣|Fifty is half of a hundred.|خمسون نصف المئة.
+thousand|ألف|numbers|🔟|A kilometre is a thousand metres.|الكيلومتر ألف متر.
+million|مليون|numbers|💫|The city has two million people.|في المدينة مليونا نسمة.
+third|الثالث|numbers|🥉|He came third in the race.|جاء الثالث في السباق.
+noon|ظهر|time|🕛|We eat at noon.|نأكل عند الظهر.
+midnight|منتصف الليل|time|🌃|I sleep before midnight.|أنام قبل منتصف الليل.
+afternoon|بعد الظهر|time|🌇|I study in the afternoon.|أدرس بعد الظهر.
+Sunday|الأحد|time|📅|School starts on Sunday.|تبدأ المدرسة يوم الأحد.
+Tuesday|الثلاثاء|time|📅|We have English on Tuesday.|لدينا إنجليزية يوم الثلاثاء.
+Wednesday|الأربعاء|time|📅|Wednesday is a busy day.|الأربعاء يوم مزدحم.
+Thursday|الخميس|time|📅|Thursday is the last school day.|الخميس آخر يوم دراسي.
+Saturday|السبت|time|📅|We rest on Saturday.|نستريح يوم السبت.
+January|يناير|time|❄️|January is a cold month.|يناير شهر بارد.
+Ramadan|رمضان|time|🌙|We fast in Ramadan.|نصوم في رمضان.
+holiday|عطلة|time|🎉|The holiday starts next week.|تبدأ العطلة الأسبوع القادم.
+early|مبكّر|time|⏰|I wake up early.|أستيقظ مبكّرًا.
+late|متأخّر|time|🕐|Do not be late.|لا تتأخّر.
+now|الآن|time|⌛|Come here now, please.|تعال هنا الآن من فضلك.

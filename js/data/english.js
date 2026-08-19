@@ -2610,6 +2610,384 @@ const ENGLISH_LESSONS = [
       { type: 'write', q: 'أكمل: "___ are you late?" (تسأل عن السبب)', accept: ['why'], answer: 'Why', why: 'Why = لماذا، ويُجاب عنها بـ Because.' },
       { type: 'choice', q: 'بماذا يبدأ عادةً جواب سؤال Why؟', options: ['Because', 'Yes', 'In', 'At'], correct: 0, why: 'Because تعني «لأن» وتقدّم السبب.' }
     ]
+  },
+  {
+    id: 'en-numbers-20',
+    title: 'الأرقام حتى 20 — Numbers to 20',
+    icon: '🔢',
+    explanations: [
+      {
+        bubble: 'بعد العشرة تبدأ المتعة! أرقام لها قواعد خاصة 🔢',
+        steps: [
+          LTR('11 eleven') + ' · ' + LTR('12 twelve') + ' — شاذّة، احفظها',
+          LTR('13 thirteen') + ' · ' + LTR('14 fourteen') + ' · ' + LTR('15 fifteen'),
+          'لاحظ النهاية <span class="hl">' + LTR('-teen') + '</span> من ' + LTR('13') + ' إلى ' + LTR('19'),
+          LTR('16 sixteen') + ' · ' + LTR('17 seventeen'),
+          LTR('18 eighteen') + ' · ' + LTR('19 nineteen') + ' · ' + LTR('20 twenty'),
+          '<span class="hl2">' + LTR('-teen') + ' تعني «عشر» في العربية</span> ✓'
+        ],
+        speech: 'بعد العشرة تبدأ المتعة، فهناك أرقام لها قواعد خاصة. إيليفن وتْوِلف شاذة فاحفظها. ثم ثيرتين وفورتين وفيفتين. ولاحظ النهاية تين من ثلاثة عشر إلى تسعة عشر. ثم سيكستين وسيفنتين وإيتين وناينتين وتْوِنتي. والنهاية تين تعني عشر في العربية.'
+      },
+      {
+        bubble: 'انتبه للثلاثة الغريبة! ⚠️',
+        steps: [
+          LTR('3 three') + ' ← ' + LTR('13') + ' ليست ' + LTR('threeteen'),
+          'بل <span class="hl">' + LTR('thirteen') + '</span> ✓',
+          LTR('5 five') + ' ← ' + LTR('15') + ' هي <span class="hl">' + LTR('fifteen') + '</span>',
+          'وليست ' + LTR('fiveteen') + ' ✗',
+          LTR('8 eight') + ' ← ' + LTR('18 eighteen') + ' (' + LTR('t') + ' واحدة فقط!)',
+          '<span class="hl2">ثلاثة استثناءات فقط: ' + LTR('13، 15، 18') + '</span>'
+        ],
+        speech: 'انتبه للأرقام الغريبة. ثري تصير ثيرتين لا ثري تين. وفايف تصير فيفتين لا فايف تين. وإيت تصير إيتين بحرف تي واحد فقط. فهناك ثلاثة استثناءات فقط: ثلاثة عشر وخمسة عشر وثمانية عشر.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: عُدّ أصابعك مرتين! 🖐️🖐️',
+        steps: [
+          'أصابع يديك = ' + LTR('10 ten'),
+          'أضف إصبع قدم واحدًا = ' + LTR('11 eleven'),
+          'استمر حتى ' + LTR('20 twenty'),
+          'جرّب العدّ بصوت عالٍ كل يوم 🗣️',
+          'ثم عُدّ الأشياء حولك بالإنجليزية',
+          '<span class="hl2">التكرار بصوت عالٍ أسرع طريقة للحفظ</span> ✓'
+        ],
+        speech: 'أبسط شرح ممكن: عد أصابعك مرتين. أصابع يديك عشرة، أضف إصبع قدم واحداً فتصير إحدى عشرة، واستمر حتى العشرين. جرب العد بصوت عال كل يوم، ثم عد الأشياء حولك بالإنجليزية. فالتكرار بصوت عال أسرع طريقة للحفظ.'
+      },
+      {
+        bubble: '🌟 أسهل بعد: العشرات لها نمط ثابت! 🔟',
+        steps: [
+          LTR('20 twenty') + ' · ' + LTR('30 thirty') + ' · ' + LTR('40 forty'),
+          LTR('50 fifty') + ' · ' + LTR('60 sixty') + ' · ' + LTR('70 seventy'),
+          'كلها تنتهي بـ<span class="hl">' + LTR('-ty') + '</span> 🎯',
+          'وبينها نضيف شرطة: ' + LTR('21 twenty-one'),
+          LTR('35 thirty-five') + ' · ' + LTR('48 forty-eight'),
+          '<span class="hl2">انتبه: ' + LTR('40') + ' هي ' + LTR('forty') + ' بلا ' + LTR('u') + '!</span>'
+        ],
+        speech: 'العشرات لها نمط ثابت: تْوِنتي وثيرتي وفورتي وفيفتي وسيكستي وسيفنتي، وكلها تنتهي بحرفي تي واي. وبينها نضيف شرطة، فواحد وعشرون تصير تْوِنتي وان، وخمسة وثلاثون ثيرتي فايف. وانتبه أن أربعين تكتب فورتي بلا حرف يو.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'كيف نكتب الرقم 13 بالإنجليزية؟', options: ['thirteen', 'threeteen', 'thirtteen', 'threeten'], correct: 0, why: 'three تتحوّل إلى thir قبل النهاية -teen.' },
+      { type: 'write', q: 'اكتب الرقم 15 بالإنجليزية:', accept: ['fifteen'], answer: 'fifteen', why: 'five تتحوّل إلى fif قبل -teen.' },
+      { type: 'choice', q: 'ما النهاية المشتركة للأرقام من 13 إلى 19؟', options: ['-teen', '-ty', '-th', '-ten'], correct: 0, why: '-teen تقابل «عشر» في العربية.' },
+      { type: 'write', q: 'اكتب الرقم 20 بالإنجليزية:', accept: ['twenty'], answer: 'twenty', why: 'العشرات تنتهي بـ -ty.' },
+      { type: 'choice', q: 'كيف نكتب 40؟', options: ['forty', 'fourty', 'fourteen', 'fortty'], correct: 0, why: 'four تفقد حرف u في forty — خطأ إملائي شائع جدًا.' },
+      { type: 'choice', q: 'ما الفرق بين fifteen وfifty؟', options: ['fifteen = 15 وfifty = 50', 'لا فرق', 'fifteen أكبر', 'كلاهما 50'], correct: 0, why: '-teen للعشرات المفردة و-ty لمضاعفات العشرة.' }
+    ]
+  },
+  {
+    id: 'en-my-day',
+    title: 'يومي — My Day',
+    icon: '🌅',
+    explanations: [
+      {
+        bubble: 'احكِ يومك من الصباح إلى المساء 🌅',
+        steps: [
+          LTR('I wake up at 6.') + ' = أستيقظ في السادسة',
+          LTR('I have breakfast.') + ' = أتناول الفطور 🍞',
+          LTR('I go to school.') + ' = أذهب إلى المدرسة 🏫',
+          LTR('I come home at 2.') + ' = أعود للبيت في الثانية',
+          LTR('I do my homework.') + ' = أحلّ واجبي 📝',
+          '<span class="hl2">' + LTR('I go to bed at 10.') + ' = أنام في العاشرة 😴</span>'
+        ],
+        speech: 'احك يومك من الصباح إلى المساء. آي ويك أب آت سيكس أي أستيقظ في السادسة. وآي هاف بريكفست أي أتناول الفطور. وآي غو تو سكول أي أذهب إلى المدرسة. وآي كم هوم آت تو أي أعود للبيت في الثانية. وآي دو ماي هومورك أي أحل واجبي. وآي غو تو بد آت تن أي أنام في العاشرة.'
+      },
+      {
+        bubble: 'كلمات الوقت تربط يومك ⏰',
+        steps: [
+          LTR('in the morning') + ' = في الصباح 🌅',
+          LTR('in the afternoon') + ' = بعد الظهر ☀️',
+          LTR('in the evening') + ' = في المساء 🌇',
+          LTR('at night') + ' = في الليل 🌙',
+          '⚠️ لاحظ: ' + LTR('in') + ' مع الثلاثة الأولى، و<span class="hl">' + LTR('at') + '</span> مع ' + LTR('night'),
+          '<span class="hl2">' + LTR('first, then, after that, finally') + ' تربط الأحداث</span>'
+        ],
+        speech: 'كلمات الوقت تربط يومك. إن ذا مورنينغ أي في الصباح. وإن ذي آفترنون أي بعد الظهر. وإن ذي إيفننغ أي في المساء. وآت نايت أي في الليل. ولاحظ أننا نستخدم إن مع الثلاثة الأولى، وآت مع نايت. وكلمات فيرست وذِن وآفتر ذات وفاينالي تربط الأحداث.'
+      },
+      {
+        bubble: 'كل يوم أم الآن؟ فرق مهم! ⚠️',
+        steps: [
+          'العادة اليومية ← <span class="hl">المضارع البسيط</span>',
+          LTR('I go to school every day.') + ' ✓',
+          'ما يحدث الآن ← <span class="hl">المضارع المستمر</span>',
+          LTR('I am going to school now.') + ' ✓',
+          '❌ ' + LTR('I going to school') + ' — ناقصة الفعل المساعد!',
+          '<span class="hl2">' + LTR('every day') + ' ← بسيط · ' + LTR('now') + ' ← مستمر</span>'
+        ],
+        speech: 'هناك فرق مهم بين كل يوم والآن. فالعادة اليومية تأخذ المضارع البسيط، فنقول آي غو تو سكول إفري داي. وما يحدث الآن يأخذ المضارع المستمر، فنقول آي آم غوينغ تو سكول ناو. ولا تقل آي غوينغ تو سكول فهي ناقصة الفعل المساعد. فكلمة إفري داي تعني البسيط، وكلمة ناو تعني المستمر.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: خمس جمل تصف يومك كاملًا! ✋',
+        steps: [
+          '1️⃣ ' + LTR('I wake up at ___.'),
+          '2️⃣ ' + LTR('I go to school.'),
+          '3️⃣ ' + LTR('I eat lunch at ___.'),
+          '4️⃣ ' + LTR('I play with my friends.'),
+          '5️⃣ ' + LTR('I sleep at ___.'),
+          '<span class="hl2">املأ الفراغات وقد كتبت فقرة كاملة!</span> ✍️'
+        ],
+        speech: 'أبسط شرح ممكن: خمس جمل تصف يومك كاملاً. آي ويك أب آت كذا. وآي غو تو سكول. وآي إيت لنش آت كذا. وآي بلاي ويذ ماي فريندز. وآي سليب آت كذا. املأ الفراغات وقد كتبت فقرة كاملة!'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ما معنى "I wake up at seven"؟', options: ['أستيقظ في السابعة', 'أنام في السابعة', 'آكل في السابعة', 'أذهب في السابعة'], correct: 0, why: 'wake up = يستيقظ.' },
+      { type: 'write', q: 'أكمل: I go to bed ___ ten. (استخدم حرف الجر الصحيح)', accept: ['at'], answer: 'at', why: 'at تُستخدم مع الساعات المحدّدة.' },
+      { type: 'choice', q: 'أي جملة صحيحة للعادة اليومية؟', options: ['I go to school every day', 'I going to school every day', 'I am go to school', 'I goes to school'], correct: 0, why: 'العادة تأخذ المضارع البسيط بلا am/is/are.' },
+      { type: 'write', q: 'أكمل: ___ the morning I drink milk. (حرف الجر)', accept: ['in'], answer: 'in', why: 'in تُستخدم مع morning وafternoon وevening.' },
+      { type: 'choice', q: 'أي عبارة صحيحة؟', options: ['at night', 'in night', 'on night', 'to night'], correct: 0, why: 'night استثناء: تأخذ at لا in.' },
+      { type: 'choice', q: 'متى نستخدم "I am eating" بدل "I eat"؟', options: ['عندما يحدث الفعل الآن في هذه اللحظة', 'للعادة اليومية', 'للماضي', 'لا فرق'], correct: 0, why: 'المضارع المستمر للحدث الجاري الآن.' }
+    ]
+  },
+  {
+    id: 'en-can-ability',
+    title: 'أستطيع — Can and Can\'t',
+    icon: '💪',
+    explanations: [
+      {
+        bubble: 'كلمة واحدة تعبّر عن كل قدراتك: ' + LTR('can') + ' 💪',
+        steps: [
+          LTR('I can swim.') + ' = أستطيع السباحة 🏊',
+          LTR('She can sing.') + ' = تستطيع الغناء 🎤',
+          'النفي: ' + LTR("I can't fly.") + ' = لا أستطيع الطيران',
+          LTR("can't") + ' اختصار لـ' + LTR('cannot'),
+          'السؤال: ' + LTR('Can you help me?') + ' = هل تستطيع مساعدتي؟',
+          '<span class="hl2">القاعدة الذهبية: بعد ' + LTR('can') + ' فعل مجرّد دائمًا</span>'
+        ],
+        speech: 'كلمة واحدة تعبر عن كل قدراتك وهي كان. آي كان سويم أي أستطيع السباحة. وشي كان سنغ أي تستطيع الغناء. وللنفي نقول آي كانت فلاي أي لا أستطيع الطيران، وكانت اختصار لكان نوت. وللسؤال نقول كان يو هيلب مي أي هل تستطيع مساعدتي. والقاعدة الذهبية أن بعد كان يأتي فعل مجرد دائماً.'
+      },
+      {
+        bubble: 'أجمل ما في ' + LTR('can') + ': لا تتغيّر أبدًا! 🎁',
+        steps: [
+          LTR('I can') + ' · ' + LTR('You can') + ' · ' + LTR('He can') + ' ✓',
+          'لا نضيف ' + LTR('s') + ' مع ' + LTR('he') + ' — استثناء مريح!',
+          '❌ ' + LTR('He cans swim') + ' — خطأ',
+          '❌ ' + LTR('He can swims') + ' — خطأ أيضًا',
+          '✅ ' + LTR('He can swim') + ' ✓',
+          '<span class="hl2">' + LTR('can') + ' + فعل مجرّد، مهما كان الفاعل</span>'
+        ],
+        speech: 'أجمل ما في كان أنها لا تتغير أبداً. فنقول آي كان ويو كان وهي كان، ولا نضيف حرف إس مع هي، وهذا استثناء مريح. فلا نقول هي كانز سويم ولا هي كان سويمز، بل هي كان سويم. فكان يتبعها فعل مجرد مهما كان الفاعل.'
+      },
+      {
+        bubble: LTR('can') + ' ليست للقدرة فقط! 🚪',
+        steps: [
+          '<span class="hl">القدرة</span>: ' + LTR('I can run fast.'),
+          '<span class="hl">الإذن</span>: ' + LTR('Can I go out?') + ' = هل يمكنني الخروج؟',
+          '<span class="hl">الطلب</span>: ' + LTR('Can you open the door?'),
+          '<span class="hl">الاحتمال</span>: ' + LTR('It can be cold in winter.'),
+          'للأدب الزائد استخدم ' + LTR('could') + ' 🎩',
+          '<span class="hl2">' + LTR('Could you help me, please?') + ' ألطف وأرقى</span>'
+        ],
+        speech: 'كان ليست للقدرة فقط. فهي للقدرة كما في آي كان رن فاست. وللإذن كما في كان آي غو آوت أي هل يمكنني الخروج. وللطلب كما في كان يو أوبن ذا دور. وللاحتمال كما في إت كان بي كولد إن وينتر. وللأدب الزائد استخدم كود، فنقول كود يو هيلب مي بليز وهي ألطف وأرقى.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: قل ثلاثة أشياء تستطيعها! 🙌',
+        steps: [
+          LTR('I can read.') + ' 📖',
+          LTR('I can write my name.') + ' ✍️',
+          LTR('I can speak Arabic.') + ' 🗣️',
+          'وثلاثة لا تستطيعها بعد:',
+          LTR("I can't drive.") + ' · ' + LTR("I can't fly.") + ' ✈️',
+          '<span class="hl2">تركيبة واحدة، جمل بلا حدود</span> ♾️'
+        ],
+        speech: 'أبسط شرح ممكن: قل ثلاثة أشياء تستطيعها. آي كان ريد. وآي كان رايت ماي نيم. وآي كان سبيك أرابيك. وثلاثة لا تستطيعها بعد: آي كانت درايف، وآي كانت فلاي. تركيبة واحدة تعطيك جملاً بلا حدود.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أي جملة صحيحة؟', options: ['He can swim', 'He cans swim', 'He can swims', 'He can to swim'], correct: 0, why: 'can لا تتغيّر، ويتبعها فعل مجرّد.' },
+      { type: 'write', q: 'اكتب نفي الجملة "I can fly" (استخدم can\'t):', accept: ["i can't fly", "i cannot fly", "can't fly"], answer: "I can't fly", why: "can't اختصار cannot." },
+      { type: 'choice', q: 'ما معنى "Can I go out?"؟', options: ['هل يمكنني الخروج؟', 'أنا خارج', 'اخرج الآن', 'لا أستطيع الخروج'], correct: 0, why: 'can تُستخدم لطلب الإذن أيضًا.' },
+      { type: 'write', q: 'أكمل: She ___ sing very well. (استخدم فعل القدرة)', accept: ['can'], answer: 'can', why: 'can تصلح لكل الضمائر بلا تغيير.' },
+      { type: 'choice', q: 'ما الأكثر أدبًا عند الطلب؟', options: ['Could you help me, please?', 'Help me', 'You help me', 'Can help me'], correct: 0, why: 'could + please أرقى صيغ الطلب.' },
+      { type: 'choice', q: 'لماذا "He cans swim" خاطئة؟', options: ['لأن can لا تأخذ s أبدًا', 'لأن swim خطأ', 'لأن He مذكّر', 'ليست خاطئة'], correct: 0, why: 'الأفعال الناقصة مثل can لا تصرّف مع المفرد الغائب.' }
+    ]
+  },
+  {
+    id: 'en-imperatives',
+    title: 'الأوامر والتعليمات — Instructions',
+    icon: '📢',
+    explanations: [
+      {
+        bubble: 'أقصر جملة في الإنجليزية: فعل واحد فقط! 📢',
+        steps: [
+          LTR('Sit down.') + ' = اجلس',
+          LTR('Open the book.') + ' = افتح الكتاب',
+          LTR('Listen carefully.') + ' = استمع جيدًا',
+          'لا فاعل! الفاعل <span class="hl">' + LTR('you') + '</span> مفهوم ضمنًا',
+          'النفي: أضف <span class="hl">' + LTR("Don't") + '</span> في البداية',
+          '<span class="hl2">' + LTR("Don't run in the corridor.") + ' = لا تجرِ في الممرّ</span>'
+        ],
+        speech: 'أقصر جملة في الإنجليزية فيها فعل واحد فقط. سِت داون أي اجلس. وأوبن ذا بوك أي افتح الكتاب. ولسن كيرفلي أي استمع جيداً. ولا يوجد فاعل لأن الفاعل يو مفهوم ضمناً. وللنفي أضف دونت في البداية، فنقول دونت رن إن ذا كوريدور أي لا تجر في الممر.'
+      },
+      {
+        bubble: 'أوامر تجدها في كل مكان 🌍',
+        steps: [
+          'في الشارع: ' + LTR('Stop') + ' · ' + LTR('Turn right') + ' 🚦',
+          'في المطبخ: ' + LTR('Add salt') + ' · ' + LTR('Mix well') + ' 🍳',
+          'في الامتحان: ' + LTR('Choose the correct answer') + ' ✅',
+          'في التطبيقات: ' + LTR('Enter your password') + ' 📱',
+          'على اللافتات: ' + LTR("Don't touch") + ' ⚠️',
+          '<span class="hl2">تعلّمها تفهم نصف الإنجليزية المكتوبة حولك</span> 👀'
+        ],
+        speech: 'الأوامر تجدها في كل مكان. في الشارع ستوب وتيرن رايت. وفي المطبخ آد سولت وميكس ويل. وفي الامتحان تشوز ذا كوركت آنسر. وفي التطبيقات إنتر يور باسورد. وعلى اللافتات دونت تتش. فتعلمها يجعلك تفهم نصف الإنجليزية المكتوبة حولك.'
+      },
+      {
+        bubble: 'اجعل أمرك مهذّبًا 🎩',
+        steps: [
+          'الأمر المجرّد قد يبدو قاسيًا',
+          LTR('Give me the book.') + ' ← مباشر جدًا',
+          'أضف <span class="hl">' + LTR('please') + '</span>: ' + LTR('Give me the book, please.') + ' ✓',
+          'أو حوّله سؤالًا: ' + LTR('Could you give me the book?') + ' ✓✓',
+          'مع الأصدقاء: ' + LTR("Let's go!") + ' = هيا بنا',
+          '<span class="hl2">' + LTR("Let's") + ' يشمل المتكلّم أيضًا 🤝</span>'
+        ],
+        speech: 'اجعل أمرك مهذباً. فالأمر المجرد قد يبدو قاسياً، مثل غِف مي ذا بوك التي تبدو مباشرة جداً. أضف بليز فتصير ألطف. أو حوله سؤالاً فتقول كود يو غِف مي ذا بوك. ومع الأصدقاء نقول لِتس غو أي هيا بنا، ولِتس تشمل المتكلم أيضاً.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: ابدأ بالفعل مباشرة! ▶️',
+        steps: [
+          'تريد أن يجلس؟ قل الفعل: <span class="hl">' + LTR('Sit') + '</span>',
+          'تريد أن يأتي؟ <span class="hl">' + LTR('Come') + '</span>',
+          'تريد أن يتوقّف؟ <span class="hl">' + LTR('Stop') + '</span>',
+          'لا ' + LTR('I') + ' ولا ' + LTR('you') + ' ولا ' + LTR('am') + ' — الفعل فقط!',
+          'وللنفي ضع ' + LTR("Don't") + ' قبله',
+          '<span class="hl2">أسهل تركيبة في اللغة كلها</span> ✓'
+        ],
+        speech: 'أبسط شرح ممكن: ابدأ بالفعل مباشرة. تريد أن يجلس؟ قل سِت. تريد أن يأتي؟ كَم. تريد أن يتوقف؟ ستوب. لا آي ولا يو ولا آم، الفعل فقط. وللنفي ضع دونت قبله. إنها أسهل تركيبة في اللغة كلها.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'ما معنى "Don\'t run"؟', options: ['لا تجرِ', 'اجرِ', 'هل تجري؟', 'كنت أجري'], correct: 0, why: "Don't تسبق الفعل لتنفي الأمر." },
+      { type: 'write', q: 'اكتب أمرًا يعني "افتح الباب" (استخدم open وdoor):', accept: ['open the door', 'open the door.'], answer: 'Open the door', why: 'الأمر يبدأ بالفعل مباشرة بلا فاعل.' },
+      { type: 'choice', q: 'لماذا لا نكتب فاعلًا في جملة الأمر؟', options: ['لأن الفاعل you مفهوم ضمنًا', 'لأن الأوامر قصيرة', 'لأن الفاعل ممنوع', 'بل نكتبه'], correct: 0, why: 'المخاطَب هو الفاعل دائمًا في الأمر.' },
+      { type: 'choice', q: 'ما معنى "Let\'s go"؟', options: ['هيا بنا نذهب', 'اذهب أنت', 'لا تذهب', 'ذهبت'], correct: 0, why: "Let's = let us، فهي تشمل المتكلّم." },
+      { type: 'write', q: 'اجعل الأمر مهذّبًا: "Sit down ___" (أضف كلمة الأدب)', accept: ['please'], answer: 'please', why: 'please تحوّل الأمر إلى طلب مهذّب.' },
+      { type: 'choice', q: 'أي جملة أمر صحيحة؟', options: ['Close the window', 'You close the window please do', 'Closing the window', 'To close the window'], correct: 0, why: 'الأمر = الفعل المجرّد + المفعول.' }
+    ]
+  },
+  {
+    id: 'en-plurals-irregular',
+    title: 'الجمع الشاذ — Irregular Plurals',
+    icon: '👣',
+    explanations: [
+      {
+        bubble: 'بعض الكلمات ترفض حرف ' + LTR('s') + ' تمامًا! 👣',
+        steps: [
+          LTR('man → men') + ' 👨 · ' + LTR('woman → women') + ' 👩',
+          LTR('child → children') + ' 🧒',
+          LTR('foot → feet') + ' 🦶 · ' + LTR('tooth → teeth') + ' 🦷',
+          LTR('mouse → mice') + ' 🐭 · ' + LTR('person → people') + ' 👥',
+          '❌ ' + LTR('childs') + ' · ' + LTR('foots') + ' · ' + LTR('mans') + ' — كلها خاطئة!',
+          '<span class="hl2">هذه تُحفظ ولا تُشتقّ بقاعدة</span> 🧠'
+        ],
+        speech: 'بعض الكلمات ترفض حرف إس تماماً. فمان تصير مِن، ووومان تصير ويمِن، وتشايلد تصير تشيلدرن، وفوت تصير فيت، وتوث تصير تيث، وماوس تصير مايس، وبيرسون تصير بيبل. ولا نقول تشايلدز ولا فوتس ولا مانز فكلها خاطئة. وهذه تحفظ ولا تشتق بقاعدة.'
+      },
+      {
+        bubble: 'كلمات لا تتغيّر أبدًا! 🐟',
+        steps: [
+          LTR('one fish → two fish') + ' 🐟 (لا ' + LTR('fishes') + ')',
+          LTR('one sheep → ten sheep') + ' 🐑',
+          LTR('one deer → three deer') + ' 🦌',
+          'المفرد والجمع بنفس الشكل تمامًا',
+          'الفعل يكشف العدد: ' + LTR('The sheep is / The sheep are'),
+          '<span class="hl2">انظر للفعل لتعرف: واحد أم كثير؟</span> 👀'
+        ],
+        speech: 'هناك كلمات لا تتغير أبداً. فون فيش تصير تو فيش بلا حرف إس. وون شيب تصير تن شيب. وون دير تصير ثري دير. فالمفرد والجمع بنفس الشكل تماماً. والفعل هو الذي يكشف العدد، فنقول ذا شيب إز للمفرد وذا شيب آر للجمع.'
+      },
+      {
+        bubble: 'وكلمات جمعها دائم — بلا مفرد! ✂️',
+        steps: [
+          LTR('scissors') + ' = مقصّ ✂️ (جمع دائمًا)',
+          LTR('trousers') + ' = بنطال 👖 · ' + LTR('glasses') + ' = نظّارة 👓',
+          'لماذا؟ لأنها <span class="hl">قطعتان</span> متّصلتان!',
+          '❌ ' + LTR('a scissors') + ' → ✅ ' + LTR('a pair of scissors'),
+          LTR('My glasses are new.') + ' (' + LTR('are') + ' وليس ' + LTR('is') + ')',
+          '<span class="hl2">قل ' + LTR('a pair of') + ' حين تريد واحدة</span> ✓'
+        ],
+        speech: 'وهناك كلمات جمعها دائم بلا مفرد. مثل سيزورز أي مقص، وتراوزرز أي بنطال، وغلاسز أي نظارة. ولماذا؟ لأنها قطعتان متصلتان. فلا نقول أ سيزورز بل أ بير أوف سيزورز. ونقول ماي غلاسز آر نيو بالجمع لا بالمفرد.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: احفظ ستّة فقط اليوم! 6️⃣',
+        steps: [
+          LTR('man → men') + ' 👨',
+          LTR('woman → women') + ' 👩',
+          LTR('child → children') + ' 🧒',
+          LTR('foot → feet') + ' 🦶',
+          LTR('tooth → teeth') + ' 🦷',
+          '<span class="hl2">' + LTR('person → people') + ' — وهذه أكثرها استعمالًا!</span> 👥'
+        ],
+        speech: 'أبسط شرح ممكن: احفظ ستاً فقط اليوم. مان تصير مِن. ووومان تصير ويمِن. وتشايلد تصير تشيلدرن. وفوت تصير فيت. وتوث تصير تيث. وبيرسون تصير بيبل، وهذه أكثرها استعمالاً.'
+      }
+    ],
+    quiz: [
+      { type: 'write', q: 'ما جمع كلمة child؟', accept: ['children'], answer: 'children', why: 'جمع شاذ لا يتبع قاعدة الـ s.' },
+      { type: 'choice', q: 'ما جمع كلمة foot؟', options: ['feet', 'foots', 'footes', 'feets'], correct: 0, why: 'حرف العلة يتغيّر: oo تصير ee.' },
+      { type: 'write', q: 'ما جمع كلمة person؟', accept: ['people', 'persons'], answer: 'people', why: 'people هي الجمع الشائع لكلمة person.' },
+      { type: 'choice', q: 'ما جمع كلمة sheep؟', options: ['sheep', 'sheeps', 'sheepes', 'shept'], correct: 0, why: 'المفرد والجمع بنفس الشكل.' },
+      { type: 'choice', q: 'أي جملة صحيحة؟', options: ['My glasses are new', 'My glasses is new', 'My glass are new', 'My glasses am new'], correct: 0, why: 'glasses جمع دائمًا فتأخذ are.' },
+      { type: 'choice', q: 'لماذا نقول "a pair of scissors"؟', options: ['لأن scissors جمع دائمًا ولا مفرد لها', 'لأنها غالية', 'لأنها حادّة', 'بل نقول a scissors'], correct: 0, why: 'الأدوات المكوّنة من قطعتين تُعدّ بـ a pair of.' }
+    ]
+  },
+  {
+    id: 'en-adjectives-order',
+    title: 'ترتيب الصفات — Adjective Order',
+    icon: '🎨',
+    explanations: [
+      {
+        bubble: 'صفتان أو أكثر؟ لهما ترتيب سرّي! 🎨',
+        steps: [
+          'الترتيب: <span class="hl">رأي ← حجم ← عمر ← لون ← أصل ← مادة</span>',
+          LTR('a beautiful big old brown wooden table'),
+          'مثال أبسط: ' + LTR('a nice small red car') + ' ✓',
+          '❌ ' + LTR('a red small nice car') + ' — يبدو غريبًا للأذن',
+          'الناطقون بها يشعرون بالترتيب دون أن يحفظوه',
+          '<span class="hl2">احفظ: <b>رأي</b> ثم <b>حقيقة</b></span> ✓'
+        ],
+        speech: 'إذا اجتمعت صفتان أو أكثر فلهما ترتيب سري. الترتيب هو رأي ثم حجم ثم عمر ثم لون ثم أصل ثم مادة. فنقول أ بيوتيفل بيغ أولد براون وودن تيبل. ومثال أبسط أ نايس سمول رد كار. ولا نقول أ رد سمول نايس كار فهي تبدو غريبة للأذن. والقاعدة المختصرة: الرأي أولاً ثم الحقيقة.'
+      },
+      {
+        bubble: 'الرأي قبل الحقيقة — دائمًا 💭',
+        steps: [
+          '<span class="hl">الرأي</span>: ' + LTR('nice, ugly, delicious') + ' — يختلف الناس فيه',
+          '<span class="hl">الحقيقة</span>: ' + LTR('big, red, wooden') + ' — يتفق عليها الجميع',
+          LTR('a delicious hot soup') + ' ✓ (رأي ثم حقيقة)',
+          '❌ ' + LTR('a hot delicious soup') + ' — أقل طبيعية',
+          'لأن رأيك يأتي أولًا ثم تصف الواقع',
+          '<span class="hl2">قاعدة واحدة تغطّي معظم الحالات</span> 🎯'
+        ],
+        speech: 'الرأي يأتي قبل الحقيقة دائماً. فالرأي مثل نايس وأغلي وديليشس يختلف الناس فيه. والحقيقة مثل بيغ ورد ووودن يتفق عليها الجميع. فنقول أ ديليشس هوت سوب أي رأي ثم حقيقة. ولا نقول أ هوت ديليشس سوب فهي أقل طبيعية. لأن رأيك يأتي أولاً ثم تصف الواقع.'
+      },
+      {
+        bubble: 'خطأ عربي شائع: مكان الصفة! ⚠️',
+        steps: [
+          'في العربية: «سيارة <span class="hl">حمراء</span>» ← الصفة بعد الاسم',
+          'في الإنجليزية: الصفة <span class="hl">قبل</span> الاسم',
+          '❌ ' + LTR('a car red') + ' → ✅ ' + LTR('a red car'),
+          'إلا بعد أفعال الكينونة:',
+          LTR('The car is red.') + ' ✓ (هنا تأتي بعد ' + LTR('is') + ')',
+          '<span class="hl2">قبل الاسم، أو بعد ' + LTR('is/are') + ' — لا ثالث</span>'
+        ],
+        speech: 'خطأ عربي شائع هو مكان الصفة. ففي العربية نقول سيارة حمراء فالصفة بعد الاسم، أما في الإنجليزية فالصفة قبل الاسم. فلا نقول أ كار رد بل أ رد كار. إلا بعد أفعال الكينونة فنقول ذا كار إز رد وهنا تأتي بعد إز. فالصفة إما قبل الاسم أو بعد إز وآر، ولا ثالث.'
+      },
+      {
+        bubble: '🌟 أبسط شرح ممكن: صفة واحدة تكفي! ✋',
+        steps: [
+          'لا تُرهق نفسك بثلاث صفات',
+          'ابدأ بواحدة: ' + LTR('a big house') + ' 🏠',
+          'ثم اثنتين: ' + LTR('a big old house'),
+          'الحجم قبل العمر ✓',
+          'وإذا شككت، استخدم صفة واحدة فقط',
+          '<span class="hl2">جملة بسيطة صحيحة خير من معقّدة خاطئة</span> ✓'
+        ],
+        speech: 'أبسط شرح ممكن: صفة واحدة تكفي. لا ترهق نفسك بثلاث صفات، بل ابدأ بواحدة فتقول أ بيغ هاوس. ثم باثنتين فتقول أ بيغ أولد هاوس، فالحجم قبل العمر. وإذا شككت فاستخدم صفة واحدة فقط. فالجملة البسيطة الصحيحة خير من المعقدة الخاطئة.'
+      }
+    ],
+    quiz: [
+      { type: 'choice', q: 'أي ترتيب صحيح؟', options: ['a nice small red car', 'a red small nice car', 'a small nice red car', 'a car nice small red'], correct: 0, why: 'الرأي (nice) ثم الحجم (small) ثم اللون (red).' },
+      { type: 'choice', q: 'أين توضع الصفة في الإنجليزية؟', options: ['قبل الاسم', 'بعد الاسم', 'في نهاية الجملة', 'لا يهمّ'], correct: 0, why: 'عكس العربية تمامًا — الصفة تسبق الاسم.' },
+      { type: 'write', q: 'رتّب: (house / old / big / an) — اكتب العبارة صحيحة:', accept: ['an old big house', 'a big old house', 'an big old house'], answer: 'a big old house', why: 'الحجم يسبق العمر: big ثم old.' },
+      { type: 'choice', q: 'أي جملة صحيحة؟', options: ['The book is interesting', 'The book interesting is', 'The interesting is book', 'Is the book interesting the'], correct: 0, why: 'بعد is تأتي الصفة مباشرة.' },
+      { type: 'choice', q: 'أي صفة تُعدّ "رأيًا"؟', options: ['beautiful', 'red', 'wooden', 'big'], correct: 0, why: 'beautiful يختلف الناس حوله، أما البقية فحقائق.' },
+      { type: 'choice', q: 'لماذا يخطئ العرب كثيرًا في موضع الصفة؟', options: ['لأن العربية تضع الصفة بعد الاسم', 'لأن الصفات صعبة', 'لأن الإنجليزية بلا قواعد', 'لا يخطئون'], correct: 0, why: 'الترجمة الحرفية من العربية تنتج «a car red».' }
+    ]
   }
 ];
 
@@ -2629,6 +3007,7 @@ const ENGLISH_LEVELS = [
     units: [
       { title: 'الأرقام والحيوانات', icon: '🔢', lessonIds: ['en-numbers-basic', 'en-animals'] },
       { title: 'الأشكال والأحجام', icon: '🔺', lessonIds: ['en-shapes-sizes'] },
+      { title: 'الأرقام حتى 20', icon: '🔢', lessonIds: ['en-numbers-20'] },
     ]
   },
   {
@@ -2636,6 +3015,7 @@ const ENGLISH_LEVELS = [
     units: [
       { title: 'أنا وعائلتي', icon: '👨‍👩‍👧‍👦', lessonIds: ['en-vocab-basic', 'en-family'] },
       { title: 'داخل الفصل', icon: '🎒', lessonIds: ['en-classroom'] },
+      { title: 'الأوامر والتعليمات', icon: '📢', lessonIds: ['en-imperatives'] },
     ]
   },
   {
@@ -2650,6 +3030,7 @@ const ENGLISH_LEVELS = [
     units: [
       { title: 'الجمل والوقت', icon: '💬', lessonIds: ['en-simple-sentences', 'en-numbers-time'] },
       { title: 'أفعال يومي', icon: '🏃', lessonIds: ['en-verbs-daily'] },
+      { title: 'يومي', icon: '🌅', lessonIds: ['en-my-day'] },
     ]
   },
   {
@@ -2657,6 +3038,7 @@ const ENGLISH_LEVELS = [
     units: [
       { title: 'الأيام والطقس', icon: '📅', lessonIds: ['en-days-months', 'en-weather'] },
       { title: 'الأماكن والاتجاهات', icon: '🗺️', lessonIds: ['en-places-directions'] },
+      { title: 'أستطيع', icon: '💪', lessonIds: ['en-can-ability'] },
     ]
   },
   {
@@ -2671,6 +3053,7 @@ const ENGLISH_LEVELS = [
     units: [
       { title: 'الأزمنة الأساسية', icon: '🏃', lessonIds: ['en-present-continuous', 'en-past-simple'] },
       { title: 'أساسيات القواعد', icon: '🅰️', lessonIds: ['en-articles', 'en-plurals'] },
+      { title: 'الجمع الشاذ', icon: '👣', lessonIds: ['en-plurals-irregular'] },
     ]
   },
   {
@@ -2678,6 +3061,7 @@ const ENGLISH_LEVELS = [
     units: [
       { title: 'الصفات والظروف', icon: '🎨', lessonIds: ['en-adjectives', 'en-adverbs'] },
       { title: 'الملكية والوجود', icon: '🔑', lessonIds: ['en-possessives', 'en-there-is'] },
+      { title: 'ترتيب الصفات', icon: '🎨', lessonIds: ['en-adjectives-order'] },
     ]
   },
   {

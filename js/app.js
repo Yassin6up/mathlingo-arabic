@@ -634,7 +634,7 @@
     return DICTIONARY.filter(d => {
       if (dictCat !== 'all' && d.cat !== dictCat) return false;
       if (!q) return true;
-      return (d.w + ' ' + d.ar + ' ' + d.ex + ' ' + d.exAr + ' ' + d.pos).toLowerCase().includes(q);
+      return (d.w + ' ' + d.ar + ' ' + d.ex + ' ' + d.exAr + ' ' + d.pos + ' ' + (d.def || '')).toLowerCase().includes(q);
     });
   }
 
@@ -698,6 +698,10 @@
         <div class="word-en" dir="ltr">${d.w}</div>
         <div class="word-ipa" dir="ltr">${d.ipa} <span class="word-pos">${d.pos}</span></div>
         <div class="word-ar">${d.ar}</div>
+        ${d.def ? `<div class="word-def">
+          <div class="word-def-label">التعريف بالإنجليزية</div>
+          <div class="word-def-text" dir="ltr">${d.def}</div>
+        </div>` : ''}
         <button class="btn btn-primary btn-wide word-listen" id="btn-word-listen">🔊&nbsp; استمع إلى الكلمة</button>
         <div class="word-example">
           <div class="word-example-label">مثال</div>
