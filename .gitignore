@@ -1,3 +1,9 @@
 .claude/
 .DS_Store
 *.log
+
+# one-off build scratch (dictionary enrichment, content splicing)
+_*.js
+_*.txt
+_*.json
+_*.tmp
