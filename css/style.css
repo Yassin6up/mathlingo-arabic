@@ -1453,40 +1453,53 @@ body {
 }
 
 .plan-toggle {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-  margin: 20px 0 14px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  width: 100%; margin: 26px 0 14px;
 }
+/* The paywall sits on navy, but `color: inherit` here would pick up the
+   app's dark --text and leave the price nearly invisible. Every colour in
+   this block is therefore stated explicitly against the navy. */
 .plan-opt {
   position: relative; cursor: pointer; text-align: center;
-  border: 3px solid rgba(255,255,255,.28); border-radius: 18px;
-  background: rgba(255,255,255,.08); color: inherit;
-  padding: 16px 10px 13px; font-family: var(--font); transition: .15s;
+  border: 3px solid rgba(255,255,255,.22); border-radius: 18px;
+  background: rgba(255,255,255,.07); color: #fff;
+  padding: 18px 10px 14px; font-family: var(--font); transition: .15s;
 }
-.plan-opt:hover { border-color: rgba(255,255,255,.5); }
+.plan-opt:hover { border-color: rgba(255,255,255,.45); background: rgba(255,255,255,.12); }
 .plan-opt.active {
-  border-color: var(--primary); background: rgba(255,150,0,.18);
+  border-color: var(--primary);
+  background: rgba(255,150,0,.22);
+  box-shadow: 0 0 0 4px rgba(255,150,0,.18);
   transform: translateY(-2px);
 }
-.plan-name { display: block; font-size: 14px; font-weight: 800; opacity: .85; }
-.plan-price { display: block; font-size: 20px; font-weight: 800; margin: 5px 0 3px; }
-.plan-note { display: block; font-size: 11.5px; font-weight: 700; opacity: .75; line-height: 1.45; }
+.plan-name  { display: block; color: #cfd7ea; font-size: 14px; font-weight: 800; }
+.plan-price { display: block; color: #fff; font-size: 21px; font-weight: 800; margin: 6px 0 4px; }
+.plan-note  { display: block; color: #a9b3cc; font-size: 11.5px; font-weight: 700; line-height: 1.5; }
+.plan-opt.active .plan-name  { color: #ffd9a3; }
+.plan-opt.active .plan-price { color: #fff; }
+.plan-opt.active .plan-note  { color: #ffcf95; }
 .plan-badge {
-  position: absolute; top: -11px; inset-inline-start: 50%; transform: translateX(-50%);
+  /* physical left+translate so it centres identically in RTL and LTR */
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
   background: var(--primary); color: #fff; white-space: nowrap;
-  font-size: 11px; font-weight: 800; padding: 3px 11px; border-radius: 999px;
-  box-shadow: 0 3px 8px rgba(0,0,0,.28);
+  font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 999px;
+  box-shadow: 0 3px 10px rgba(0,0,0,.35);
 }
 .paywall-error {
-  display: none; font-size: 13px; font-weight: 800; line-height: 1.55;
-  background: rgba(255,75,75,.16); color: #ffb3b3;
-  border-radius: 12px; padding: 10px 12px; margin-bottom: 10px;
+  display: none; width: 100%; font-size: 13.5px; font-weight: 800; line-height: 1.6;
+  background: rgba(255,75,75,.18); color: #ffc2c2;
+  border: 1px solid rgba(255,120,120,.45);
+  border-radius: 14px; padding: 11px 14px; margin-bottom: 12px;
 }
 .paywall-error.show { display: block; }
 
-.paywall-active { text-align: center; padding: 6px 0 4px; }
+.paywall-active { width: 100%; text-align: center; padding: 6px 0 4px; }
 .paywall-active-icon { font-size: 46px; }
-.paywall-active-title { font-size: 20px; font-weight: 800; margin: 6px 0 4px; }
-.paywall-active-sub { font-size: 13px; font-weight: 700; opacity: .8; margin-bottom: 16px; }
+.paywall-active-title { color: #fff; font-size: 20px; font-weight: 800; margin: 6px 0 4px; }
+.paywall-active-sub { color: #b9c2da; font-size: 13px; font-weight: 700; margin-bottom: 16px; }
+.screen-paywall .btn-danger-outline {
+  background: transparent; color: #ffb3b3; border-color: rgba(255,120,120,.5);
+}
 
 @media (max-width: 360px) {
   .plan-toggle { grid-template-columns: 1fr; }

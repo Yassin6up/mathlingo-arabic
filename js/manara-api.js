@@ -31,6 +31,15 @@ const ManaraAPI = (() => {
       err.notDeployed = true;
       throw err;
     }
+    // The session is dead (expired, or a leftover token from before the
+    // server was wired up). Showing "رمز مصادقة غير صالح" on a paywall is a
+    // dead end — the only cure is signing in again, so say that and let the
+    // caller send them there.
+    if (res.status === 401 || res.status === 403) {
+      const err = new Error('انتهت جلستك — سجّل الدخول مرة أخرى للمتابعة');
+      err.sessionExpired = true;
+      throw err;
+    }
     const data = await res.json().catch(() => ({}));
     if (!res.ok || data.success === false) throw new Error(data.message || 'حدث خطأ في الخادم');
     return data;

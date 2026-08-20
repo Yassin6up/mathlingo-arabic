@@ -132,7 +132,19 @@ const Auth = (() => {
     /** false while MANARA_CONFIG.API_BASE is empty — accounts are local-only */
     isServerBacked() { return serverConfigured(); },
 
-    isLoggedIn() { return !!state()?.token; },
+    isLoggedIn() {
+      const s = state();
+      if (!s?.token) return false;
+      // A session created while the app had no server carries the literal
+      // token "local". Once API_BASE is set that token 401s on every call,
+      // stranding the user on "رمز مصادقة غير صالح" with no way out — so
+      // drop it and make them sign in against the real server instead.
+      if (serverConfigured() && (s.local || s.token === 'local')) {
+        setState(null);
+        return false;
+      }
+      return true;
+    },
     getUser() { return state()?.user || null; },
     getToken() { return state()?.token || null; },
 

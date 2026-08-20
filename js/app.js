@@ -1778,7 +1778,10 @@
     // prices are the server's to decide, not the client's
     if (!plansCache && ManaraAPI.available()) {
       try { plansCache = await ManaraAPI.getPlans(); }
-      catch (e) { console.warn('could not load plans:', e.message); }
+      catch (e) {
+        if (e.sessionExpired) { handleDeadSession(); return; }
+        console.warn('could not load plans:', e.message);
+      }
     }
     const p = plansCache;
     if (p) {
@@ -1815,10 +1818,23 @@
       if (!checkoutUrl) throw new Error('لم يصل رابط الدفع من الخادم');
       location.href = checkoutUrl;              // hand off to Stripe
     } catch (e) {
+      if (e.sessionExpired) { handleDeadSession(); return; }
       paywallError(e.message);
       btn.disabled = false;
       btn.textContent = '🔒  اشترك الآن';
     }
+  }
+
+  /** the server rejected our token — sign out cleanly and ask for a new login */
+  function handleDeadSession() {
+    Auth.logout();
+    state.premium = false;
+    state.premiumUntil = null;
+    saveState();
+    updateHomeAuthUI();
+    clearAuthErrors();
+    show('screen-login');
+    showAuthError('login-error', 'انتهت جلستك — سجّل الدخول مرة أخرى للمتابعة');
   }
 
   /** Stripe sends the learner back with ?session_id=… — confirm and unlock. */
@@ -1855,7 +1871,10 @@
       toast(data.activeUntil ? '✓ أوقفنا التجديد — اشتراكك فعّال حتى نهاية الفترة' : '✓ تم إلغاء الاشتراك');
       renderPaywall();
       renderProfile();
-    } catch (e) { toast('تعذّر الإلغاء: ' + e.message); }
+    } catch (e) {
+      if (e.sessionExpired) { handleDeadSession(); return; }
+      toast('تعذّر الإلغاء: ' + e.message);
+    }
   }
 
   /* ---------------- onboarding (first-time account setup) ---------------- */
