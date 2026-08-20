@@ -14,6 +14,7 @@
     completed: { math: [], english: [] },
     attempts: [], // per-lesson attempt log, synced to the account on login
     premium: false,
+    premiumUntil: null, // ISO date the paid period ends
     onboardingDone: false,
     onboarding: null, // { gradeLevel, country, age, pace, goal, dailyTime, startSubject }
     level: 0, // school grade 0 (KG) … 12, chosen during onboarding
@@ -1420,6 +1421,7 @@
       }
       if (stats.avatarKey && AVATARS.isValid(stats.avatarKey)) state.avatar = stats.avatarKey;
       state.premium = stats.subscriptionStatus === 'premium';
+      state.premiumUntil = stats.subscriptionExpiresAt || null;
       saveState();
     } catch (e) { console.warn('could not load server profile:', e.message); }
   }
@@ -1577,6 +1579,7 @@
       try {
         const data = await ManaraAPI.getStats();
         state.premium = data.stats.subscriptionStatus === 'premium';
+        state.premiumUntil = data.stats.subscriptionExpiresAt || null;
         $('profile-xp').textContent = data.stats.totalXp;
         $('profile-streak').textContent = data.stats.currentStreak;
         $('premium-badge').style.display = state.premium ? 'inline-block' : 'none';
@@ -1744,17 +1747,115 @@
       <p class="report-privacy">🔒 كل هذه البيانات محفوظة على جهازك فقط.</p>`;
   }
 
+  /* ---------------- paywall + Stripe ---------------- */
+  let billingCycle = 'yearly';   // the better-value plan is preselected
+  let plansCache = null;
+
+  const AR_NUM = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+  const money = n => '$' + (Number(n) % 1 === 0 ? Number(n).toFixed(0) : Number(n).toFixed(2));
+
+  function paywallError(msg) {
+    const el = $('paywall-error');
+    el.textContent = msg || '';
+    el.classList.toggle('show', !!msg);
+  }
+
+  async function renderPaywall() {
+    paywallError('');
+    const active = state.premium;
+    $('paywall-active').style.display = active ? 'block' : 'none';
+    $('plan-toggle').style.display = active ? 'none' : 'grid';
+    $('btn-subscribe').style.display = active ? 'none' : 'block';
+
+    if (active) {
+      const until = state.premiumUntil ? new Date(state.premiumUntil) : null;
+      $('paywall-active-until').textContent = until && !isNaN(until)
+        ? 'مفعّل حتى ' + until.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' })
+        : 'شكرًا لدعمك منارة 💛';
+      return;
+    }
+
+    // prices are the server's to decide, not the client's
+    if (!plansCache && ManaraAPI.available()) {
+      try { plansCache = await ManaraAPI.getPlans(); }
+      catch (e) { console.warn('could not load plans:', e.message); }
+    }
+    const p = plansCache;
+    if (p) {
+      $('plan-monthly-price').textContent = money(p.monthly.amount) + ' / شهر';
+      $('plan-yearly-price').textContent = money(p.yearly.amount) + ' / سنة';
+      $('plan-yearly-note').textContent =
+        `أي ${money(p.yearly.perMonth)} شهريًا — توفّر ${money(p.yearly.savingAmount)}`;
+      $('plan-save-badge').textContent = `وفّر ${AR_NUM(p.yearly.savingPercent)}٪`;
+    } else {
+      $('plan-monthly-price').textContent = '$20 / شهر';
+      $('plan-yearly-price').textContent = '$192 / سنة';
+      $('plan-yearly-note').textContent = 'أي $16 شهريًا — توفّر $48';
+    }
+    document.querySelectorAll('.plan-opt').forEach(b =>
+      b.classList.toggle('active', b.dataset.cycle === billingCycle));
+  }
+
   async function subscribePremium() {
     if (!Auth.isLoggedIn()) { show('screen-login'); return; }
+    if (!ManaraAPI.available()) {
+      paywallError('الدفع يحتاج إلى تسجيل الدخول بحساب حقيقي على الخادم.');
+      return;
+    }
+    const btn = $('btn-subscribe');
+    btn.disabled = true;
+    btn.textContent = '⏳ جارٍ تحضير الدفع...';
+    paywallError('');
     try {
       Sound.click();
-      await ManaraAPI.subscribe();
-      state.premium = true;
+      // Stripe returns the learner to this exact page; the hash tells the app
+      // to finish the job when it reloads.
+      const returnUrl = location.origin + location.pathname + '#paywall';
+      const { checkoutUrl } = await ManaraAPI.startCheckout(billingCycle, returnUrl);
+      if (!checkoutUrl) throw new Error('لم يصل رابط الدفع من الخادم');
+      location.href = checkoutUrl;              // hand off to Stripe
+    } catch (e) {
+      paywallError(e.message);
+      btn.disabled = false;
+      btn.textContent = '🔒  اشترك الآن';
+    }
+  }
+
+  /** Stripe sends the learner back with ?session_id=… — confirm and unlock. */
+  async function completeCheckoutIfReturning() {
+    const params = new URLSearchParams(location.search);
+    const sessionId = params.get('session_id');
+    if (!sessionId || !ManaraAPI.available()) return false;
+
+    // clean the URL straight away so a refresh can't replay it
+    history.replaceState(null, '', location.pathname + location.hash);
+    try {
+      const { stats } = await ManaraAPI.verifyCheckout(sessionId);
+      state.premium = stats?.subscriptionStatus === 'premium';
+      state.premiumUntil = stats?.subscriptionExpiresAt || null;
       saveState();
-      Sound.correct();
-      show('screen-profile');
+      Sound.fanfare();
+      toast('⭐ تم تفعيل منارة بريميوم — استمتع!');
+      return true;
+    } catch (e) {
+      console.warn('checkout verification failed:', e.message);
+      toast('تعذّر تأكيد الدفع: ' + e.message);
+      return false;
+    }
+  }
+
+  async function cancelSubscription() {
+    if (!confirm('هل تريد إيقاف التجديد التلقائي؟ سيبقى اشتراكك فعّالاً حتى نهاية الفترة المدفوعة.')) return;
+    try {
+      Sound.click();
+      const data = await ManaraAPI.unsubscribe();
+      state.premium = data.stats?.subscriptionStatus === 'premium';
+      state.premiumUntil = data.stats?.subscriptionExpiresAt || null;
+      saveState();
+      toast(data.activeUntil ? '✓ أوقفنا التجديد — اشتراكك فعّال حتى نهاية الفترة' : '✓ تم إلغاء الاشتراك');
+      renderPaywall();
       renderProfile();
-    } catch (e) { console.warn('subscribe failed:', e.message); }
+    } catch (e) { toast('تعذّر الإلغاء: ' + e.message); }
   }
 
   /* ---------------- onboarding (first-time account setup) ---------------- */
@@ -2080,7 +2181,7 @@
       updateHomeAuthUI();
       show('screen-home');
     });
-    $('btn-goto-paywall').addEventListener('click', () => { Sound.click(); show('screen-paywall'); });
+    $('btn-goto-paywall').addEventListener('click', () => { Sound.click(); show('screen-paywall'); renderPaywall(); });
 
     // ---- avatar + display name ----
     $('btn-change-avatar').addEventListener('click', openAvatarPicker);
@@ -2092,6 +2193,14 @@
     $('edit-name-input').addEventListener('keydown', e => { if (e.key === 'Enter') saveName(); });
     $('btn-close-paywall').addEventListener('click', () => { Sound.click(); show('screen-profile'); renderProfile(); });
     $('btn-subscribe').addEventListener('click', subscribePremium);
+    $('btn-unsubscribe').addEventListener('click', cancelSubscription);
+    document.querySelectorAll('.plan-opt').forEach(b => {
+      b.addEventListener('click', () => {
+        Sound.click();
+        billingCycle = b.dataset.cycle;
+        document.querySelectorAll('.plan-opt').forEach(x => x.classList.toggle('active', x === b));
+      });
+    });
 
     // ---- performance report ----
     $('btn-goto-report').addEventListener('click', () => { Sound.click(); renderReport(); show('screen-report'); });
@@ -2123,7 +2232,7 @@
       library: () => { renderLibrary(); show('screen-library'); },
       dictionary: () => openDictionary(),
       profile: () => { show('screen-profile'); renderProfile(); },
-      paywall: () => { show('screen-paywall'); },
+      paywall: () => { show('screen-paywall'); renderPaywall(); },
       report: () => { renderReport(); show('screen-report'); },
       login: () => { clearAuthErrors(); show('screen-login'); },
       signup: () => { clearAuthErrors(); show('screen-signup'); },
@@ -2151,6 +2260,14 @@
       return true;
     }
     window.addEventListener('hashchange', handleHashRoute);
+
+    // Returning from Stripe? Confirm the payment before deciding what to show,
+    // so the learner lands on an already-unlocked paywall rather than one that
+    // still asks them to pay.
+    if (Auth.isLoggedIn() && new URLSearchParams(location.search).get('session_id')) {
+      completeCheckoutIfReturning().then(() => { show('screen-paywall'); renderPaywall(); });
+      return;
+    }
 
     // Boot: an account is required, so a signed-out visitor always lands on
     // the welcome screen. A signed-in one goes wherever the hash points, or

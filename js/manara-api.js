@@ -55,7 +55,21 @@ const ManaraAPI = (() => {
       return apiFetch('/api/manara/progress/sync', { method: 'POST', body: { attempts } }).then(r => r.data);
     },
 
-    subscribe() { return apiFetch('/api/manara/subscribe', { method: 'POST' }).then(r => r.data); },
+    /** prices come from the server — never hardcode money in the client */
+    getPlans() { return apiFetch('/api/manara/plans').then(r => r.data); },
+
+    /** returns { checkoutUrl } — send the learner to Stripe */
+    startCheckout(billingCycle, webReturnUrl) {
+      return apiFetch('/api/manara/checkout', {
+        method: 'POST', body: { billingCycle, webReturnUrl }
+      }).then(r => r.data);
+    },
+
+    /** confirm payment after Stripe redirects back */
+    verifyCheckout(sessionId) {
+      return apiFetch('/api/manara/verify', { method: 'POST', body: { sessionId } }).then(r => r.data);
+    },
+
     unsubscribe() { return apiFetch('/api/manara/unsubscribe', { method: 'POST' }).then(r => r.data); },
   };
 })();

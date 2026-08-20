@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;600;700;800&family=Nunito:wght@700;800;900&family=Patrick+Hand&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=12">
+<link rel="stylesheet" href="css/style.css?v=13">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐬</text></svg>">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -312,17 +312,61 @@
     <div class="paywall-body">
       <div class="mascot-slot mascot-auth mascot-party" id="mascot-paywall"></div>
       <h1 class="paywall-title">منارة بريميوم</h1>
-      <p class="paywall-sub">افتح كل إمكانياتك التعليمية ✨</p>
+      <p class="paywall-sub">كل ما يحتاجه طفلك ليتفوّق — في تطبيق واحد ✨</p>
 
+      <!-- what you get, framed as outcomes not features -->
       <div class="perk-list">
-        <div class="perk-row">💗 <span>قلوب كاملة دائمًا في كل اختبار</span></div>
-        <div class="perk-row">⚡ <span>نقاط خبرة إضافية (×1.2) على كل درس</span></div>
-        <div class="perk-row">⭐ <span>شارة بريميوم المميزة في ملفك الشخصي</span></div>
-        <div class="perk-row">🔓 <span>وصول مبكر لكل الدروس والمواد الجديدة</span></div>
+        <div class="perk-row perk-hero">
+          <span class="perk-ico">💗</span>
+          <span><b>قلوب لا تنتهي</b><small>لا يتوقّف طفلك عن التعلّم بسبب ٣ أخطاء — يواصل حتى يفهم</small></span>
+        </div>
+        <div class="perk-row perk-hero">
+          <span class="perk-ico">🧠</span>
+          <span><b>شرح ذكي بلا حدود</b><small>كلما ضغط «لم أفهم» يشرح المعلّم الذكي بطريقة جديدة تمامًا</small></span>
+        </div>
+        <div class="perk-row perk-hero">
+          <span class="perk-ico">📊</span>
+          <span><b>تقرير أداء كامل</b><small>اعرف بالضبط أين يضعف طفلك ومتى تحسّن — بالأرقام والرسوم</small></span>
+        </div>
+        <div class="perk-row perk-hero">
+          <span class="perk-ico">📚</span>
+          <span><b>كل الصفوف من الروضة للثانوي</b><small>١٤٢ درسًا و٨٥٢ سؤالًا و٥٠٧ كلمة في القاموس المصوّر</small></span>
+        </div>
+        <div class="perk-row perk-hero">
+          <span class="perk-ico">⚡</span>
+          <span><b>نقاط مضاعفة ×١٫٢</b><small>تقدّم أسرع وحافز أكبر على المواصلة كل يوم</small></span>
+        </div>
+        <div class="perk-row perk-hero">
+          <span class="perk-ico">🔊</span>
+          <span><b>صوت طبيعي لكل درس</b><small>يسمع الشرح بصوت واضح، ويتعلّم النطق الصحيح للإنجليزية</small></span>
+        </div>
       </div>
 
-      <button class="btn btn-premium btn-wide" id="btn-subscribe">اشترك الآن</button>
-      <p class="paywall-note">تجربة تعليمية فقط — لا يتم خصم أي مبلغ حقيقي حاليًا.</p>
+      <!-- billing cycle -->
+      <div class="plan-toggle" id="plan-toggle">
+        <button class="plan-opt" data-cycle="monthly">
+          <span class="plan-name">شهري</span>
+          <span class="plan-price" id="plan-monthly-price">—</span>
+          <span class="plan-note">يُجدَّد شهريًا</span>
+        </button>
+        <button class="plan-opt active" data-cycle="yearly">
+          <span class="plan-badge" id="plan-save-badge">وفّر ٢٠٪</span>
+          <span class="plan-name">سنوي</span>
+          <span class="plan-price" id="plan-yearly-price">—</span>
+          <span class="plan-note" id="plan-yearly-note">يُجدَّد سنويًا</span>
+        </button>
+      </div>
+
+      <p class="paywall-error" id="paywall-error"></p>
+      <button class="btn btn-premium btn-wide" id="btn-subscribe">🔒&nbsp; اشترك الآن</button>
+      <p class="paywall-note">دفع آمن عبر Stripe · يمكنك الإلغاء في أي وقت من صفحة حسابك</p>
+
+      <div class="paywall-active" id="paywall-active" style="display:none">
+        <div class="paywall-active-icon">⭐</div>
+        <div class="paywall-active-title">اشتراكك مفعّل</div>
+        <div class="paywall-active-sub" id="paywall-active-until"></div>
+        <button class="btn btn-danger-outline btn-wide" id="btn-unsubscribe">إيقاف التجديد التلقائي</button>
+      </div>
     </div>
   </section>
 
@@ -554,18 +598,18 @@
 <!-- ?v= is bumped on every release: GitHub Pages sends long cache headers,
      so without it returning visitors keep running the previous build's JS
      against the new HTML. Bump this one number when you deploy. -->
-<script src="js/config.js?v=12"></script>
-<script src="js/sound.js?v=12"></script>
-<script src="js/data/helpers.js?v=12"></script>
-<script src="js/data/math.js?v=12"></script>
-<script src="js/data/english.js?v=12"></script>
-<script src="js/data/dictionary.js?v=12"></script>
-<script src="js/avatars.js?v=12"></script>
-<script src="js/speech.js?v=12"></script>
-<script src="js/ai.js?v=12"></script>
-<script src="js/auth.js?v=12"></script>
-<script src="js/manara-api.js?v=12"></script>
-<script src="js/analytics.js?v=12"></script>
-<script src="js/app.js?v=12"></script>
+<script src="js/config.js?v=13"></script>
+<script src="js/sound.js?v=13"></script>
+<script src="js/data/helpers.js?v=13"></script>
+<script src="js/data/math.js?v=13"></script>
+<script src="js/data/english.js?v=13"></script>
+<script src="js/data/dictionary.js?v=13"></script>
+<script src="js/avatars.js?v=13"></script>
+<script src="js/speech.js?v=13"></script>
+<script src="js/ai.js?v=13"></script>
+<script src="js/auth.js?v=13"></script>
+<script src="js/manara-api.js?v=13"></script>
+<script src="js/analytics.js?v=13"></script>
+<script src="js/app.js?v=13"></script>
 </body>
 </html>
